@@ -43,11 +43,7 @@ class LoginController extends ShadowController
             return $this->onFy('账号密码不能为空！');
         }
         $o_user = User::where('account', '=', $s_account)->first();
-        if (!$o_user || !isset($o_user->password) || $o_user->status != 1) {
-            return $this->onFy('账号密码错误！');
-        }
-        $b_flag = $this->checkPassword($s_pwd, $o_user->password);
-        if (!$b_flag) {
+        if (!$o_user || !isset($o_user->password) || $o_user->status != 1 || !$this->checkPassword($s_pwd, $o_user->password)) {
             return $this->onFy('账号密码错误！');
         }
         $s_token = $o_user->generateToken();
@@ -56,7 +52,7 @@ class LoginController extends ShadowController
         }
         Session::put('u', $s_token);
 
-        return $this->successJson(array('lifetime' => 86400));
+        return $this->successJson();
     }
 
     /**

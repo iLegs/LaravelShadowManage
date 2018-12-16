@@ -11,6 +11,8 @@
 |
 */
 
+Route::get('/gencaptcha', 'CaptchaController@onGet');
+
 Route::get('/', function () {
     return view('welcome');
 });

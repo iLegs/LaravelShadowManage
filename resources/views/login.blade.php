@@ -5,8 +5,9 @@
     <title>iLegs Shadow Manage Login</title>
     <link rel="stylesheet" href="{{ $s }}/css/bootstrap.css">
     <link rel="stylesheet" href="{{ $s }}/css/style(1).css">
+    <link href="{{ $s }}/css/sweetalert.css" rel="stylesheet">
 </head>
-<body class="blank pace-done" style="background-image: url({{ $s }}/img/bg.jpg);background-size: cover;background-repeat: no-repeat;">
+<body class="blank pace-done bd-login" style="background-image: url({{ $s }}/img/bg.jpg);background-size: cover;background-repeat: no-repeat;">
     <div class="wrapper">
         <section class="content">
             <div class="container-center animated slideInDown">
@@ -19,15 +20,23 @@
                     <div class="panel-body">
                         <form action="" id="loginForm" novalidate="">
                             <div class="form-group">
-                                <label class="control-label" for="username">帐号</label>
-                                <input type="text" placeholder="" title="Please enter you username" required="" value="" name="username" id="username" class="form-control" autocomplete="off">
+                                <label class="control-label">帐号</label>
+                                <input type="text" name="account" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="password">密码</label>
-                                <input type="password" title="Please enter your password" placeholder="" required="" value="" name="password" id="password" class="form-control" autocomplete="off">
+                                <label class="control-label">密码</label>
+                                <input type="password" name="password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">验证码</label>
+                                <br/>
+                                <input type="text" name="captcha" class="form-control" style="width: 60%;display: inline-block;" maxlength="4">
+                                <a href="javascript:void(0);">
+                                    <img class="captcha-img" src="{{ $s }}/img/wz.png" data-src="{{ $s }}/img/wz.png" style="width: 120px;border-radius: 5px;height: 34px;">
+                                </a>
                             </div>
                             <div>
-                                <button class="btn btn-accent" style="width: 100%;">登录</button>
+                                <button class="btn btn-accent wl-login" type="button" style="width: 100%;">登录</button>
                             </div>
                         </form>
                     </div>
@@ -35,6 +44,10 @@
             </div>
         </section>
     </div>
+    <script src="{{ $s }}/js/jquery-1.10.2.js"></script>
     <script src="{{ $s }}/js/pace.min.js"></script>
+    <script src="{{ $s }}/js/sweetalert.min.js"></script>
+    <script src="{{ $s }}/js/a_common.js"></script>
+    <script src="{{ $s }}/js/login.js"></script>
 </body>
 </html>
