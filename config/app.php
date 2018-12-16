@@ -54,6 +54,8 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
+    'static' => env('APP_STATIC', '//s.imcn.vip'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -225,7 +227,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Input' => Illuminate\Support\Facades\Input::class,
     ],
 
 ];
