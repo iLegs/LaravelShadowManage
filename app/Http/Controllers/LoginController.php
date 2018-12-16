@@ -13,7 +13,8 @@ use Input;
 use Redis;
 use Session;
 use Redirect;
-use App\Http\Model\Shadow\User;
+use JWTAuth;
+use App\Http\Models\Shadow\User;
 
 class LoginController extends ShadowController
 {
@@ -34,6 +35,7 @@ class LoginController extends ShadowController
 
     public function onPost()
     {
+
         $s_account = Input::get('account', '');
         $s_pwd = Input::get('password', '');
         $s_captcha = Input::get('captcha', '');
@@ -52,7 +54,7 @@ class LoginController extends ShadowController
         }
         Session::put('u', $s_token);
 
-        return $this->successJson();
+        return $this->successJson(array());
     }
 
     /**

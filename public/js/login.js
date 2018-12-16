@@ -29,9 +29,7 @@ $(document).ready(function(){
             captcha: code
         };
         _common.ajax(url, 'POST', params, function(data){
-            if (typeof(data.lifetime) !== 'undefined') {
-                window.location.href = '/shadow/login';
-            }
+            window.location.href = '/shadow/login';
         }, function(error){
             _common.failAlert(error.msg);
             _common.flushCaptcha();

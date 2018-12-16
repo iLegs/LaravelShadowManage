@@ -1,18 +1,16 @@
 <?php
+/**
+ * 网站路由入口文件。
+ *
+ * @author    fairyin <fairyin@126.com>
+ * @copyright © 2018 www.imcn.vip
+ * @version   v1.0
+ */
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
+//生成验证码
 Route::get('/gencaptcha', 'CaptchaController@onGet');
 
+//首页
 Route::get('/', function () {
     return view('welcome');
 });

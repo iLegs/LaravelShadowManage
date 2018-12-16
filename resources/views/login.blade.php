@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ $s }}/css/style(1).css">
     <link href="{{ $s }}/css/sweetalert.css" rel="stylesheet">
 </head>
-<body class="blank pace-done bd-login" style="background-image: url({{ $s }}/img/bg.jpg);background-size: cover;background-repeat: no-repeat;">
+<body class="blank pace-done bd-login" style="background-image: url({{ $s }}/img/bg.jpg);background-size: cover;background-repeat: no-repeat;" data-csrf-token="{{ csrf_token() }}">
     <div class="wrapper">
         <section class="content">
             <div class="container-center animated slideInDown">
