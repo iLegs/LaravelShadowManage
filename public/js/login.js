@@ -43,4 +43,12 @@ $(document).ready(function(){
     $(".bd-login .captcha-img,.bd-login .flush-captcha").on('click', _common.flushCaptcha);
 
     _common.flushCaptcha();
+
+    $(document).keypress(function(event){
+        if (event.keyCode == 13) {
+            if ($(".sweet-alert.visible.showSweetAlert").is(':visible') == false) {
+                _login.submit();
+            }
+        }
+    });
 });

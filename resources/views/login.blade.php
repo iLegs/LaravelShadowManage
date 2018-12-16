@@ -21,11 +21,11 @@
                         <form action="" id="loginForm" novalidate="">
                             <div class="form-group">
                                 <label class="control-label">帐号</label>
-                                <input type="text" name="account" class="form-control">
+                                <input type="text" name="account" class="form-control" maxlength="12">
                             </div>
                             <div class="form-group">
                                 <label class="control-label">密码</label>
-                                <input type="password" name="password" class="form-control">
+                                <input type="password" name="password" class="form-control" maxlength="40" onpaste="return false" oncontextmenu="return false" oncopy="return false" oncut="return false">
                             </div>
                             <div class="form-group">
                                 <label class="control-label">验证码</label>
