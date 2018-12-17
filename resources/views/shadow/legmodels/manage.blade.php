@@ -12,9 +12,9 @@
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
-            <li><a class="add" href="/shadow/tags/add" target="dialog" mask="true" minable="false" maxable="false" resizable="false" drawable="false" width="400" height="130" rel="tag"><span>添加标签</span></a></li>
+            <li><a class="add" href="/shadow/legmodels/add" target="dialog" mask="true" minable="false" maxable="false" resizable="false" drawable="false" width="400" height="130" rel="tag"><span>添加标签</span></a></li>
             <li>
-                <a class="delete" href="/shadow/tags/delete" target="selectedTodo" title="确定要删除这些记录吗?" warn="请选择至少一条记录" rel="ids[]"><span>批量删除标签</span></a>
+                <a class="delete" href="/shadow/legmodels/delete" target="selectedTodo" title="确定要删除这些记录吗?" warn="请选择至少一条记录" rel="ids[]"><span>批量删除标签</span></a>
             </li>
         </ul>
     </div>
@@ -25,23 +25,25 @@
                     <div class="gridCol"><input type="checkbox" group="ids[]" class="checkboxCtrl"></div>
                 </th>
                 <th width="40" align="center">编号</th>
-                <th width="40" align="center">名称</th>
-                <th width="40" align="center">新增时间</th>
+                <th width="80" align="center">名称</th>
+                <th width="80" align="center">描述</th>
+                <th width="80" align="center">新增时间</th>
                 <th width="40" align="center">操作</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($tags as $tag)
-                <tr target="pid" rel="{{ $tag->id }}">
+            @foreach($legmodels as $mm)
+                <tr target="pid" rel="{{ $mm->id }}">
                     <td>
-                        <div><input name="ids[]" value="{{ $tag->id }}" type="checkbox"></div>
+                        <div><input name="ids[]" value="{{ $mm->id }}" type="checkbox"></div>
                     </td>
-                    <td>{{ $tag->id }}</td>
-                    <td>{{ $tag->title }}</td>
-                    <td>{{ $tag->add_time }}</td>
+                    <td>{{ $mm->id }}</td>
+                    <td>{{ $mm->name }}</td>
+                    <td>{{ $mm->desc }}</td>
+                    <td>{{ $mm->add_time }}</td>
                     <td>
                         <div>
-                            <a title="编辑" target="dialog" href="/shadow/tags/edit?tid={{ $tag->id }}" class="btnEdit" mask="true" minable="false" maxable="false" resizable="false" drawable="false" width="400" height="130">编辑</a>
+                            <a title="编辑" target="dialog" href="/shadow/legmodels/edit?tid={{ $mm->id }}" class="btnEdit" mask="true" minable="false" maxable="false" resizable="false" drawable="false" width="400" height="130">编辑</a>
                         </div>
                     </td>
                 </tr>

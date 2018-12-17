@@ -25,11 +25,13 @@ Route::group(["prefix" => "shadow", "middleware" => "shadow"], function() {
     //后台桌面
     Route::get('/main', 'Shadow\MainController@onGet');
 
+    //标签管理
     Route::any('/tags/manage', 'Shadow\Tags\ManageController@any');
     Route::get('/tags/add', 'Shadow\Tags\AddController@onGet');
     Route::post('/tags/add', 'Shadow\Tags\AddController@onPost');
     Route::get('/tags/edit', 'Shadow\Tags\EditController@onGet');
     Route::post('/tags/edit', 'Shadow\Tags\EditController@onPost');
-
     Route::post('/tags/delete', 'Shadow\Tags\DeleteController@onPost');
+
+    Route::any('/legmodels/manage', 'Shadow\LegModels\ManageController@any');
 });

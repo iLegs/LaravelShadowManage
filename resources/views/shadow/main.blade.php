@@ -98,6 +98,7 @@
                 <div class="accordionContent">
                     <ul class="tree treeFolder">
                         <li><a href="/shadow/tags/manage" target="navTab" rel="main">标签列表</a></li>
+                        <li><a href="/shadow/legmodels/manage" target="navTab" rel="main">模特列表</a></li>
                     </ul>
                 </div>
             </div>
