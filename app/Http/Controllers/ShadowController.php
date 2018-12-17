@@ -80,11 +80,6 @@ class ShadowController extends BaseController
     const PAGE_SIZE = 20;
 
     /**
-     * 当前页面url。
-     */
-    const URL = '/shadow/main';
-
-    /**
      * 当前登录用户对象。
      * @var mixed
      */
@@ -168,9 +163,19 @@ class ShadowController extends BaseController
      * @param  integer $code http 状态码
      * @return mixed
      */
+    protected function ajaxErrorJson($msg, $code = 403)
+    {
+        $a_result = array(
+            "message" => $msg,
+            "statusCode" => $code
+        );
+
+        return Response::json($a_result, 200);
+    }
+
     protected function errorJson($msg, $code = 403)
     {
-        return Response::json(array('error' => true, 'msg' => $msg), $code);
+        return Response::json(array('msg' => $msg), $code);
     }
 
     /**
@@ -178,7 +183,27 @@ class ShadowController extends BaseController
      * @param  array $arr 数组
      * @return mixed
      */
-    protected function successJson($arr)
+    protected function ajaxSuccessJson($msg = '')
+    {
+        $a_result = array(
+            "callbackType" => "closeCurrent",
+            "confirmMsg" => "",
+            "forwardUrl" => "",
+            "message" => $msg,
+            "navTabId" => "",
+            "rel" => "",
+            "statusCode" => 200
+        );
+
+        return Response::json($a_result, 200);
+    }
+
+    /**
+     * ajax 请求成功返回结果。
+     * @param  array $arr 数组
+     * @return mixed
+     */
+    protected function webSuccessJson($arr = array())
     {
         return Response::json($arr, 200);
     }
@@ -193,10 +218,6 @@ class ShadowController extends BaseController
     {
         $arr['s'] = Config::get('app.static');
         $arr['user'] = $this->user;
-        $arr['tops'] = array();
-        $i_active = Input::get('active', 0);
-        $arr['active'] = $i_active;
-        $arr['thisurl'] = static::URL;
 
         return view($view)->with($arr);
     }

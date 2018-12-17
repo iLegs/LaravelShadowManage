@@ -54,7 +54,7 @@ class LoginController extends ShadowController
         }
         Session::put('u', $s_token);
 
-        return $this->successJson(array());
+        return $this->webSuccessJson();
     }
 
     /**
