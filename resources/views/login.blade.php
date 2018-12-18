@@ -7,6 +7,7 @@
         <title>iLegs Shadow Manage Login</title>
         <link rel="stylesheet" href="{{ $s }}/css/bootstrap.css">
         <link rel="stylesheet" href="{{ $s }}/css/style.css">
+        <link rel="stylesheet" href="{{ $s }}/css/login.css">
         <link href="{{ $s }}/css/sweetalert.css" rel="stylesheet">
     </head>
     <body class="blank pace-done bd-login" style="background-image: url({{ $s }}/img/bg.jpg);background-size: cover;background-repeat: no-repeat;" data-csrf-token="{{ csrf_token() }}">
