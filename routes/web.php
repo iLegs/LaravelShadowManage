@@ -34,4 +34,9 @@ Route::group(["prefix" => "shadow", "middleware" => "shadow"], function() {
     Route::post('/tags/delete', 'Shadow\Tags\DeleteController@onPost');
 
     Route::any('/legmodels/manage', 'Shadow\LegModels\ManageController@any');
+    Route::get('/legmodels/add', 'Shadow\LegModels\AddController@onGet');
+    Route::post('/legmodels/add', 'Shadow\LegModels\AddController@onPost');
+    Route::get('/legmodels/edit', 'Shadow\LegModels\EditController@onGet');
+    Route::post('/legmodels/edit', 'Shadow\LegModels\EditController@onPost');
+    Route::post('/legmodels/delete', 'Shadow\LegModels\DeleteController@onPost');
 });

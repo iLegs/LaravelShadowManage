@@ -12,9 +12,9 @@
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
-            <li><a class="add" href="/shadow/legmodels/add" target="dialog" mask="true" minable="false" maxable="false" resizable="false" drawable="false" width="400" height="130" rel="tag"><span>添加标签</span></a></li>
+            <li><a class="add" href="/shadow/legmodels/add" target="dialog" mask="true" minable="false" maxable="false" resizable="false" drawable="false" width="400" height="458" rel="tag"><span>添加模特</span></a></li>
             <li>
-                <a class="delete" href="/shadow/legmodels/delete" target="selectedTodo" title="确定要删除这些记录吗?" warn="请选择至少一条记录" rel="ids[]"><span>批量删除标签</span></a>
+                <a class="delete" href="/shadow/legmodels/delete" target="selectedTodo" title="确定要删除这些记录吗?" warn="请选择至少一条记录" rel="ids[]"><span>批量删除模特</span></a>
             </li>
         </ul>
     </div>
@@ -43,7 +43,7 @@
                     <td>{{ $mm->add_time }}</td>
                     <td>
                         <div>
-                            <a title="编辑" target="dialog" href="/shadow/legmodels/edit?tid={{ $mm->id }}" class="btnEdit" mask="true" minable="false" maxable="false" resizable="false" drawable="false" width="400" height="130">编辑</a>
+                            <a title="编辑" target="dialog" href="/shadow/legmodels/edit?lmid={{ $mm->id }}" class="btnEdit" mask="true" minable="false" maxable="false" resizable="false" drawable="false" width="400" height="458">编辑</a>
                         </div>
                     </td>
                 </tr>

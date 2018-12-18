@@ -1,6 +1,6 @@
 <?php
 /**
- * 删除标签控制器。
+ * 新增标签控制器。
  *
  * @author    fairyin <fairyin@126.com>
  * @copyright © 2018 www.imcn.vip

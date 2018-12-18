@@ -14,6 +14,10 @@
         span.error {
             width: auto;
         }
+        .nowrap dd {
+            width: auto !important;
+            margin-left: -4px;
+        }
     </style>
     <!--[if IE]>
     <link href="{{ $s }}/dwz/themes/css/ieHack.css" rel="stylesheet" type="text/css" media="screen"/>
