@@ -1,6 +1,6 @@
 <?php
 /**
- * 模特信息表模型。
+ * 图库信息表模型。
  *
  * @author    fairyin <fairyin@126.com>
  * @copyright © 2018 www.imcn.vip
@@ -11,14 +11,14 @@ namespace App\Http\Models\Common;
 
 use Illuminate\Database\Eloquent\Model;
 
-class LegModel extends Model
+class LegLib extends Model
 {
     /**
-     * 模特信息表。
+     * 图库信息表。
      *
      * @var string
      */
-    protected $table = 'common_models';
+    protected $table = 'common_libs';
 
     protected $updated_at = false;
 

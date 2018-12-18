@@ -23,7 +23,7 @@ class EditController extends ShadowController
             return $this->ajaxErrorJson('模特信息获取失败！');
         }
         $o_legmodel = LegModel::find($i_lmid);
-        if (!$o_legmodel) {
+        if (!$o_legmodel || 1 != $o_legmodel->status) {
             return $this->ajaxErrorJson('模特信息获取失败！');
         }
 
@@ -38,7 +38,7 @@ class EditController extends ShadowController
                 return $this->ajaxErrorJson('模特信息获取失败！');
             }
             $o_legmodel = LegModel::find($i_lmid);
-            if (!$o_legmodel) {
+            if (!$o_legmodel || 1 != $o_legmodel->status) {
                 return $this->ajaxErrorJson('模特信息获取失败！');
             }
             $s_name = Input::get('name', '');
@@ -52,7 +52,6 @@ class EditController extends ShadowController
             if ('' != $s_desc) {
                 $o_legmodel->desc = $s_desc;
             }
-            $o_legmodel->status = 1;
             $o_legmodel->save();
 
             return $this->ajaxSuccessJson('模特编辑成功！');

@@ -33,10 +33,19 @@ Route::group(["prefix" => "shadow", "middleware" => "shadow"], function() {
     Route::post('/tags/edit', 'Shadow\Tags\EditController@onPost');
     Route::post('/tags/delete', 'Shadow\Tags\DeleteController@onPost');
 
+    //模特管理
     Route::any('/legmodels/manage', 'Shadow\LegModels\ManageController@any');
     Route::get('/legmodels/add', 'Shadow\LegModels\AddController@onGet');
     Route::post('/legmodels/add', 'Shadow\LegModels\AddController@onPost');
     Route::get('/legmodels/edit', 'Shadow\LegModels\EditController@onGet');
     Route::post('/legmodels/edit', 'Shadow\LegModels\EditController@onPost');
     Route::post('/legmodels/delete', 'Shadow\LegModels\DeleteController@onPost');
+
+    //图库管理
+    Route::any('/leglibs/manage', 'Shadow\LegLibs\ManageController@any');
+    Route::get('/leglibs/add', 'Shadow\LegLibs\AddController@onGet');
+    Route::post('/leglibs/add', 'Shadow\LegLibs\AddController@onPost');
+    Route::get('/leglibs/edit', 'Shadow\LegLibs\EditController@onGet');
+    Route::post('/leglibs/edit', 'Shadow\LegLibs\EditController@onPost');
+    Route::post('/leglibs/delete', 'Shadow\LegLibs\DeleteController@onPost');
 });

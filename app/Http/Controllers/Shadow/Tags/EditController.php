@@ -20,7 +20,7 @@ class EditController extends ShadowController
     {
         $i_tid = Input::get('tid', 0);
         $o_tag = Tag::find($i_tid);
-        if (!$o_tag) {
+        if (!$o_tag || 1 != $o_tag->status) {
             return $this->ajaxErrorJson('标签信息获取失败！');
         }
 
@@ -32,7 +32,7 @@ class EditController extends ShadowController
         try {
             $i_tid = Input::get('tid', 0);
             $o_tag = Tag::find($i_tid);
-            if (!$o_tag) {
+            if (!$o_tag || 1 != $o_tag->status) {
                 return $this->ajaxErrorJson('标签信息获取失败！');
             }
             $s_title = Input::get('title', '');
