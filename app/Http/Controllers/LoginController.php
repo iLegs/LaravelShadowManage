@@ -35,7 +35,6 @@ class LoginController extends ShadowController
 
     public function onPost()
     {
-
         $s_account = Input::get('account', '');
         $s_pwd = Input::get('password', '');
         $s_captcha = Input::get('captcha', '');

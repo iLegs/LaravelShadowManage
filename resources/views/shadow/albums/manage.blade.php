@@ -27,6 +27,9 @@
                 <th width="40" align="center">编号</th>
                 <th width="80" align="center">名称</th>
                 <th width="80" align="center">描述</th>
+                <th width="80" align="center">模特</th>
+                <th width="80" align="center">标签</th>
+                <th width="80" align="center">封面</th>
                 <th width="80" align="center">新增时间</th>
                 <th width="40" align="center">操作</th>
             </tr>
@@ -40,6 +43,13 @@
                     <td>{{ $album->id }}</td>
                     <td>{{ $album->title }}</td>
                     <td>{{ $album->desc }}</td>
+                    <td></td>
+                    <td>
+                        @foreach($album->getTags() as $tag)
+                            <span>{{ $tag['title'] }}</span>
+                        @endforeach
+                    </td>
+                    <td></td>
                     <td>{{ $album->add_time }}</td>
                     <td>
                         <div>
