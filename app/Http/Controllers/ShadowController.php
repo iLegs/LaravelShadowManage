@@ -183,15 +183,15 @@ class ShadowController extends BaseController
      * @param  array $arr 数组
      * @return mixed
      */
-    protected function ajaxSuccessJson($msg = '')
+    protected function ajaxSuccessJson($msg = '', $nav_tab_id = '', $rel = '')
     {
         $a_result = array(
             "callbackType" => "closeCurrent",
             "confirmMsg" => "",
             "forwardUrl" => "",
             "message" => $msg,
-            "navTabId" => "",
-            "rel" => "",
+            "navTabId" => $nav_tab_id,
+            "rel" => $rel,
             "statusCode" => 200
         );
 

@@ -25,6 +25,9 @@ Route::group(["prefix" => "shadow", "middleware" => "shadow"], function() {
     //后台桌面
     Route::get('/main', 'Shadow\MainController@onGet');
 
+    //上传图片
+    Route::post('/resource/upload', 'Shadow\ResourceUploadController@onPost');
+
     //标签管理
     Route::any('/tags/manage', 'Shadow\Tags\ManageController@any');
     Route::get('/tags/add', 'Shadow\Tags\AddController@onGet');
@@ -48,4 +51,12 @@ Route::group(["prefix" => "shadow", "middleware" => "shadow"], function() {
     Route::get('/leglibs/edit', 'Shadow\LegLibs\EditController@onGet');
     Route::post('/leglibs/edit', 'Shadow\LegLibs\EditController@onPost');
     Route::post('/leglibs/delete', 'Shadow\LegLibs\DeleteController@onPost');
+
+    //专辑管理
+    Route::any('/albums/manage', 'Shadow\Albums\ManageController@any');
+    Route::get('/albums/add', 'Shadow\Albums\AddController@onGet');
+    Route::post('/albums/add', 'Shadow\Albums\AddController@onPost');
+    Route::get('/albums/edit', 'Shadow\Albums\EditController@onGet');
+    Route::post('/albums/edit', 'Shadow\Albums\EditController@onPost');
+    Route::post('/albums/delete', 'Shadow\Albums\DeleteController@onPost');
 });
