@@ -12,10 +12,20 @@
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
-            <li><a class="add" href="/shadow/albums/add" target="navTab" rel="add_albums"><span>添加专辑</span></a></li>
-            <li><a class="add" href="/shadow/albums/upload?aid={aid}" target="dialog" rel="cover_upload" minable="false" maxable="false" resizable="false" drawable="false" mask="true" width="280" height="190"><span>上传封面</span></a></li>
             <li>
-                <a class="delete" href="/shadow/albums/delete" target="selectedTodo" title="确定要删除这些记录吗?" warn="请选择至少一条记录" rel="album_delete"><span>批量删除专辑</span></a>
+                <a class="add" href="/shadow/albums/add" target="navTab" rel="add_albums" fresh="true">
+                    <span>添加专辑</span>
+                </a>
+            </li>
+            <li>
+                <a class="add" href="/shadow/albums/upload?aid={aid}" target="dialog" rel="cover_upload" minable="false" maxable="false" resizable="false" drawable="false" mask="true" width="280" height="190" fresh="true">
+                    <span>上传封面</span>
+                </a>
+            </li>
+            <li>
+                <a class="delete" href="/shadow/albums/delete" target="selectedTodo" title="确定要删除这些记录吗?" warn="请选择至少一条记录" rel="ids[]" fresh="true">
+                    <span>批量删除专辑</span>
+                </a>
             </li>
         </ul>
     </div>
@@ -80,7 +90,7 @@
                     <td>{{ $album->add_time }}</td>
                     <td>
                         <div>
-                            <a title="编辑专辑" target="navTab" rel="edit_albums" href="/shadow/albums/edit?aid={{ $album->id }}" class="btnEdit">编辑专辑</a>
+                            <a title="编辑专辑" target="navTab" rel="edit_albums" href="/shadow/albums/edit?aid={{ $album->id }}" class="btnEdit" fresh="true">编辑专辑</a>
                         </div>
                     </td>
                 </tr>

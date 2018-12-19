@@ -23,6 +23,6 @@ class DeleteController extends ShadowController
         }
         LegModel::whereIn('id', $a_ids)->update(array('status' => 0));
 
-        return $this->ajaxSuccessJson('删除成功！');
+        return $this->ajaxSuccessJson('删除成功！', 0);
     }
 }

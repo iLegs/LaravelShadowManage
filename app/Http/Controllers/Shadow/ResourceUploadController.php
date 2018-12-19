@@ -68,7 +68,7 @@ class ResourceUploadController extends ShadowController
                 $o_key->status = 1;
                 $o_key->save();
 
-                return $this->ajaxSuccessJson('封面上传成功！', 'albums', 'album_cover_upload');
+                return $this->ajaxSuccessJson('封面上传成功！', 1, 'albums');
             }
 
             return $this->ajaxSuccessJson('上传成功！');

@@ -117,17 +117,16 @@
                         欢迎您，fairyin
                     </span>
                 </li>
-                <li ><a href="/shadow/logout">退出</a></li>
+                <li>
+                    <a href="/shadow/logout">退出</a>
+                </li>
             </ul>
         </div>
     </div>
     <div id="leftside">
         <div id="sidebar_s">
             <div class="collapse">
-                <div class="toggleCollapse">
-                    <div>
-                    </div>
-                </div>
+                <div class="toggleCollapse"></div>
             </div>
         </div>
         <div id="sidebar">
@@ -141,10 +140,31 @@
                 </div>
                 <div class="accordionContent">
                     <ul class="tree treeFolder">
-                        <li><a href="/shadow/tags/manage" target="navTab" rel="main">标签列表</a></li>
-                        <li><a href="/shadow/legmodels/manage" target="navTab" rel="main">模特列表</a></li>
-                        <li><a href="/shadow/leglibs/manage" target="navTab" rel="main">图库列表</a></li>
-                        <li><a href="/shadow/albums/manage" target="navTab" rel="albums">专辑列表</a></li>
+                        <li>
+                            <a href="/shadow/tags/manage" target="navTab" rel="main">
+                                标签列表
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/shadow/legmodels/manage" target="navTab" rel="main">
+                                模特列表
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/shadow/leglibs/manage" target="navTab" rel="main">
+                                图库列表
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/shadow/albums/manage" target="navTab" rel="albums">
+                                专辑列表
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/shadow/photoes/manage" target="navTab" rel="pics">
+                                图片列表
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -156,21 +176,29 @@
                 <div class="tabsPageHeaderContent">
                     <ul class="navTab-tab">
                         <li tabid="main" class="main">
-                            <a href="javascript:;"><span><span class="home_icon">我的主页</span></span></a>
+                            <a href="javascript:;">
+                                <span>
+                                    <span class="home_icon">我的主页</span>
+                                </span>
+                            </a>
                         </li>
                     </ul>
                 </div>
             </div>
             <ul class="tabsMoreList">
-                <li><a href="javascript:;">我的主页</a></li>
+                <li>
+                    <a href="javascript:;">我的主页</a>
+                </li>
             </ul>
             <div class="navTab-panel tabsPageContent layoutBox">
-                <div class="page unitBox">
-                </div>
+                <div class="page unitBox"></div>
             </div>
         </div>
     </div>
 </div>
-<div id="footer">Copyright &copy; 2018 <a href="demo_page2.html" target="dialog">Fairyin</a></div>
+<div id="footer">
+    Copyright &copy; 2018
+    <a href="demo_page2.html" target="dialog">Fairyin</a>
+</div>
 </body>
 </html>

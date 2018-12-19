@@ -61,4 +61,10 @@ Route::group(["prefix" => "shadow", "middleware" => "shadow"], function() {
     Route::post('/albums/delete', 'Shadow\Albums\DeleteController@onPost');
     Route::get('/albums/upload', 'Shadow\Albums\UploadController@onGet');
     Route::post('/albums/upload', 'Shadow\Albums\UploadController@onPost');
+
+    //图片管理
+    Route::any('/photoes/manage', 'Shadow\Photoes\ManageController@any');
+    Route::post('/photoes/delete', 'Shadow\Photoes\DeleteController@onPost');
+    Route::post('/photoes/change/horizontal', 'Shadow\Photoes\ChangeController@horizontal');
+    Route::post('/photoes/change/vertical', 'Shadow\Photoes\ChangeController@vertical');
 });
