@@ -4,8 +4,44 @@
 <div class="pageHeader">
     <form onsubmit="return navTabSearch(this);" method="get">
         <div class="searchBar">
-            <ul class="searchContent"></ul>
-            <div class="subBar"></div>
+            <ul class="searchContent">
+                <li>
+                    <label>请选择套图</label>
+                    <select class="combox" name="lib">
+                        <option value="0" selected="selected">全部</option>
+                        @foreach($libs as $lib)
+                            <option value="{{ $lib->id }}" @if($libid == $lib->id) selected="selected" @endif>{{ $lib->title }}</option>
+                        @endforeach
+                    </select>
+                </li>
+                <li>
+                    <label>发行年份</label>
+                    <select class="combox" name="year">
+                        <option value="0" selected="selected">全部</option>
+                        <option value="2010" @if('2010' == $yearid)selected="selected"@endif>2010</option>
+                        <option value="2011" @if('2011' == $yearid)selected="selected"@endif>2011</option>
+                        <option value="2012" @if('2012' == $yearid)selected="selected"@endif>2012</option>
+                        <option value="2013" @if('2013' == $yearid)selected="selected"@endif>2013</option>
+                        <option value="2014" @if('2014' == $yearid)selected="selected"@endif>2014</option>
+                        <option value="2015" @if('2015' == $yearid)selected="selected"@endif>2015</option>
+                        <option value="2016" @if('2016' == $yearid)selected="selected"@endif>2016</option>
+                        <option value="2017" @if('2017' == $yearid)selected="selected"@endif>2017</option>
+                        <option value="2018" @if('2018' == $yearid)selected="selected"@endif>2018</option>
+                        <option value="2019" @if('2019' == $yearid)selected="selected"@endif>2019</option>
+                    </select>
+                </li>
+            </ul>
+            <div class="subBar">
+                <ul>
+                    <li>
+                        <div class="buttonActive">
+                            <div class="buttonContent">
+                                <button type="submit">检索</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </form>
 </div>
