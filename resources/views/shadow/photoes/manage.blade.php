@@ -1,11 +1,44 @@
 <form id="pagerForm" onsubmit="return navTabSearch(this);" method="get">
     <input type="hidden" name="pageNum" value="1"/>
+    <input type="hidden" name="type" value="{{ $type }}"/>
+    <input type="hidden" name="albumid" value="{{ $albumid }}"/>
 </form>
 <div class="pageHeader">
     <form onsubmit="return navTabSearch(this);" method="get">
         <div class="searchBar">
-            <ul class="searchContent"></ul>
-            <div class="subBar"></div>
+            <table class="searchContent">
+            <tr>
+                <td>
+                    <label>请选择专辑</label>
+                    <select class="combox" name="albumid">
+                        <option value="0">全部</option>
+                        @foreach($albums as $album)
+                            <option value="{{ $album->id }}" @if($album->id == $albumid) selected="selected" @endif>{{ $album->title }}</option>
+                        @endforeach
+                    </select>
+                </td>
+                <td>
+                    <label>请选择照片类型</label>
+                    <select class="combox" name="type">
+                        <option value="-1">全部</option>
+                        <option value="0" @if($type == 0) selected="selected" @endif>竖图</option>
+                        <option value="1" @if($type == 1) selected="selected" @endif>横图</option>
+
+                    </select>
+                </td>
+            </tr>
+        </table>
+            <div class="subBar">
+                <ul>
+                    <li>
+                        <div class="buttonActive">
+                            <div class="buttonContent">
+                                <button type="submit">检索</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </form>
 </div>
