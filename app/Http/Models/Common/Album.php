@@ -11,6 +11,7 @@ namespace App\Http\Models\Common;
 
 use App\Http\Models\Common\Tag;
 use Illuminate\Support\Facades\DB;
+use App\Http\Models\Common\LegModel;
 use Illuminate\Database\Eloquent\Model;
 
 class Album extends Model
@@ -42,6 +43,27 @@ class Album extends Model
                 $a_rows[] = array(
                     'id' => $o_tag->id,
                     'title' => $o_tag->title
+                );
+            }
+        }
+
+        return $a_rows;
+    }
+
+    public function getModels()
+    {
+        $o_r_modelss = DB::table('relation_album_models')->where('album_id', '=', $this->id)->select('model_id')->get()->toArray();
+        $a_models = array();
+        foreach ($o_r_modelss as $model) {
+            $a_models[] = $model->model_id;
+        }
+        $a_rows = array();
+        $o_models = LegModel::whereIn('id', $a_models)->where('status', '=', 1)->get();
+        if ($o_models->count() > 0) {
+            foreach ($o_models as $o_model) {
+                $a_rows[] = array(
+                    'id' => $o_model->id,
+                    'name' => $o_model->name
                 );
             }
         }

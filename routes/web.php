@@ -59,4 +59,6 @@ Route::group(["prefix" => "shadow", "middleware" => "shadow"], function() {
     Route::get('/albums/edit', 'Shadow\Albums\EditController@onGet');
     Route::post('/albums/edit', 'Shadow\Albums\EditController@onPost');
     Route::post('/albums/delete', 'Shadow\Albums\DeleteController@onPost');
+    Route::get('/albums/upload', 'Shadow\Albums\UploadController@onGet');
+    Route::post('/albums/upload', 'Shadow\Albums\UploadController@onPost');
 });

@@ -13,6 +13,7 @@
     <div class="panelBar">
         <ul class="toolBar">
             <li><a class="add" href="/shadow/albums/add" target="navTab" rel="add_albums"><span>添加专辑</span></a></li>
+            <li><a class="add" href="/shadow/albums/upload" target="navTab" rel="album_upload_cover"><span>上传封面</span></a></li>
             <li>
                 <a class="delete" href="/shadow/albums/delete" target="selectedTodo" title="确定要删除这些记录吗?" warn="请选择至少一条记录" rel="ids[]"><span>批量删除专辑</span></a>
             </li>
@@ -38,12 +39,16 @@
             @foreach($albums as $album)
                 <tr target="pid" rel="{{ $album->id }}">
                     <td>
-                        <div><input name="ids[]" value="{{ $album->id }}" type="checkbox"></div>
+                        <input name="ids[]" value="{{ $album->id }}" type="checkbox">
                     </td>
                     <td>{{ $album->id }}</td>
                     <td>{{ $album->title }}</td>
                     <td>{{ $album->desc }}</td>
-                    <td></td>
+                    <td>
+                        @foreach($album->getModels() as $model)
+                            {{ $model['name'] }}
+                        @endforeach
+                    </td>
                     <td>
                         @foreach($album->getTags() as $tag)
                             <span>{{ $tag['title'] }}</span>
