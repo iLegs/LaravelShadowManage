@@ -126,7 +126,9 @@
     <div id="leftside">
         <div id="sidebar_s">
             <div class="collapse">
-                <div class="toggleCollapse"></div>
+                <div class="toggleCollapse">
+                    <div></div>
+                </div>
             </div>
         </div>
         <div id="sidebar">
