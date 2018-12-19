@@ -60,7 +60,9 @@ class ResourceUploadController extends ShadowController
                 $o_album = Album::find($i_aid);
                 if ($o_album) {
                     $o_album->cover = $o_key->qn_key;
-                    $o_album->status = 1;
+                    if (0 == $o_album->status) {
+                        $o_album->status = 1;
+                    }
                     $o_album->save();
                 }
                 $o_key->status = 1;

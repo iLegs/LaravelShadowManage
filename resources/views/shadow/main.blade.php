@@ -21,6 +21,9 @@
         .pageFormContent.tag label {
             width: 80px;
         }
+        .grid .gridTbody td div {
+            height: auto;
+        }
     </style>
     <!--[if IE]>
     <link href="{{ $s }}/dwz/themes/css/ieHack.css" rel="stylesheet" type="text/css" media="screen"/>

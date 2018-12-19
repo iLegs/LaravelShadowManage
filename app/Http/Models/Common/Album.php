@@ -9,6 +9,7 @@
 
 namespace App\Http\Models\Common;
 
+use Qiniu\Auth;
 use App\Http\Models\Common\Tag;
 use Illuminate\Support\Facades\DB;
 use App\Http\Models\Common\LegModel;
@@ -28,6 +29,11 @@ class Album extends Model
     protected $created_at = false;
 
     public $timestamps = false;
+
+    public function lib()
+    {
+        return $this->belongsTo('App\Http\Models\Common\LegLib', 'lib_id', 'id');
+    }
 
     public function getTags()
     {
@@ -69,5 +75,23 @@ class Album extends Model
         }
 
         return $a_rows;
+    }
+
+    public function getCover()
+    {
+        if ('' == $this->cover) {
+            return array(
+                'preview' => '//s.imcn.vip/img/wz.png',
+                'original' => '//s.imcn.vip/img/wz.png'
+            );
+        }
+        $auth = new Auth(getenv('QINIU_AK'), getenv('QINIU_SK'));
+        $baseUrl = 'http://' . getenv('QINIU_DOMAIN') . '/' . $this->cover;
+        $a_result = array(
+            'preview' => $auth->privateDownloadUrl($baseUrl . '-cover'),
+            'original' => $auth->privateDownloadUrl($baseUrl)
+        );
+
+        return $a_result;
     }
 }

@@ -31,6 +31,8 @@
                 <th width="80" align="center">模特</th>
                 <th width="80" align="center">标签</th>
                 <th width="80" align="center">封面</th>
+                <th width="40" align="center">发行日期</th>
+                <th width="40" align="center">所属套图</th>
                 <th width="40" align="center">状态</th>
                 <th width="80" align="center">新增时间</th>
                 <th width="40" align="center">操作</th>
@@ -55,7 +57,17 @@
                             <span>{{ $tag['title'] }}</span>
                         @endforeach
                     </td>
-                    <td></td>
+                    <td height="80">
+                        <a href="{{ $album->getCover()['original'] }}" target="_blank">
+                            <img src="{{ $album->getCover()['preview'] }}" style="width: 45px;height: 80px;border-radius: 10px;padding: 5px;">
+                        </a>
+                    </td>
+                    <td>
+                        {{ $album->date }}
+                    </td>
+                    <td>
+                        {{ $album->lib->title }}
+                    </td>
                     <td>
                         @if($album->status == 0)
                             待上线
@@ -68,7 +80,7 @@
                     <td>{{ $album->add_time }}</td>
                     <td>
                         <div>
-                            <a title="编辑" target="dialog" href="/shadow/albums/edit?libid={{ $album->id }}" class="btnEdit" mask="true" minable="false" maxable="false" resizable="false" drawable="false" width="400" height="458">编辑</a>
+                            <a title="编辑专辑" target="navTab" rel="edit_albums" href="/shadow/albums/edit?aid={{ $album->id }}" class="btnEdit">编辑专辑</a>
                         </div>
                     </td>
                 </tr>
