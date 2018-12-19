@@ -13,6 +13,7 @@ use Input;
 use Response;
 use Qiniu\Auth;
 use Qiniu\Storage\UploadManager;
+use App\Http\Models\Common\Album;
 use App\Http\Models\Common\QiNiuKey;
 use App\Http\Controllers\ShadowController;
 
@@ -30,6 +31,7 @@ class ResourceUploadController extends ShadowController
     public function onPost()
     {
         $i_type = Input::get('resource_type', -1);
+        $i_aid = Input::get('aid', 0);
         if (-1 == $i_type || !in_array($i_type, array_keys(static::$types))) {
             return $this->errorJson('上传资源类型错误！');
         }
@@ -52,7 +54,20 @@ class ResourceUploadController extends ShadowController
             $o_key = new QiNiuKey;
             $o_key->qn_key = $a_result[0]['key'];
             $o_key->type = $i_type;
+            $o_key->status = 0;
             $o_key->save();
+            if ($i_aid != 0 && 0 == $i_type) {
+                $o_album = Album::find($i_aid);
+                if ($o_album) {
+                    $o_album->cover = $o_key->qn_key;
+                    $o_album->status = 1;
+                    $o_album->save();
+                }
+                $o_key->status = 1;
+                $o_key->save();
+
+                return $this->ajaxSuccessJson('封面上传成功！', 'albums', 'album_cover_upload');
+            }
 
             return $this->ajaxSuccessJson('上传成功！');
         }

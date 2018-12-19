@@ -13,9 +13,9 @@
     <div class="panelBar">
         <ul class="toolBar">
             <li><a class="add" href="/shadow/albums/add" target="navTab" rel="add_albums"><span>添加专辑</span></a></li>
-            <li><a class="add" href="/shadow/albums/upload" target="navTab" rel="album_upload_cover"><span>上传封面</span></a></li>
+            <li><a class="add" href="/shadow/albums/upload?aid={aid}" target="dialog" rel="cover_upload" minable="false" maxable="false" resizable="false" drawable="false" mask="true" width="280" height="190"><span>上传封面</span></a></li>
             <li>
-                <a class="delete" href="/shadow/albums/delete" target="selectedTodo" title="确定要删除这些记录吗?" warn="请选择至少一条记录" rel="ids[]"><span>批量删除专辑</span></a>
+                <a class="delete" href="/shadow/albums/delete" target="selectedTodo" title="确定要删除这些记录吗?" warn="请选择至少一条记录" rel="album_delete"><span>批量删除专辑</span></a>
             </li>
         </ul>
     </div>
@@ -31,13 +31,14 @@
                 <th width="80" align="center">模特</th>
                 <th width="80" align="center">标签</th>
                 <th width="80" align="center">封面</th>
+                <th width="40" align="center">状态</th>
                 <th width="80" align="center">新增时间</th>
                 <th width="40" align="center">操作</th>
             </tr>
         </thead>
         <tbody>
             @foreach($albums as $album)
-                <tr target="pid" rel="{{ $album->id }}">
+                <tr target="aid" rel="{{ $album->id }}">
                     <td>
                         <input name="ids[]" value="{{ $album->id }}" type="checkbox">
                     </td>
@@ -55,6 +56,15 @@
                         @endforeach
                     </td>
                     <td></td>
+                    <td>
+                        @if($album->status == 0)
+                            待上线
+                        @elseif($album->status == 1)
+                            已上线
+                        @elseif($album->status == 2)
+                            已删除
+                        @endif
+                    </td>
                     <td>{{ $album->add_time }}</td>
                     <td>
                         <div>

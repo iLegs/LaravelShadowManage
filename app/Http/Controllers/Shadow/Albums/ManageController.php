@@ -21,8 +21,8 @@ class ManageController extends ShadowController
         if ($i_page == null) {
             $i_page = 1;
         }
-        $i_count = Album::where('status', '=', 1)->count();
-        $o_albums = Album::where('status', '=', 1)->orderBy('id', 'DESC')
+        $i_count = Album::count();
+        $o_albums = Album::orderBy('id', 'DESC')
             ->offset(($i_page - 1) * static::PAGE_SIZE)
             ->limit(static::PAGE_SIZE)
             ->get();

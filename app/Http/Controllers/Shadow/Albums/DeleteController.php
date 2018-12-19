@@ -21,7 +21,7 @@ class DeleteController extends ShadowController
         if (!count($a_ids)) {
             return $this->ajaxErrorJson('编号输入错误！');
         }
-        Album::whereIn('id', $a_ids)->update(array('status' => 0));
+        Album::whereIn('id', $a_ids)->update(array('status' => 2));
 
         return $this->ajaxSuccessJson('删除成功！');
     }
