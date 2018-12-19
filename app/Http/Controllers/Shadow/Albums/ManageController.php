@@ -17,6 +17,8 @@ use App\Http\Controllers\ShadowController;
 
 class ManageController extends ShadowController
 {
+    const PAGE_SIZE = 6;
+
     public function any()
     {
         $i_page = Input::get('pageNum', 1);

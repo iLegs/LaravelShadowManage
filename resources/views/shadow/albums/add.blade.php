@@ -46,7 +46,7 @@
             </p>
             <p>
                 <label>请输入后缀：</label>
-                <input name="postfix" class="required" type="text" size="30" alt="请输入后缀"/>
+                <input name="postfix" class="required" type="text" size="30" alt="请输入后缀" value=".jpg" />
             </p>
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
         </div>

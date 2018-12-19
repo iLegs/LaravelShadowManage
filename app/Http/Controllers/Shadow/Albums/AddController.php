@@ -123,7 +123,7 @@ class AddController extends ShadowController
             DB::table('relation_album_tags')->insert($a_tags_rows);
             DB::commit();
 
-            return $this->ajaxSuccessJson('专辑新增成功！');
+            return $this->ajaxSuccessJson('专辑新增成功！', 1, 'albums');
         } catch (\Exception $e) {
             DB::rollback();
             Log::info('album add error:' . $e->gerMessage());
