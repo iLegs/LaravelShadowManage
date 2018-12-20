@@ -32,6 +32,10 @@
             .mui-table-view {
                 background-color: #efeff4;
             }
+            .mui-table-view-cell img {
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+            }
         </style>
 </head>
 <body class="home">
@@ -47,7 +51,7 @@
             @foreach($photoes as $photo)
             <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-2" data-responsive="{{ $photo['preview'] }}"  data-src="{{ $photo['original'] }}" data-sub-html="">
                 <a href="javascript:void(0);">
-                    <img class="mui-media-object img-responsive lazyload" src="{{ $s }}/img/wz.png" data-src="{{ $photo['preview'] }}" style="border-radius: 5px;">
+                    <img class="mui-media-object img-responsive lazyload" src="{{ $s }}/img/wz.png" data-src="{{ $photo['preview'] }}">
                     <div class="mui-media-body">{{ $ii }}</div>
                 </a>
             </li>
