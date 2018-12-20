@@ -54,7 +54,7 @@ class AlbumDetailController extends WebController
                 'original' => $o_auth->privateDownloadUrl($s_url . '-' . $s_str)
             );
         }
-        $this->setRedisData(static::RDS_KEY . $o_album->id, json_encode($a_photoes));
+        $this->setRedisData(static::RDS_KEY . $o_album->id, json_encode($a_photoes), static::LIFE_TIME);
         $a_result['photoes'] = $a_photoes;
 
         return $this->returnView('album_detail_photoes', $a_result);

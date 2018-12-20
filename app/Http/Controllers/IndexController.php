@@ -45,7 +45,7 @@ class IndexController extends WebController
                 );
             }
             $a_result['albums'] = $a_albums;
-            $this->setRedisData(static::RDS_KEY, json_encode($a_albums));
+            $this->setRedisData(static::RDS_KEY, json_encode($a_albums), static::LIFE_TIME);
         }
 
         return $this->returnView('index', $a_result);
