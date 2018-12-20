@@ -72,12 +72,15 @@
             $('#lightgallery').lightGallery({
                 share: false,
                 download: false,
-                controls: false
+                controls: false,
+                exThumbImage: false,
+                thumbnail: true,
+                showThumbByDefault: false,
+                animateThumb: true,
+                currentPagerPosition: 'middle',
+                thumbWidth: 100,
+                thumbMargin: 5
             });
-
-            $('#lightgallery').addEventListener('onAfterOpen', function(e){
-                $(".lg-toogle-thumb.lg-icon").click();
-            }, false);
 
             $("img.lazyload").lazyload();
         });
