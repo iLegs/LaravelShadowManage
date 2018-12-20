@@ -47,7 +47,7 @@
             @foreach($photoes as $photo)
             <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-2" data-responsive="{{ $photo['preview'] }}"  data-src="{{ $photo['original'] }}" data-sub-html="">
                 <a href="javascript:void(0);">
-                    <img class="mui-media-object img-responsive" src="{{ $photo['preview'] }}" style="border-radius: 5px;">
+                    <img class="mui-media-object img-responsive lazyload" src="{{ $s }}/img/wz.png" data-src="{{ $photo['preview'] }}" style="border-radius: 5px;">
                     <div class="mui-media-body">{{ $ii }}</div>
                 </a>
             </li>
@@ -62,9 +62,12 @@
     <script src="{{ $s }}/lightGallery-1.6.11/lightgallery-all.min.js"></script>
     <script src="{{ $s }}/lightGallery-1.6.11/jquery.mousewheel.min.js"></script>
     <script src="{{ $s }}/mui/js/mui.min.js"></script>
+    <script src="{{ $s }}/js/lazyload.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             $('#lightgallery').lightGallery();
+
+            $("img.lazyload").lazyload();
         });
 
         window.onload = function() {
