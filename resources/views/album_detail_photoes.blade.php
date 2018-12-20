@@ -69,7 +69,10 @@
     <script src="{{ $s }}/js/lazyload.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#lightgallery').lightGallery();
+            $('#lightgallery').lightGallery({
+                share: false,
+                download: false
+            });
 
             $("img.lazyload").lazyload();
         });
