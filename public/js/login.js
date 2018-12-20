@@ -23,16 +23,41 @@ $(document).ready(function(){
             _common.failAlert('请输入验证码');
             return false;
         }
+
+        let timerInterval;
+        Swal({
+            title: '正在登录～',
+            html: '窗口将在 <strong></strong> 秒内关闭.',
+            timer: 5000,
+            allowOutsideClick: false,
+            onBeforeOpen: () => {
+                Swal.showLoading();
+                timerInterval = setInterval(() => {
+                    Swal.getContent().querySelector('strong')
+                        .textContent = Math.ceil(Swal.getTimerLeft() / 1000)
+                }, 100)
+            },
+            onClose: () => {
+                clearInterval(timerInterval);
+            }
+        }).then((result) => {
+            // Read more about handling dismissals
+            if (result.dismiss === Swal.DismissReason.timer) {
+                console.log('I was closed by the timer');
+            }
+        });
         var params = {
             account: account,
             password: password,
             captcha: code
         };
         _common.ajax(url, 'POST', params, function(data){
+            clearInterval(timerInterval);
             window.location.href = '/shadow/login';
         }, function(error){
             _common.failAlert(error.msg);
             _common.flushCaptcha();
+            clearInterval(timerInterval);
         });
     };
 
