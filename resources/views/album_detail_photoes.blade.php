@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>jQuery lightGallery demo</title>
+        <title>{{ $title }} · iLegs</title>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport"/>
+        <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+        <meta content="telephone=no,email=no,adress=no" name="format-detection"/>
         <link href="{{ $s }}/lightGallery-1.6.11/lightgallery.min.css" rel="stylesheet">
         <script src="{{ $s }}/js/jquery-1.10.2.js"></script>
     </head>

@@ -25,6 +25,7 @@ class AlbumDetailController extends WebController
         if (!$o_album) {
             return Redirect::to('/');
         }
+        $a_result['title'] = $o_album->title;
         $s_result = $this->getRedisData(static::RDS_KEY . $o_album->id);
         if (false !== $s_result) {
             $a_result['photoes'] = json_decode($s_result, true);
