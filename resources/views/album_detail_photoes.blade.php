@@ -71,8 +71,11 @@
         $(document).ready(function(){
             $('#lightgallery').lightGallery({
                 share: false,
-                download: false
+                download: false,
+                controls: false
             });
+
+            $(".lg-toogle-thumb.lg-icon").click();
 
             $("img.lazyload").lazyload();
         });
