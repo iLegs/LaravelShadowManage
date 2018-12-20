@@ -40,20 +40,20 @@
         <div class="mui-content">
             <ul class="mui-table-view mui-grid-view">
                 @foreach($albums as $album)
-                <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-2">
-                    <a href="/album/detail/{{ $album['id'] }}.html">
-                        <img class="mui-media-object" src="{{ $album['cover'] }}">
-                        <div class="mui-media-body">{{ $album['title'] }}</div>
-                    </a>
-                </li>
+                    <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-2">
+                        <a href="/album/detail/{{ $album['id'] }}.html">
+                            <img class="mui-media-object lazyload" data-src="{{ $album['cover'] }}" src="{{ $s }}/img/wz.png">
+                            <div class="mui-media-body">{{ $album['title'] }}</div>
+                        </a>
+                    </li>
                 @endforeach
             </ul>
         </div>
     </body>
+    <script src="{{ $s }}/js/jquery-1.10.2.js"></script>
     <script src="{{ $s }}/mui/js/mui.min.js"></script>
-    <script>
-        mui.init({
-            swipeBack:true //启用右滑关闭功能
-        });
+    <script src="{{ $s }}/js/lazyload.min.js"></script>
+    <script type="text/javascript">
+        $("img.lazyload").lazyload();
     </script>
 </html>
