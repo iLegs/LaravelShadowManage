@@ -81,14 +81,16 @@ class Album extends Model
     {
         if ('' == $this->cover) {
             return array(
-                'preview' => '//s.imcn.vip/img/wz.png',
+                'shadow_cover' => '//s.imcn.vip/img/wz.png',
+                'mobile_cover' => '//s.imcn.vip/img/wz.png',
                 'original' => '//s.imcn.vip/img/wz.png'
             );
         }
         $auth = new Auth(getenv('QINIU_AK'), getenv('QINIU_SK'));
         $baseUrl = 'http://' . getenv('QINIU_DOMAIN') . '/' . $this->cover;
         $a_result = array(
-            'preview' => $auth->privateDownloadUrl($baseUrl . '-cover'),
+            'shadow_cover' => $auth->privateDownloadUrl($baseUrl . '-shadow_cover'),
+            'mobile_cover' => $auth->privateDownloadUrl($baseUrl . '-mobile_cover'),
             'original' => $auth->privateDownloadUrl($baseUrl)
         );
 

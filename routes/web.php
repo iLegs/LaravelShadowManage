@@ -11,9 +11,7 @@
 Route::get('/gencaptcha', 'CaptchaController@onGet');
 
 //首页
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'IndexController@onGet');
 
 //后台路由组
 Route::group(["prefix" => "shadow", "middleware" => "shadow"], function() {

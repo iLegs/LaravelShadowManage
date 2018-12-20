@@ -107,7 +107,7 @@
                     </td>
                     <td height="80">
                         <a href="{{ $album->getCover()['original'] }}" target="_blank">
-                            <img src="{{ $album->getCover()['preview'] }}" style="width: 45px;height: 80px;border-radius: 10px;padding: 5px;">
+                            <img src="{{ $album->getCover()['shadow_cover'] }}" style="width: 45px;height: 80px;border-radius: 10px;padding: 5px;">
                         </a>
                     </td>
                     <td>
