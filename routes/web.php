@@ -12,6 +12,8 @@ Route::get('/gencaptcha', 'CaptchaController@onGet');
 
 //首页
 Route::get('/', 'IndexController@onGet');
+//浏览专辑下的所有图片
+Route::get('/album/detail', 'AlbumDetailController@onGet');
 
 //后台路由组
 Route::group(["prefix" => "shadow", "middleware" => "shadow"], function() {
