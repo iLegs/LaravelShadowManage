@@ -18,6 +18,8 @@ class AlbumDetailController extends WebController
 {
     const RDS_KEY = 'photoes:album_';
 
+    const LIFE_TIME = 1200;
+
     public function onGet($albumid)
     {
         $a_result = array();

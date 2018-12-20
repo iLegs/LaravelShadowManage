@@ -14,6 +14,8 @@ use App\Http\Models\Common\Album;
 
 class IndexController extends WebController
 {
+    const LIFE_TIME = 1200;
+
     /**
      * Redis key 专辑列表。
      */
