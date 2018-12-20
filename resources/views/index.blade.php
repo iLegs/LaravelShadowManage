@@ -41,7 +41,7 @@
             <ul class="mui-table-view mui-grid-view">
                 @foreach($albums as $album)
                 <li class="mui-table-view-cell mui-media mui-col-xs-6">
-                    <a href="#">
+                    <a href="/album/detail/{{ $album['id'] }}.html">
                         <img class="mui-media-object" src="{{ $album['cover'] }}">
                         <div class="mui-media-body">{{ $album['title'] }}</div>
                     </a>
