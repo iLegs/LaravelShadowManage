@@ -75,7 +75,9 @@
                 controls: false
             });
 
-            $(".lg-toogle-thumb.lg-icon").click();
+            $('#lightgallery').addEventListener('onAfterOpen', function(e){
+                $(".lg-toogle-thumb.lg-icon").click();
+            }, false);
 
             $("img.lazyload").lazyload();
         });
