@@ -76,11 +76,9 @@
     <script type="text/javascript">
     $(function(){
         DWZ.init("{{ $s }}/dwz/dwz.frag.xml", {
-            loginUrl:"/shadow/login",
-            loginTitle:"登录",  // 弹出登录对话框
-            //loginUrl:"/shadow/login",  // 跳到登录页面
+            loginUrl:"/shadow/login",  // 跳到登录页面
             statusCode:{
-                ok: 200, error: 403,
+                ok: 200, error: 403, timeout: 301
             },
             pageInfo:{
                 pageNum: "pageNum",
@@ -200,7 +198,7 @@
 </div>
 <div id="footer">
     Copyright &copy; 2018
-    <a href="demo_page2.html" target="dialog">Fairyin</a>
+    <a href="//github.com/fairyin" target="dialog">Fairyin</a>
 </div>
 </body>
 </html>

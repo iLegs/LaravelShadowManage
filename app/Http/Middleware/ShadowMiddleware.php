@@ -36,7 +36,7 @@ class ShadowMiddleware
                     Session::remove('u');
                 }
 
-                return Redirect::to('/shadow/login');
+                return Response::json(array("message" => "Token身份令牌失效～", "statusCode" => 301), 301);
             }
             $request->attributes->add(['user' => $o_user]);
 
@@ -47,7 +47,7 @@ class ShadowMiddleware
                 Session::remove('u');
             }
 
-            return Redirect::to('/shadow/login');
+            return Response::json(array("message" => "Token身份令牌失效～", "statusCode" => 301), 301);
         }
     }
 }

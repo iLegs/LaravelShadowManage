@@ -28,7 +28,7 @@ $(document).ready(function(){
         Swal({
             title: '正在登录～',
             html: '窗口将在 <strong></strong> 秒内关闭.',
-            timer: 5000,
+            timer: 3000,
             allowOutsideClick: false,
             onBeforeOpen: () => {
                 Swal.showLoading();
