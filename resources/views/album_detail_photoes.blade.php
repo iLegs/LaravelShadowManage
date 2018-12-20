@@ -36,6 +36,7 @@
 </head>
 <body class="home">
     <header class="mui-bar mui-bar-nav">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
         <h1 class="mui-title">{{ $title }}</h1>
     </header>
     <div class="mui-content">
@@ -60,6 +61,7 @@
     <script src="{{ $s }}/lightGallery-1.6.11/picturefill.min.js"></script>
     <script src="{{ $s }}/lightGallery-1.6.11/lightgallery-all.min.js"></script>
     <script src="{{ $s }}/lightGallery-1.6.11/jquery.mousewheel.min.js"></script>
+    <script src="{{ $s }}/mui/js/mui.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             $('#lightgallery').lightGallery();
