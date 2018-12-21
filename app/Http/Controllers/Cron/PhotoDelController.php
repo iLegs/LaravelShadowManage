@@ -54,7 +54,7 @@ class PhotoDelController extends CronController
             }
             $o_photo->status = 0;
             $o_photo->save();
-            $this->cleanRedisData(static::RDS_DEL_KEY . $o_photo->album_id);
+            //$this->cleanRedisData(static::RDS_DEL_KEY . $o_photo->album_id);
             Log::info('cron photo delete success:' . $o_photo->qn_key);
         }
 
