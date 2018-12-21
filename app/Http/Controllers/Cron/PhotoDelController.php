@@ -44,7 +44,7 @@ class PhotoDelController extends CronController
             if (!$o_photo || $o_photo->status != 1) {
                 continue;
             } elseif (!in_array($a_row['ip'], $a_ips)) {
-                Log::info('photo delete ip error');
+                Log::info('photo delete ip error:' . $a_row['ip']);
                 continue;
             }
             $err = $o_manage->delete($s_bucket, $o_photo->qn_key);
