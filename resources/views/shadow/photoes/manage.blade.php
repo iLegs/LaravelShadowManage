@@ -94,10 +94,10 @@
                         @endif
                     </td>
                     <td>
-                        <img src="{{ $photo->getUrl() }}">
+                        <img src="{{ $photo->getUrl()['preview'] }}">
                     </td>
                     <td>
-                        {{ $photo->qn_key }}
+                        <a href="{{ $photo->getUrl()['original'] }}" download="{{ $photo->qn_key }}"></a>
                     </td>
                     <td>{{ $photo->add_time }}</td>
                 </tr>

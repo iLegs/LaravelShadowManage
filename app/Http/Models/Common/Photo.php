@@ -37,6 +37,9 @@ class Photo extends Model
         $auth = new Auth(getenv('QINIU_AK'), getenv('QINIU_SK'));
         $baseUrl = 'http://' . getenv('QINIU_DOMAIN') . '/' . $this->qn_key;
 
-        return $auth->privateDownloadUrl($baseUrl . '-preview');
+        return array(
+            'preview' => $auth->privateDownloadUrl($baseUrl . '-preview'),
+            'original' => $auth->privateDownloadUrl($baseUrl)
+        );
     }
 }
