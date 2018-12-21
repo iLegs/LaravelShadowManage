@@ -11,7 +11,7 @@ namespace App\Http\Controllers\Shadow\Photoes;
 
 use Input;
 use App\Http\Models\Common\Album;
-use App\Http\Models\Common\Photo;
+use App\Http\Models\Common\AlbumPhoto;
 use App\Http\Controllers\ShadowController;
 
 class ManageController extends ShadowController
@@ -32,11 +32,11 @@ class ManageController extends ShadowController
         if (-1 == $i_type) {
             $s_type_eq = '!=';
         }
-        $i_count = Photo::where('status', '=', 1)
+        $i_count = AlbumPhoto::where('status', '=', 1)
             ->where('album_id', $s_album_eq, $i_album)
             ->where('type', $s_type_eq, $i_type)
             ->count();
-        $o_photoes = Photo::where('status', '=', 1)
+        $o_photoes = AlbumPhoto::where('status', '=', 1)
             ->where('type', $s_type_eq, $i_type)
             ->where('album_id', $s_album_eq, $i_album)
             ->orderBy('id', 'DESC')

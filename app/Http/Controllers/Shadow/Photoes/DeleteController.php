@@ -10,7 +10,7 @@
 namespace App\Http\Controllers\Shadow\Photoes;
 
 use Input;
-use App\Http\Models\Common\Photo;
+use App\Http\Models\Common\AlbumPhoto;
 use App\Http\Controllers\ShadowController;
 
 class DeleteController extends ShadowController
@@ -21,7 +21,7 @@ class DeleteController extends ShadowController
         if (!count($a_ids)) {
             return $this->ajaxErrorJson('编号输入错误！');
         }
-        Photo::whereIn('id', $a_ids)->update(array('status' => 2));
+        AlbumPhoto::whereIn('id', $a_ids)->update(array('status' => 2));
 
         return $this->ajaxSuccessJson('删除成功！', 0);
     }

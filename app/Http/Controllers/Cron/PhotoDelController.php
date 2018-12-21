@@ -12,7 +12,7 @@ namespace App\Http\Controllers\Cron;
 use Log;
 use Redis;
 use Qiniu\Auth;
-use App\Http\Models\Common\Photo;
+use App\Http\Models\Common\AlbumPhoto;
 use App\Http\Controllers\Cron\CronController;
 
 class PhotoDelController extends CronController
@@ -40,7 +40,7 @@ class PhotoDelController extends CronController
                 break;
             }
             $a_row = json_decode($s_result, true);
-            $o_photo = Photo::find($a_row['pid']);
+            $o_photo = AlbumPhoto::find($a_row['pid']);
             if (!$o_photo || $o_photo->status != 1) {
                 continue;
             } elseif (!in_array($a_row['ip'], $a_ips)) {
