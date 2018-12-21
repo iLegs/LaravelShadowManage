@@ -96,7 +96,7 @@ class Album extends Model
 
     public function getCover()
     {
-        $s_key = 'album_covers:' . $this->id;
+        $s_key = 'album_covers:' . $this->id . '_' . $this->cover;
         $s_result = $this->getRedisData($s_key);
         $a_result = array(
             'shadow_cover' => '//s.imcn.vip/img/wz.png',
