@@ -74,6 +74,7 @@
                 <th width="40" align="center">所属专辑</th>
                 <th width="80" align="center">类型</th>
                 <th width="160" align="center">图片</th>
+                <th width="80" align="center">七牛key</th>
                 <th width="80" align="center">新增时间</th>
             </tr>
         </thead>
@@ -94,6 +95,9 @@
                     </td>
                     <td>
                         <img src="{{ $photo->getUrl() }}">
+                    </td>
+                    <td>
+                        {{ $photo->qn_key }}
                     </td>
                     <td>{{ $photo->add_time }}</td>
                 </tr>
