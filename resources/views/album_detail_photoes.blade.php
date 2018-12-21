@@ -43,6 +43,9 @@
             .lg-sub-html {
                 display: none;
             }
+            .lg-outer .lg-img-wrap {
+                padding: 0;
+            }
         </style>
 </head>
 <body class="home" data-csrf-token="{{ csrf_token() }}">
