@@ -7,6 +7,7 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <link rel="stylesheet" href="{{ $s }}/mui/css/mui.min.css">
+        <link rel="stylesheet" href="{{ $s }}/dropload/dropload.css">
         <style>
             .mui-table-view-cell img {
                 margin-bottom: 0;
@@ -31,29 +32,71 @@
             .mui-table-view {
                 background-color: #efeff4;
             }
+            .mui-pull-bottom-pocket {
+                height: 50px;
+            }
+            .mui-pull-caption {
+                color: #00000045;
+            }
         </style>
     </head>
-    <body>
+    <body data-csrf-token="{{ csrf_token() }}">
         <header class="mui-bar mui-bar-nav">
             <h1 class="mui-title">首页</h1>
         </header>
         <div class="mui-content">
             <ul class="mui-table-view mui-grid-view">
-                @foreach($albums as $album)
-                    <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-2">
-                        <a href="/album/detail/{{ $album['id'] }}.html">
-                            <img class="mui-media-object lazyload" data-src="{{ $album['cover'] }}" src="{{ $s }}/img/wz.png">
-                            <div class="mui-media-body">{{ $album['title'] }}</div>
-                        </a>
-                    </li>
-                @endforeach
             </ul>
         </div>
     </body>
-    <script src="{{ $s }}/js/jquery-1.10.2.js"></script>
+    <script src="{{ $s }}/dropload/zepto.min.js"></script>
+    <script src="{{ $s }}/dropload/dropload.min.js"></script>
     <script src="{{ $s }}/mui/js/mui.min.js"></script>
-    <script src="{{ $s }}/js/lazyload.min.js"></script>
     <script type="text/javascript">
-        $("img.lazyload").lazyload();
+        String.prototype.format = function () {
+            var args = arguments;
+            var reg = /\{(\d+)\}/g;
+            return this.replace(reg, function (g0, g1) {
+                return args[+g1];
+            });
+        };
+
+        $(function(){
+            var page = 0;
+            var size = 8;
+            $('.mui-content').dropload({
+                scrollArea: window,
+                loadDownFn: function(me){
+                    var result = '';
+                    page++;
+                    $.ajax({
+                        url: '/',
+                        type: 'POST',
+                        data: {
+                            _token: $("body").attr('data-csrf-token'),
+                            page: page
+                        },
+                        dataType: "json",
+                        success: function(data){
+                            if (data.current_count > 0) {
+                                for (var ii in data.rows) {
+                                    result += "<li class='mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-2'><a href='/album/detail/{0}.html'><img class='mui-media-object' src='{1}'><div class='mui-media-body'>{2}</div></a></li>".format(data.rows[ii]['id'], data.rows[ii]['cover'], data.rows[ii]['title']);
+                                }
+                            } else {
+                                // 锁定
+                                me.lock();
+                                // 无数据
+                                me.noData();
+                            }
+                            $('.mui-table-view.mui-grid-view').append(result);
+                            me.resetload();
+                        },
+                        error: function(xhr, type){
+                            me.resetload();
+                        }
+                    });
+                }
+            });
+        });
     </script>
 </html>

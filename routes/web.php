@@ -12,6 +12,8 @@ Route::get('/gencaptcha', 'CaptchaController@onGet');
 
 //首页
 Route::get('/', 'IndexController@onGet');
+Route::post('/', 'IndexController@onPost');
+
 //浏览专辑下的所有图片
 Route::get('/album/detail/{albumid}.html', 'AlbumDetailController@onGet');
 
