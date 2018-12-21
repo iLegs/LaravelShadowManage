@@ -17,6 +17,8 @@ Route::get('/album/detail/{albumid}.html', 'AlbumDetailController@onGet');
 
 Route::post('/photo/del', 'PhotoDelController@onPost');
 
+Route::get('/cron/photo_delete', 'Cron\PhotoDelController@onGet');
+
 //后台路由组
 Route::group(["prefix" => "shadow", "middleware" => "shadow"], function() {
     //退出登录
