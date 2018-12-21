@@ -50,7 +50,7 @@
         </div>
     </body>
     <script src="{{ $s }}/dropload/zepto.min.js"></script>
-    <script src="{{ $s }}/dropload/dropload.min.js"></script>
+    <script src="{{ $s }}/dropload/dropload.min.js?v=v1.0"></script>
     <script src="{{ $s }}/mui/js/mui.min.js"></script>
     <script type="text/javascript">
         String.prototype.format = function () {
