@@ -49,7 +49,6 @@
         </div>
         <script src="{{ $s }}/js/jquery-1.10.2.js"></script>
         <script src="{{ $s }}/js/pace.min.js"></script>
-        <script src="{{ $s }}/js/sweetalert.min.js"></script>
         <script src="{{ $s }}/sweetalert2-7.32.4/sweetalert2.all.min.js"></script>
         <script src="{{ $s }}/js/a_common.js"></script>
         <script src="{{ $s }}/js/login.js"></script>

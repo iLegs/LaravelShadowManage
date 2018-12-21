@@ -3,11 +3,15 @@
 * Copyright (c) 2018 Sachin N; Licensed GPLv3 */
 @font-face {
   font-family: 'lg';
-  src: url("../fonts/lg.eot?n1z373");
-  src: url("../fonts/lg.eot?#iefixn1z373") format("embedded-opentype"), url("../fonts/lg.woff?n1z373") format("woff"), url("../fonts/lg.ttf?n1z373") format("truetype"), url("../fonts/lg.svg?n1z373#lg") format("svg");
+  src:  url('fonts/lg.eot?ulxh3k');
+  src:  url('fonts/lg.eot?ulxh3k#iefix') format('embedded-opentype'),
+    url('fonts/lg.ttf?ulxh3k') format('truetype'),
+    url('fonts/lg.woff?ulxh3k') format('woff'),
+    url('fonts/lg.svg?ulxh3k#lg') format('svg');
   font-weight: normal;
   font-style: normal;
 }
+
 .lg-icon {
   font-family: 'lg';
   speak: none;
@@ -189,6 +193,9 @@
 }
 .lg-toolbar .lg-download:after {
   content: "\e0f2";
+}
+.lg-toolbar .lg-delete:after {
+  content: "\e900";
 }
 
 .lg-sub-html {

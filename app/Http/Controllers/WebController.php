@@ -12,6 +12,7 @@ namespace App\Http\Controllers;
 use Log;
 use Redis;
 use Config;
+use Response;
 use Exception;
 use Illuminate\Routing\Controller as BaseController;
 
@@ -134,5 +135,15 @@ class WebController extends BaseController
 
             return false;
         }
+    }
+
+    protected function successJson($arr = array())
+    {
+        return Response::json($arr, 200);
+    }
+
+    protected function errorJson($msg, $code = 403)
+    {
+        return Response::json(array('msg' => $msg), $code);
     }
 }
