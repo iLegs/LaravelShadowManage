@@ -84,7 +84,8 @@
                 pageNum: "pageNum",
                 numPerPage: "numPerPage",
                 orderField: "orderField",
-                orderDirection: "orderDirection"
+                orderDirection: "orderDirection",
+                pageNumShown: 20
             },
             keys: {
                 statusCode: "statusCode",
