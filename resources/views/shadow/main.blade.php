@@ -166,6 +166,11 @@
                                 图片列表
                             </a>
                         </li>
+                        <li>
+                            <a href="/shadow/qiniufile/manage" target="navTab" rel="qiniu">
+                                七牛云文件搜索
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

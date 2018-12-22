@@ -73,4 +73,7 @@ Route::group(["prefix" => "shadow", "middleware" => "shadow"], function() {
     Route::post('/photoes/delete', 'Shadow\Photoes\DeleteController@onPost');
     Route::post('/photoes/change/horizontal', 'Shadow\Photoes\ChangeController@horizontal');
     Route::post('/photoes/change/vertical', 'Shadow\Photoes\ChangeController@vertical');
+
+    //七牛云文件搜索
+    Route::any('/qiniufile/manage', 'Shadow\QiniuFile\ManageController@any');
 });
