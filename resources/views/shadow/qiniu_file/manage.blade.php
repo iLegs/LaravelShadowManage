@@ -10,6 +10,13 @@
                     <input type="text" name="keywords" value="{{ $keywords }}">
                     <input type="hidden" name="marker" value="{{ $marker }}">
                 </td>
+                <td>
+                    <label>请选择输出结果</label>
+                    <select class="combox" name="type">
+                        <option value="0" @if($type == 0) selected="selected" @endif>列出所有文件</option>
+                        <option value="1" @if($type == 1) selected="selected" @endif>计算最后一张</option>
+                    </select>
+                </td>
             </tr>
         </table>
             <div class="subBar">
