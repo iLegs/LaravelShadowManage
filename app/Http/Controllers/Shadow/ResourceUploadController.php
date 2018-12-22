@@ -67,6 +67,7 @@ class ResourceUploadController extends ShadowController
                 }
                 $o_key->status = 1;
                 $o_key->save();
+                $this->cleanRedisData('flush_albums');
 
                 return $this->ajaxSuccessJson('封面上传成功！', 1, 'albums');
             }

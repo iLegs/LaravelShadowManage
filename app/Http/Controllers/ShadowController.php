@@ -343,4 +343,37 @@ class ShadowController extends BaseController
 
         return true;
     }
+
+    /**
+     * 删除 redis 指定的 key。
+     * @param  string $key 键名
+     * @return bool
+     */
+    protected function cleanRedisData($key, $flag = 0)
+    {
+        try {
+            //批量删除
+            if (1 === $flag) {
+                $a_keys = Redis::keys($key . '*');
+                if (!count($a_keys)) {
+                    return false;
+                }
+                Redis::del($a_keys);
+
+                return true;
+            }
+            //普通删除
+            if (Redis::exists($key)) {
+                Redis::del($key);
+
+                return true;
+            }
+
+            return false;
+        } catch (Exception $e) {
+            Log::info('redis del erroor:' . $key . 'msg:' . $e->getMessage());
+
+            return false;
+        }
+    }
 }
