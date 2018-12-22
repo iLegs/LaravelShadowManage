@@ -57,9 +57,9 @@ class IndexController extends WebController
                                 'cover' => $o_auth->privateDownloadUrl($s_url . '-mobile_cover')
                             );
                         }
+                        $a_albums = array_merge($a_augmenters, $a_albums);
                         $this->setRedisData(static::RDS_KEY, json_encode($a_albums), (static::LIFE_TIME) * 2);
                         $this->setRedisData($s_key, 1, static::FLUSH_TIME);
-                        $a_albums = array_merge($a_augmenters, $a_albums);
                     }
                 }
             }
