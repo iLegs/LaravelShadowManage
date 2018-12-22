@@ -15,7 +15,9 @@ use App\Http\Models\Common\Album;
 
 class IndexController extends WebController
 {
-    const LIFE_TIME = 1200;
+    const LIFE_TIME = 86400;
+
+    const FLUSH_TIME = 3600;
 
     const PAGE_SIZE = 8;
 
@@ -36,6 +38,31 @@ class IndexController extends WebController
         $a_albums = array();
         if (false !== $s_result) {
             $a_albums = json_decode($s_result, true);
+            $s_key = 'flush_albums';
+            if (false == $this->getRedisData($s_key)) {
+                $i_count = Album::where('status', '=', 1)->count();
+                if ($i_count > count($a_albums)){
+                    $a_ids = array_column($a_albums, 'id');
+                    $o_albums = Album::where('status', '=', 1)->whereNotIn('id', $a_ids)
+                        ->orderBy('id', 'DESC')
+                        ->get();
+                    $a_augmenters = array();
+                    if ($o_albums && $o_albums->count() > 0) {
+                        $o_auth = new Auth(getenv('QINIU_AK'), getenv('QINIU_SK'));
+                        foreach ($o_albums as $o_album) {
+                            $s_url = 'http://' . getenv('QINIU_DOMAIN') . '/' . $o_album->cover;
+                            $a_augmenters[] = array(
+                                'id' => $o_album->id,
+                                'title' => $o_album->title,
+                                'cover' => $o_auth->privateDownloadUrl($s_url . '-mobile_cover')
+                            );
+                        }
+                        $this->setRedisData(static::RDS_KEY, json_encode($a_albums), (static::LIFE_TIME) * 2);
+                        $this->setRedisData($s_key, 1, static::FLUSH_TIME);
+                        $a_albums = array_merge($a_augmenters, $a_albums);
+                    }
+                }
+            }
         } else {
             $o_albums = Album::where('status', '=', 1)->orderBy('id', 'DESC')->get();
             $o_auth = new Auth(getenv('QINIU_AK'), getenv('QINIU_SK'));
@@ -48,7 +75,7 @@ class IndexController extends WebController
                         'cover' => $o_auth->privateDownloadUrl($s_url . '-mobile_cover')
                     );
                 }
-                $this->setRedisData(static::RDS_KEY, json_encode($a_albums), static::LIFE_TIME);
+                $this->setRedisData(static::RDS_KEY, json_encode($a_albums), (static::LIFE_TIME) * 2);
             }
         }
         $i_count = count($a_albums);
