@@ -54,7 +54,8 @@ class ManageController extends ShadowController
             'albums' => $o_albums,
             'libs' => $o_libs,
             'libid' => $i_lib,
-            'yearid' => $s_year
+            'yearid' => $s_year,
+            'pageNum' => $i_page
         );
 
         return $this->returnView('shadow.albums.manage', $a_row);

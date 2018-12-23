@@ -1,5 +1,5 @@
 <form id="pagerForm" onsubmit="return navTabSearch(this);" method="get">
-    <input type="hidden" name="pageNum" value="1"/>
+    <input type="hidden" name="pageNum" value="{{ $pageNum }}"/>
     <input type="hidden" name="year" value="{{ $yearid }}"/>
     <input type="hidden" name="lib" value="{{ $libid }}"/>
 </form>
