@@ -1,5 +1,5 @@
 <form id="pagerForm" onsubmit="return navTabSearch(this);" method="get">
-    <input type="hidden" name="pageNum" value="1"/>
+    <input type="hidden" name="pageNum" value="{{ $pageNum }}"/>
     <input type="hidden" name="type" value="{{ $type }}"/>
     <input type="hidden" name="albumid" value="{{ $albumid }}"/>
 </form>
@@ -23,8 +23,8 @@
                         <option value="-1">全部</option>
                         <option value="0" @if($type == 0) selected="selected" @endif>竖图</option>
                         <option value="1" @if($type == 1) selected="selected" @endif>横图</option>
-
                     </select>
+                    <input type="hidden" name="pageNum" value="{{ $pageNum }}"/>
                 </td>
             </tr>
         </table>

@@ -31,6 +31,7 @@
                         <option value="2018" @if('2018' == $yearid)selected="selected"@endif>2018</option>
                         <option value="2019" @if('2019' == $yearid)selected="selected"@endif>2019</option>
                     </select>
+                    <input type="hidden" name="pageNum" value="{{ $pageNum }}"/>
                 </li>
             </ul>
             <div class="subBar">
@@ -38,7 +39,6 @@
                     <li>
                         <div class="buttonActive">
                             <div class="buttonContent">
-                                <input type="" name="hidden" value="{{ $pageNum }}">
                                 <button type="submit">检索</button>
                             </div>
                         </div>

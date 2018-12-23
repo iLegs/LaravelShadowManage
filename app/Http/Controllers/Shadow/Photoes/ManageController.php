@@ -52,7 +52,8 @@ class ManageController extends ShadowController
             'photoes' => $o_photoes,
             'albums' => $o_albums,
             'albumid' => $i_album,
-            'type' => $i_type
+            'type' => $i_type,
+            'pageNum' => $i_page
         );
 
         return $this->returnView('shadow.photoes.manage', $a_row);
