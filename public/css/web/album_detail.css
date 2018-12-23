@@ -1,0 +1,39 @@
+.mui-table-view-cell img {
+    margin-bottom: 0;
+}
+.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-object {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body {
+    font-size: .6rem;
+    width: 100%;
+    text-overflow: ellipsis;
+    color: #333;
+    background-color: #FFFFFF;
+    line-height: 1.2rem;
+    height: 1.2rem;
+    margin-top: -5px;
+    padding: 0 5px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+.mui-table-view {
+    background-color: #efeff4;
+}
+.mui-table-view-cell img {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.lg-delete.lg-icon {
+    font-size: 20px;
+}
+.lg-sub-html {
+    display: none;
+}
+.lg-outer .lg-img-wrap {
+    padding: 0;
+}
+.noscroll {
+    overflow:hidden
+}
