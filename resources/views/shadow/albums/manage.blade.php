@@ -38,6 +38,7 @@
                     <li>
                         <div class="buttonActive">
                             <div class="buttonContent">
+                                <input type="" name="hidden" value="{{ $pageNum }}">
                                 <button type="submit">检索</button>
                             </div>
                         </div>
