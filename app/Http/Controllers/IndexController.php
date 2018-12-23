@@ -54,7 +54,7 @@ class IndexController extends WebController
                             $a_augmenters[] = array(
                                 'id' => $o_album->id,
                                 'title' => $o_album->title,
-                                'cover' => $o_auth->privateDownloadUrl($s_url . '-mobile_cover')
+                                'cover' => $o_auth->privateDownloadUrl($s_url . '-mobile_cover', static::LIFE_TIME * 30)
                             );
                         }
                         $a_albums = array_merge($a_augmenters, $a_albums);
@@ -72,7 +72,7 @@ class IndexController extends WebController
                     $a_albums[] = array(
                         'id' => $o_album->id,
                         'title' => $o_album->title,
-                        'cover' => $o_auth->privateDownloadUrl($s_url . '-mobile_cover')
+                        'cover' => $o_auth->privateDownloadUrl($s_url . '-mobile_cover', static::LIFE_TIME * 30)
                     );
                 }
                 $this->setRedisData(static::RDS_KEY, json_encode($a_albums), (static::LIFE_TIME) * 2);

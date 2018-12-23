@@ -112,9 +112,9 @@ class Album extends Model
             $auth = new Auth(getenv('QINIU_AK'), getenv('QINIU_SK'));
             $baseUrl = 'http://' . getenv('QINIU_DOMAIN') . '/' . $this->cover;
             $a_result = array(
-                'shadow_cover' => $auth->privateDownloadUrl($baseUrl . '-shadow_cover'),
-                'mobile_cover' => $auth->privateDownloadUrl($baseUrl . '-mobile_cover'),
-                'original' => $auth->privateDownloadUrl($baseUrl)
+                'shadow_cover' => $auth->privateDownloadUrl($baseUrl . '-shadow_cover', static::LIFE_TIME * 3),
+                'mobile_cover' => $auth->privateDownloadUrl($baseUrl . '-mobile_cover', static::LIFE_TIME * 3),
+                'original' => $auth->privateDownloadUrl($baseUrl, static::LIFE_TIME * 3)
             );
             $this->setRedisData($s_key, json_encode($a_result), static::LIFE_TIME);
         }

@@ -60,8 +60,8 @@ class AlbumPhoto extends Model
             $auth = new Auth(getenv('QINIU_AK'), getenv('QINIU_SK'));
             $baseUrl = 'http://' . getenv('QINIU_DOMAIN') . '/' . $this->qn_key;
             $a_result = array(
-                'preview' => $auth->privateDownloadUrl($baseUrl . '-preview'),
-                'original' => $auth->privateDownloadUrl($baseUrl)
+                'preview' => $auth->privateDownloadUrl($baseUrl . '-preview', static::LIFE_TIME * 3),
+                'original' => $auth->privateDownloadUrl($baseUrl, static::LIFE_TIME * 3)
             );
             $this->setRedisData($s_key, json_encode($a_result), static::LIFE_TIME);
         }
