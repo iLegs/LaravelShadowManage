@@ -46,6 +46,9 @@
             .lg-outer .lg-img-wrap {
                 padding: 0;
             }
+            .noscroll {
+                overflow:hidden
+            }
         </style>
 </head>
 <body class="home" data-csrf-token="{{ csrf_token() }}">
@@ -127,6 +130,20 @@
             );
 
             $lg.on('onAfterOpen.lg',function(event){
+                $(".lg-toolbar").append('<span class="lg-delete lg-icon"></span>');
+                $(".lg-toolbar .lg-delete.lg-icon").on('click', deleteClick);
+            });
+
+            $lg.on('onBeforeOpen.lg', function(event){
+                $("body").addClass('noscroll');
+            });
+
+            $lg.on('onBeforeClose.lg', function(event){
+                $("body").removeClass('noscroll');
+            });
+
+            $lg.on('onAfterOpen.lg',function(event){
+                $("body").addClass('noscroll');
                 $(".lg-toolbar").append('<span class="lg-delete lg-icon"></span>');
                 $(".lg-toolbar .lg-delete.lg-icon").on('click', deleteClick);
             });
