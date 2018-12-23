@@ -39,11 +39,6 @@ $(document).ready(function(){
         }
     );
 
-    $lg.on('onAfterOpen.lg',function(event){
-        $(".lg-toolbar").append('<span class="lg-delete lg-icon"></span>');
-        $(".lg-toolbar .lg-delete.lg-icon").on('click', deleteClick);
-    });
-
     $lg.on('onBeforeOpen.lg', function(event){
         $("body").addClass('noscroll');
     });
@@ -53,7 +48,6 @@ $(document).ready(function(){
     });
 
     $lg.on('onAfterOpen.lg',function(event){
-        $("body").addClass('noscroll');
         $(".lg-toolbar").append('<span class="lg-delete lg-icon"></span>');
         $(".lg-toolbar .lg-delete.lg-icon").on('click', deleteClick);
     });
