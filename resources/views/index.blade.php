@@ -41,33 +41,11 @@
         </style>
     </head>
     <body data-csrf-token="{{ csrf_token() }}">
-        <div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
-            <!--菜单部分-->
-            <aside id="offCanvasSide" class="mui-off-canvas-right">
-                <div id="offCanvasSideScroll" class="mui-scroll-wrapper">
-                    <div class="mui-scroll">
-                        <div class="title">侧滑导航</div>
-                        <div class="title" style="margin-bottom: 25px;">侧滑列表示例</div>
-                    </div>
-                </div>
-            </aside>
-            <div class="mui-inner-wrap">
-                <header class="mui-bar mui-bar-nav">
-                    <a id="offCanvasBtn" href="#offCanvasSide" class="mui-icon mui-action-menu mui-icon-bars mui-pull-right"></a>
-                    <h1 class="mui-title">首页</h1>
-                </header>
-                <div class="mui-content">
-                    <ul class="mui-table-view mui-grid-view">
-                    </ul>
-                </div>
-                <div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
-                    <div class="mui-scroll">
-                        <div class="mui-content-padded">
-                        </div>
-                    </div>
-                </div>
-                <div class="mui-off-canvas-backdrop"></div>
-            </div>
+        <header class="mui-bar mui-bar-nav">
+            <h1 class="mui-title">首页</h1>
+        </header>
+        <div class="mui-content">
+            <ul class="mui-table-view mui-grid-view"></ul>
         </div>
     </body>
     <script src="{{ $s }}/dropload/zepto.min.js"></script>
