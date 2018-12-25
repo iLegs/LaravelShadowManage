@@ -56,7 +56,10 @@ $(function(){
                         setTimeout(function(){
                             $('#albums').append(result);
                             me.resetload();
-                            $(".navbar-toggler").click();
+                            var flag = $(".navbar-toggler").attr('aria-expanded');
+                            if (flag == 'true') {
+                                $(".navbar-toggler").click();
+                            }
                         }, 1000);
                     },
                     error: function(xhr, type){
