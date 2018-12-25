@@ -15,9 +15,9 @@
     <link rel="stylesheet" href="{{ $s }}/css/web/albums.css">
 </head>
 <body data-csrf-token="{{ csrf_token() }}">
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFF;">
+    <nav class="navbar navbar-expand fixed-top">
         <img src="{{ $s }}/img/logo.jpg" class="logo">
-        <a class="navbar-brand" href="#">iLegs</a>
+        <a class="navbar-brand" href="/">iLegs</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -72,6 +72,6 @@
     <script src="{{ $s }}/bootstrap-4.1.3/bootstrap.min.js"></script>
     <script src="{{ $s }}/bootstrap-4.1.3/popper.min.js"></script>
     <script src="{{ $s }}/dropload/dropload.min.js?v=v1.0"></script>
-    <script src="{{ $s }}/js/web_albums.js?v1.3"></script>
+    <script src="{{ $s }}/js/web_albums.js?v1.4"></script>
 </body>
 </html>

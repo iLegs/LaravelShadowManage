@@ -74,8 +74,16 @@ $(function(){
 
     _index.initDropLoad();
 
+    $(".navbar-toggler").on('click', function(){
+        var flag = $(".navbar-toggler").attr('aria-expanded');
+        if (flag === 'false') {
+            _index.dropload.lock();
+        }
+    });
+
     $(".dropdown-menu a").on('click', function(){
         _index.dropload.resetload();
+        _index.dropload.unlock();
         $(this).parent().find(".dropdown-item").removeClass('active');
         $(this).addClass('active');
         _index.page = 0;
