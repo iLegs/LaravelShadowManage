@@ -11,7 +11,10 @@ namespace App\Http\Controllers;
 
 use Input;
 use Qiniu\Auth;
+use App\Http\Models\Common\Tag;
 use App\Http\Models\Common\Album;
+use App\Http\Models\Common\LegModel;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends WebController
 {
@@ -19,21 +22,97 @@ class IndexController extends WebController
 
     const FLUSH_TIME = 3600;
 
-    const PAGE_SIZE = 8;
+    const PAGE_SIZE = 6;
+
+    const RDS_MODELS_KEY = 'search_models';
+
+    const RDS_TAGS_KEY = 'search_tags';
 
     /**
      * Redis key 专辑列表。
      */
     const RDS_KEY = 'albums_list';
 
+    private static $a_years = array(
+        '2019',
+        '2018',
+        '2017',
+        '2016',
+        '2015',
+        '2014',
+        '2013',
+        '2012',
+        '2011',
+        '2010'
+    );
+
     public function onGet()
     {
-        return $this->returnView('index');
+        $a_models = $a_tmp_models = array();
+        $s_model_result = $this->getRedisData(static::RDS_MODELS_KEY);
+        if (false !== $s_model_result) {
+            $a_models = json_decode($s_model_result, true);
+        } else {
+            $o_r_models = DB::table('relation_album_models')->get();
+            if ($o_r_models->count() > 0) {
+                foreach ($o_r_models as $o_r_model) {
+                    $a_tmp_models[] = $o_r_model->model_id;
+                }
+                $a_tmp_models = array_unique($a_tmp_models);
+                $o_models = LegModel::whereIn('id', $a_tmp_models)
+                    ->where('status', '=', 1)
+                    ->get();
+                if ($o_models->count() > 0) {
+                    foreach ($o_models as $o_model) {
+                        $a_models[] = array(
+                            'id' => $o_model->id,
+                            'name' => $o_model->name
+                        );
+                    }
+                    $this->setRedisData(static::RDS_MODELS_KEY, json_encode($a_models), static::LIFE_TIME);
+                }
+            }
+        }
+        $s_tag_result = $this->getRedisData(static::RDS_TAGS_KEY);
+        $a_tags = $a_tmp_tags = array();
+        if (false !== $s_tag_result) {
+            $a_tags = json_decode($s_tag_result, true);
+        } else {
+            $o_r_tags = DB::table('relation_album_tags')->get();
+            if ($o_r_tags->count() > 0) {
+                foreach ($o_r_tags as $o_r_tag) {
+                    $a_tmp_tags[] = $o_r_tag->tag_id;
+                }
+                $a_tmp_tags = array_unique($a_tmp_tags);
+                $o_tags = Tag::whereIn('id', $a_tmp_tags)
+                    ->where('status', '=', 1)
+                    ->get();
+                if ($o_tags->count() > 0) {
+                    foreach ($o_tags as $o_tag) {
+                        $a_tags[] = array(
+                            'id' => $o_tag->id,
+                            'title' => $o_tag->title
+                        );
+                    }
+                    $this->setRedisData(static::RDS_TAGS_KEY, json_encode($a_tags), static::LIFE_TIME);
+                }
+            }
+        }
+        $a_result = array(
+            'leg_models' => $a_models,
+            'leg_tags' => $a_tags,
+            'years' => static::$a_years
+        );
+
+        return $this->returnView('index', $a_result);
     }
 
     public function onPost()
     {
         $i_page = Input::get('page', 1);
+        $s_year = Input::get('year', 0);
+        $i_model = Input::get('model', 0);
+        $i_tag = Input::get('tag', 0);
         $s_result = $this->getRedisData(static::RDS_KEY);
         $a_albums = array();
         if (false !== $s_result) {
@@ -54,6 +133,9 @@ class IndexController extends WebController
                             $a_augmenters[] = array(
                                 'id' => $o_album->id,
                                 'title' => $o_album->title,
+                                'year' => $o_album->year,
+                                'tags' => $o_album->getTags(),
+                                'models' => $o_album->getModels(),
                                 'cover' => $o_auth->privateDownloadUrl($s_url . '-mobile_cover', static::LIFE_TIME * 30)
                             );
                         }
@@ -72,17 +154,39 @@ class IndexController extends WebController
                     $a_albums[] = array(
                         'id' => $o_album->id,
                         'title' => $o_album->title,
+                        'year' => $o_album->year,
+                        'tags' => $o_album->getTags(),
+                        'models' => $o_album->getModels(),
                         'cover' => $o_auth->privateDownloadUrl($s_url . '-mobile_cover', static::LIFE_TIME * 30)
                     );
                 }
                 $this->setRedisData(static::RDS_KEY, json_encode($a_albums), (static::LIFE_TIME) * 2);
             }
         }
+        if (0 != $s_year && in_array($s_year, static::$a_years)) {
+            $a_albums = array_filter($a_albums, function($element) use ($s_year) {
+                return $s_year == $element['year'] ? 1 : 0;
+            });
+        }
+        if (0 != $i_model) {
+            $a_albums = array_filter($a_albums, function($element) use ($i_model) {
+                return in_array($i_model, array_column($element['models'], 'id'));
+            });
+        }
+        if (0 != $i_tag) {
+            $a_albums = array_filter($a_albums, function($element) use ($i_tag) {
+                return in_array($i_tag, array_column($element['tags'], 'id'));
+            });
+        }
         $i_count = count($a_albums);
         $i_start = ($i_page - 1) * static::PAGE_SIZE;
         $a_rows = array_slice($a_albums, $i_start, static::PAGE_SIZE);
         $a_result = array(
+            'total' => $i_count,
             'page' => $i_page,
+            'models' => $i_model,
+            'tags' => $i_tag,
+            'year' => $s_year,
             'current_count' => count($a_rows),
             'rows' => $a_rows
         );
@@ -90,4 +194,3 @@ class IndexController extends WebController
         return $this->successJson($a_result);
     }
 }
-

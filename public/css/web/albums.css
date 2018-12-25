@@ -1,29 +1,39 @@
-.mui-table-view-cell img {
-    margin-bottom: 0;
-}
-.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-object {
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-}
-.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body {
-    font-size: .6rem;
-    width: 100%;
-    text-overflow: ellipsis;
-    color: #333;
-    background-color: #FFFFFF;
-    line-height: 2rem;
-    height: 2rem;
-    margin-top: -5px;
-    padding: 0 5px;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-}
-.mui-table-view {
+body {
     background-color: #efeff4;
 }
-.mui-pull-bottom-pocket {
-    height: 50px;
+.album-title p {
+    font-size: .8rem;
 }
-.mui-pull-caption {
-    color: #00000045;
+.album-title {
+    padding: .6rem;
+}
+.card {
+    border-radius: .5rem;
+}
+.card img {
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
+}
+.row {
+    padding: 0;
+    margin: 0;
+}
+@media (max-width: 768px){
+    .col-6 {
+        padding: .1rem;
+    }
+}
+@media (min-width: 768px){
+    .col-md-3 {
+        padding: .2rem;
+    }
+}
+@media (min-width: 1200px){
+    .col-xl-2 {
+        padding: .4rem;
+    }
+}
+.logo {
+    width: 3rem;
+    border-radius: .2rem;
 }
