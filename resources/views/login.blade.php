@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="{{ $s }}/css/login.css">
         <link href="{{ $s }}/sweetalert2-7.32.4/sweetalert2.min.css" rel="stylesheet">
     </head>
-    <body class="blank pace-done bd-login" style="background-image: url({{ $s }}/img/bg.jpg);background-size: cover;background-repeat: no-repeat;" data-csrf-token="{{ csrf_token() }}">
+    <body class="blank pace-done bd-login" style="background-image: url({{ $bg }});background-size: cover;background-repeat: no-repeat;" data-csrf-token="{{ csrf_token() }}">
         <div class="wrapper">
             <section class="content">
                 <div class="container-center animated slideInDown">

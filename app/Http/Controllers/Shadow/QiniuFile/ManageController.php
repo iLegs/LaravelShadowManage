@@ -32,9 +32,9 @@ class ManageController extends ShadowController
             // 上次列举返回的位置标记，作为本次列举的起点信息。
             // 本次列举的条目数
             $i_limit = 10000;
-            $s_delimiter = '/';
+            $s_delimiter = '';
             // 列举文件
-            list($ret, $err) = $bucketManager->listFiles($s_bucket, $s_prefix, $s_marker, $i_limit, $s_delimiter);
+            list($ret, $err) = $bucketManager->listFiles($s_bucket, $s_prefix, $s_marker, $i_limit, null);
             if (null === $err) {
                 if (array_key_exists('marker', $ret)) {
                     $s_marker = $ret["marker"];

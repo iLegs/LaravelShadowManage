@@ -12,9 +12,11 @@ namespace App\Http\Controllers;
 use Input;
 use Redis;
 use Session;
-use Redirect;
 use JWTAuth;
+use Redirect;
+use Qiniu\Auth;
 use App\Http\Models\Shadow\User;
+use App\Http\Models\Common\AlbumPhoto;
 
 class LoginController extends ShadowController
 {
@@ -24,13 +26,35 @@ class LoginController extends ShadowController
 
     const RT_LIMIT = 8;
 
+    const RDS_BG_KEY = 'shadow_bg';
+
     public function onGet()
     {
         if ($this->user && $this->user->status == 1) {
             return Redirect::to('/shadow/main');
         }
+        $s_bg = $this->getRedisData('bg');
+        if (false === $s_bg) {
+            $s_result = $this->getRedisData(static::RDS_BG_KEY);
+            $a_results = array();
+            if (false !== $s_result) {
+                $a_results = json_decode($s_result, true);
+            } else {
+                $o_photoes = AlbumPhoto::where('status', '=', 1)->where('type', '=', 1)->get();
+                if ($o_photoes->count() > 0) {
+                    foreach ($o_photoes as $o_photo) {
+                        $a_results[] = $o_photo->qn_key;
+                    }
+                    $this->setRedisData(static::RDS_BG_KEY, json_encode($a_results));
+                }
+            }
+            $i = array_rand($a_results, 1);
+            $auth = new Auth(getenv('QINIU_AK'), getenv('QINIU_SK'));
+            $s_bg = $auth->privateDownloadUrl('http://' . getenv('QINIU_DOMAIN') . '/' . $a_results[$i] . '-crossrange_fhd');
+            $this->setRedisData('bg', $s_bg, 60);
+        }
 
-        return $this->returnView('login');
+        return $this->returnView('login', array('bg' => $s_bg));
     }
 
     public function onPost()

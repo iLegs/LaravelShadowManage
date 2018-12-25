@@ -33,6 +33,18 @@ class ShadowController extends BaseController
      */
     const RDS_LIFE_TIME = 86400;
 
+    const LIFE_TIME = 86400;
+
+    /**
+     * redis 锁接口等待时间（秒）。
+     */
+    const LOCK_TIME = 2;
+
+    /**
+     * 接口休眠时间（微秒）。
+     */
+    const LOCK_WAIT_TIME = 10000;
+
     /**
      * nxid 单位时间（单位：秒）。
      */
@@ -375,5 +387,63 @@ class ShadowController extends BaseController
 
             return false;
         }
+    }
+
+    /**
+     * 获取 redis 数据。
+     * @param  string  $key     键值
+     * @param  bool    $is_lock 是否加锁
+     * @param  string  $token   锁机制值
+     * @return mixed
+     */
+    protected function getRedisData($key, $is_lock = 0)
+    {
+        //键存在，直接返回
+        if (0 == $is_lock && !Redis::exists($key)) {
+            //键不存在，且不加锁。直接返回false，查库。
+            return false;
+        }
+        $s_value = uniqid();
+        //加锁
+        do {
+            $s_lock_key = 'lock:' . $key;
+            if (Redis::exists($key)) {
+                if (Redis::exists($s_lock_key) && Redis::get($s_lock_key) == $s_value) {
+                    Redis::del($s_lock_key);
+                }
+
+                return Redis::get($key);
+            }
+            //当键不存在时设置值，返回 true 或 false
+            $b_key_locked = Redis::set($s_lock_key, $s_value, 'ex', static::LOCK_TIME, 'nx'); //ex 秒
+            if (!$b_key_locked) {
+                // 1秒 = 1000000 微秒
+                //睡眠，降低抢锁频率，缓解redis压力
+                usleep(static::LOCK_WAIT_TIME);
+                continue;
+            }
+
+            return false;
+        } while (!$b_key_locked);
+    }
+
+    /**
+     * 设置redis。
+     * @param string    $key       键名
+     * @param mixed     $value     值
+     * @param int       $life_time 过期时间
+     */
+    protected function setRedisData($key, $value, $life_time = self::LIFE_TIME)
+    {
+        $this->cleanRedisData($key);
+        if (is_null($value) || '' == $value || !count($value)) {
+            return false;
+        }
+        Redis::set($key, is_array($value) ? json_encode($value) : $value);
+        if (static::LIFE_TIME >= 0) {
+            Redis::expire($key, $life_time);
+        }
+
+        return true;
     }
 }
