@@ -56,6 +56,7 @@ $(function(){
                         setTimeout(function(){
                             $('#albums').append(result);
                             me.resetload();
+                            $(".navbar-toggler").click();
                         }, 1000);
                     },
                     error: function(xhr, type){
@@ -84,6 +85,5 @@ $(function(){
         setTimeout(function(){
             _index.initDropLoad();
         }, 10);
-        $(".navbar-toggler").click();
     });
 });
