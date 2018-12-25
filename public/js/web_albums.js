@@ -49,14 +49,14 @@ $(function(){
                             for (var ii in data.rows) {
                                 result += "<div class='col-6 col-md-3 col-xl-2'><div class='card'><a href='/album/detail/{0}.html'><img class='img-fluid' src='{1}' alt='{2}'></a><div class='card-body album-title'><p class='card-text text-truncate text-center'>{2}</p></div></div></div>".format(data.rows[ii]['id'], data.rows[ii]['cover'], data.rows[ii]['title']);
                             }
-                            me.noData(false);
                         } else {
+                            me.lock();
                             me.noData(true);
                         }
-                        if (result != '') {
+                        setTimeout(function(){
                             $('#albums').append(result);
-                        }
-                        me.resetload();
+                            me.resetload();
+                        }, 1000);
                     },
                     error: function(xhr, type){
                         me.lock();
@@ -84,5 +84,6 @@ $(function(){
         setTimeout(function(){
             _index.initDropLoad();
         }, 10);
+        $(".navbar-toggler").click();
     });
 });
