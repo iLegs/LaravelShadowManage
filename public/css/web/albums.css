@@ -18,6 +18,11 @@ body {
     padding: 0;
     margin: 0;
 }
+@media (max-width: 960px){
+    .container {
+        padding: 0;
+    }
+}
 @media (max-width: 768px){
     .col-6 {
         padding: .1rem;

@@ -49,7 +49,7 @@ $(function(){
                     success: function(data){
                         if (data.current_count > 0) {
                             for (var ii in data.rows) {
-                                result += "<div class='col-6 col-md-3 col-xl-2'><div class='card'><a href='/album/detail/{0}.html'><img class='img-fluid' src='{1}' alt='{2}'></a><div class='card-body album-title'><p class='card-text text-truncate text-center'>{2}</p></div></div></div>".format(data.rows[ii]['id'], data.rows[ii]['cover'], data.rows[ii]['title']);
+                                result += "<div class='col-6 col-md-3 col-xl-3'><div class='card'><a href='/album/detail/{0}.html'><img class='img-fluid' src='{1}' alt='{2}'></a><div class='card-body album-title'><p class='card-text text-truncate text-center'>{2}</p></div></div></div>".format(data.rows[ii]['id'], data.rows[ii]['cover'], data.rows[ii]['title']);
                             }
                         } else {
                             me.lock();
