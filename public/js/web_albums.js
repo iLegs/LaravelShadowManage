@@ -9,7 +9,7 @@ String.prototype.format = function () {
 $(function(){
     if ("object" !== typeof _index) _index = {};
 
-    _index.page = 0;
+    _index.page = $("#albums").attr('data-page');
 
     _index.dropid = 'footer';
 
