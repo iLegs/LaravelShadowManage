@@ -18,6 +18,8 @@ $(function(){
     _index.initDropLoad = function(){
         _index.dropload = $('#' + _index.dropid).dropload({
             scrollArea: window,
+            distance: 500,
+            threshold: 1500,
             loadDownFn: function(me){
                 var result = '',
                 year = $(".dropdown-menu.dropdown-menu-right.dp-year").find(".dropdown-item.active").attr('data-year'),

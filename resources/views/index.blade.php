@@ -34,7 +34,7 @@
                         <div class="dropdown-menu dropdown-menu-right dp-year" aria-labelledby="dp-year">
                             <a class="dropdown-item active" href="javascript:void(0);" data-year="0">全部</a>
                             @foreach($years as $year)
-                                <a class="dropdown-item" href="javascript:void(0);" data-year="{{ $year }}">{{ $year }}</a>
+                            <a class="dropdown-item" href="javascript:void(0);" data-year="{{ $year }}">{{ $year }}</a>
                             @endforeach
                         </div>
                     </div>
@@ -87,7 +87,7 @@
     <script src="{{ $s }}/bootstrap-4.1.3/bootstrap.min.js"></script>
     <script src="{{ $s }}/bootstrap-4.1.3/popper.min.js"></script>
     <script src="{{ $s }}/dropload/dropload.min.js?v=v1.0"></script>
-    <script src="{{ $s }}/js/web_albums.js?v1.0.2"></script>
+    <script src="{{ $s }}/js/web_albums.js?v1.0.3"></script>
     <script type="text/javascript">
         var _hmt = _hmt || [];
         (function() {
