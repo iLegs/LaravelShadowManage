@@ -48,6 +48,88 @@ class IndexController extends WebController
         '2010'
     );
 
+    public function onSearch($year, $mdl, $tg)
+    {
+        $a_models = $a_tmp_models = array();
+        $s_model_result = $this->getRedisData(static::RDS_MODELS_KEY);
+        if (false !== $s_model_result) {
+            $a_models = json_decode($s_model_result, true);
+        } else {
+            $o_r_models = DB::table('relation_album_models')->get();
+            if ($o_r_models->count() > 0) {
+                foreach ($o_r_models as $o_r_model) {
+                    $a_tmp_models[] = $o_r_model->model_id;
+                }
+                $a_tmp_models = array_unique($a_tmp_models);
+                $o_models = LegModel::whereIn('id', $a_tmp_models)
+                    ->where('status', '=', 1)
+                    ->get();
+                if ($o_models->count() > 0) {
+                    foreach ($o_models as $o_model) {
+                        $a_models[] = array(
+                            'id' => $o_model->id,
+                            'name' => $o_model->name
+                        );
+                    }
+                    $this->setRedisData(static::RDS_MODELS_KEY, json_encode($a_models), static::LIFE_TIME);
+                }
+            }
+        }
+        $s_tag_result = $this->getRedisData(static::RDS_TAGS_KEY);
+        $a_tags = $a_tmp_tags = array();
+        if (false !== $s_tag_result) {
+            $a_tags = json_decode($s_tag_result, true);
+        } else {
+            $o_r_tags = DB::table('relation_album_tags')->get();
+            if ($o_r_tags->count() > 0) {
+                foreach ($o_r_tags as $o_r_tag) {
+                    $a_tmp_tags[] = $o_r_tag->tag_id;
+                }
+                $a_tmp_tags = array_unique($a_tmp_tags);
+                $o_tags = Tag::whereIn('id', $a_tmp_tags)
+                    ->where('status', '=', 1)
+                    ->get();
+                if ($o_tags->count() > 0) {
+                    foreach ($o_tags as $o_tag) {
+                        $a_tags[] = array(
+                            'id' => $o_tag->id,
+                            'title' => $o_tag->title
+                        );
+                    }
+                    $this->setRedisData(static::RDS_TAGS_KEY, json_encode($a_tags), static::LIFE_TIME);
+                }
+            }
+        }
+        $a_albums = $this->getAlbums();
+        if (0 != $year && in_array($year, static::$a_years)) {
+            $a_albums = array_filter($a_albums, function($element) use ($year) {
+                return $year == $element['year'] ? 1 : 0;
+            });
+        }
+        if (0 != $mdl) {
+            $a_albums = array_filter($a_albums, function($element) use ($mdl) {
+                return in_array($mdl, array_column($element['models'], 'id'));
+            });
+        }
+        if (0 != $tg) {
+            $a_albums = array_filter($a_albums, function($element) use ($tg) {
+                return in_array($tg, array_column($element['tags'], 'id'));
+            });
+        }
+        $a_result = array(
+            'leg_models' => $a_models,
+            'leg_tags' => $a_tags,
+            'years' => static::$a_years,
+            'page' => static::SEO_INDEX_PAGE,
+            'albums' => array_slice($a_albums, 0, static::PAGE_SIZE * static::SEO_INDEX_PAGE),
+            'year' => $year,
+            'mdl' => $mdl,
+            'tg' => $tg
+        );
+
+        return $this->returnView('index', $a_result);
+    }
+
     public function onGet()
     {
         $a_models = $a_tmp_models = array();
@@ -106,7 +188,10 @@ class IndexController extends WebController
             'leg_tags' => $a_tags,
             'years' => static::$a_years,
             'page' => static::SEO_INDEX_PAGE,
-            'albums' => array_slice($a_albums, 0, static::PAGE_SIZE * static::SEO_INDEX_PAGE)
+            'albums' => array_slice($a_albums, 0, static::PAGE_SIZE * static::SEO_INDEX_PAGE),
+            'year' => 0,
+            'mdl' => 0,
+            'tg' => 0
         );
 
         return $this->returnView('index', $a_result);

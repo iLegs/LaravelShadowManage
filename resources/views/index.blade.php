@@ -32,9 +32,9 @@
                             年份筛选
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dp-year" aria-labelledby="dp-year">
-                                <a class="dropdown-item active" href="javascript:void(0);" data-year="0">全部</a>
-                                @foreach($years as $year)
-                                <a class="dropdown-item" href="javascript:void(0);" data-year="{{ $year }}">{{ $year }}</a>
+                                <a class="dropdown-item @if($year == 0) active @endif" href="javascript:void(0);" data-year="0">全部</a>
+                                @foreach($years as $yy)
+                                <a class="dropdown-item @if($year == $yy) active @endif" href="javascript:void(0);" data-year="{{ $yy }}">{{ $yy }}</a>
                                 @endforeach
                             </div>
                         </div>
@@ -45,9 +45,9 @@
                             模特筛选
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dp-model" aria-labelledby="dp-model">
-                                <a class="dropdown-item active" href="javascript:void(0);" data-mdlid="0">全部</a>
+                                <a class="dropdown-item @if($mdl == 0) active @endif" href="javascript:void(0);" data-mdlid="0">全部</a>
                                 @foreach($leg_models as $m)
-                                    <a class="dropdown-item" href="javascript:void(0);" data-mdlid="{{ $m['id'] }}">{{ $m['name'] }}</a>
+                                    <a class="dropdown-item @if($m['id'] == $mdl) active @endif" href="javascript:void(0);" data-mdlid="{{ $m['id'] }}">{{ $m['name'] }}</a>
                                 @endforeach
                             </div>
                         </div>
@@ -58,9 +58,9 @@
                             标签筛选
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dp-tag" aria-labelledby="dp-tag">
-                                <a class="dropdown-item active" href="javascript:void(0);" data-tgid="0">全部</a>
+                                <a class="dropdown-item @if($tg == 0) active @endif" href="javascript:void(0);" data-tgid="0">全部</a>
                                 @foreach($leg_tags as $tag)
-                                    <a class="dropdown-item" href="javascript:void(0);" data-tgid="{{ $tag['id'] }}">{{ $tag['title'] }}</a>
+                                    <a class="dropdown-item @if($tg == $tag['id']) active @endif" href="javascript:void(0);" data-tgid="{{ $tag['id'] }}">{{ $tag['title'] }}</a>
                                 @endforeach
                             </div>
                         </div>
@@ -68,7 +68,21 @@
                 </ul>
             </div>
         </nav>
-
+        <!--
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <button type="button" class="btn icon" data-icon="a"></button>
+                <button type="button" class="btn btn-success">年份：@if($year != 0) {{ $year }} @else 全部 @endif</button>
+            </div>
+            <div class="col-12 col-md-4">
+                <button type="button" class="btn icon" data-icon="&#xe056;"></button>
+                <button type="button" class="btn btn-success" style="">发行时间：全部</button>
+            </div>
+            <div class="col-12 col-md-4">
+                <button type="button" class="btn icon" data-icon="&#xe04c;"></button>
+                <button type="button" class="btn btn-success">标签：全部</button>
+            </div>
+        </div>-->
         <div class="row" id="albums" data-page="{{ $page }}">
             @foreach($albums as $album)
                 <div class="col-6 col-md-3 col-xl-3">
@@ -89,7 +103,7 @@
     <script src="{{ $s }}/bootstrap-4.1.3/bootstrap.min.js"></script>
     <script src="{{ $s }}/bootstrap-4.1.3/popper.min.js"></script>
     <script src="{{ $s }}/dropload/dropload.min.js?v=v1.0"></script>
-    <script src="{{ $s }}/js/web_albums.js?v1.0.4"></script>
+    <script src="{{ $s }}/js/web_albums.js?v1.0.5"></script>
     <script type="text/javascript">
         var _hmt = _hmt || [];
         (function() {

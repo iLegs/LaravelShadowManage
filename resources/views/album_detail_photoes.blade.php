@@ -37,11 +37,10 @@
                 <button type="button" class="btn icon" data-icon="&#xe04c;">
                 </button>
                 @foreach($album->getTags() as $tag)
-                    <button type="button" class="btn btn-outline-success">{{ $tag['title'] }}</button>
+                    <button type="button" class="btn btn-outline-success tz" data-href="/0_0_{{ $tag['id'] }}.html">{{ $tag['title'] }}</button>
                 @endforeach
             </div>
         </div>
-
         <div class="row" id="lightgallery">
             @php $ii = 1; @endphp
             @foreach($photoes as $photo)

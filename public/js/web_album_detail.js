@@ -53,4 +53,8 @@ $(document).ready(function(){
     });
 
     $("img.lazyload").lazyload();
+
+    $(".tz").on('click', function(){
+        window.location.href = $(this).attr('data-href');
+    });
 });
