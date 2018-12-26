@@ -38,5 +38,14 @@
     <script src="{{ $s }}/lightGallery-1.6.11/jquery.mousewheel.min.js"></script>
     <script src="{{ $s }}/js/lazyload.min.js"></script>
     <script src="{{ $s }}/sweetalert2-7.32.4/sweetalert2.all.min.js"></script>
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?3d0f46b4bb96b324fee66680619b38ec";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
 </body>
 </html>
