@@ -1,7 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>iLegs H5 Web App</title>
+    <title>iLegs · 时光印象网</title>
+    <meta name="keywords" content="黑丝，美腿，制服，写真，Ligui，Beautyleg，iLegs，时光印象，时光印象网">
+    <meta name="description" content="时光印象网致力于图片分享，建设最高清、最专业的美图分享网站。">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
