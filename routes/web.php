@@ -21,6 +21,8 @@ Route::post('/photo/del', 'PhotoDelController@onPost');
 
 Route::get('/cron/photo_delete', 'Cron\PhotoDelController@onGet');
 
+Route::get('/sitemap.xml', 'SitemapController@onGet');
+
 //后台路由组
 Route::group(["prefix" => "shadow", "middleware" => "shadow"], function() {
     //退出登录

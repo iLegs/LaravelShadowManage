@@ -162,7 +162,7 @@ class IndexController extends WebController
                 if ($i_count > count($a_albums)){
                     $a_ids = array_column($a_albums, 'id');
                     $o_albums = Album::where('status', '=', 1)->whereNotIn('id', $a_ids)
-                        ->orderBy('id', 'DESC')
+                        ->orderBy('year', 'DESC')
                         ->get();
                     $a_augmenters = array();
                     if ($o_albums && $o_albums->count() > 0) {
