@@ -68,13 +68,26 @@
             </ul>
         </div>
     </nav>
-    <div class="row" id="albums"></div>
+    <div class="row" id="albums" data-page="{{ $page }}">
+        @foreach($albums as $album)
+            <div class="col-6 col-md-3 col-xl-2">
+                <div class="card">
+                    <a href="/album/detail/{{ $album['id'] }}.html">
+                        <img class="img-fluid" src="{{ $album['cover'] }}" alt="{{ $album['title'] }}">
+                    </a>
+                    <div class="card-body album-title">
+                        <p class="card-text text-truncate text-center">{{ $album['title'] }}</p>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
     <div class="container" id="footer"></div>
     <script src="{{ $s }}/bootstrap-4.1.3/jquery-3.3.1.min.js"></script>
     <script src="{{ $s }}/bootstrap-4.1.3/bootstrap.min.js"></script>
     <script src="{{ $s }}/bootstrap-4.1.3/popper.min.js"></script>
     <script src="{{ $s }}/dropload/dropload.min.js?v=v1.0"></script>
-    <script src="{{ $s }}/js/web_albums.js?v1.5"></script>
+    <script src="{{ $s }}/js/web_albums.js?v1.0.1"></script>
     <script type="text/javascript">
         var _hmt = _hmt || [];
         (function() {

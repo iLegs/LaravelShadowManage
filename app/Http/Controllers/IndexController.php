@@ -33,6 +33,8 @@ class IndexController extends WebController
      */
     const RDS_KEY = 'albums_list';
 
+    const SEO_INDEX_PAGE = 3;
+
     private static $a_years = array(
         '2019',
         '2018',
@@ -98,10 +100,13 @@ class IndexController extends WebController
                 }
             }
         }
+        $a_albums = $this->getAlbums();
         $a_result = array(
             'leg_models' => $a_models,
             'leg_tags' => $a_tags,
-            'years' => static::$a_years
+            'years' => static::$a_years,
+            'page' => static::SEO_INDEX_PAGE,
+            'albums' => array_slice($a_albums, 0, static::PAGE_SIZE * static::SEO_INDEX_PAGE)
         );
 
         return $this->returnView('index', $a_result);
@@ -113,8 +118,42 @@ class IndexController extends WebController
         $s_year = Input::get('year', 0);
         $i_model = Input::get('model', 0);
         $i_tag = Input::get('tag', 0);
-        $s_result = $this->getRedisData(static::RDS_KEY);
+        $a_albums = $this->getAlbums();
+        if (0 != $s_year && in_array($s_year, static::$a_years)) {
+            $a_albums = array_filter($a_albums, function($element) use ($s_year) {
+                return $s_year == $element['year'] ? 1 : 0;
+            });
+        }
+        if (0 != $i_model) {
+            $a_albums = array_filter($a_albums, function($element) use ($i_model) {
+                return in_array($i_model, array_column($element['models'], 'id'));
+            });
+        }
+        if (0 != $i_tag) {
+            $a_albums = array_filter($a_albums, function($element) use ($i_tag) {
+                return in_array($i_tag, array_column($element['tags'], 'id'));
+            });
+        }
+        $i_count = count($a_albums);
+        $i_start = ($i_page - 1) * static::PAGE_SIZE;
+        $a_rows = array_slice($a_albums, $i_start, static::PAGE_SIZE);
+        $a_result = array(
+            'total' => $i_count,
+            'page' => $i_page,
+            'models' => $i_model,
+            'tags' => $i_tag,
+            'year' => $s_year,
+            'current_count' => count($a_rows),
+            'rows' => $a_rows
+        );
+
+        return $this->successJson($a_result);
+    }
+
+    private function getAlbums()
+    {
         $a_albums = array();
+        $s_result = $this->getRedisData(static::RDS_KEY);
         if (false !== $s_result) {
             $a_albums = json_decode($s_result, true);
             $s_key = 'flush_albums';
@@ -163,34 +202,7 @@ class IndexController extends WebController
                 $this->setRedisData(static::RDS_KEY, json_encode($a_albums), (static::LIFE_TIME) * 2);
             }
         }
-        if (0 != $s_year && in_array($s_year, static::$a_years)) {
-            $a_albums = array_filter($a_albums, function($element) use ($s_year) {
-                return $s_year == $element['year'] ? 1 : 0;
-            });
-        }
-        if (0 != $i_model) {
-            $a_albums = array_filter($a_albums, function($element) use ($i_model) {
-                return in_array($i_model, array_column($element['models'], 'id'));
-            });
-        }
-        if (0 != $i_tag) {
-            $a_albums = array_filter($a_albums, function($element) use ($i_tag) {
-                return in_array($i_tag, array_column($element['tags'], 'id'));
-            });
-        }
-        $i_count = count($a_albums);
-        $i_start = ($i_page - 1) * static::PAGE_SIZE;
-        $a_rows = array_slice($a_albums, $i_start, static::PAGE_SIZE);
-        $a_result = array(
-            'total' => $i_count,
-            'page' => $i_page,
-            'models' => $i_model,
-            'tags' => $i_tag,
-            'year' => $s_year,
-            'current_count' => count($a_rows),
-            'rows' => $a_rows
-        );
 
-        return $this->successJson($a_result);
+        return $a_albums;
     }
 }
