@@ -17,10 +17,10 @@ class SitemapController extends WebController
 
     public function onGet()
     {
-        $s_key = 'sitemap_key';
+        $s_key = 'sitemap_xml_key';
         $s_result = $this->getRedisData($s_key);
         $a_albums = array();
-        $s_update_date = date('Y-m-d H:i:s', time());
+        $s_update_date = date('Y-m-d', time());
         if ($s_result !== false) {
             $a_result = json_decode($s_result, true);
             $a_albums = $a_result['rows'];

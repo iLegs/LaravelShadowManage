@@ -1,3 +1,5 @@
 User-agent: *
 Disallow: /shadow/
 Allow: /
+
+Sitemap: https://www.imcn.vip/sitemap.xml
