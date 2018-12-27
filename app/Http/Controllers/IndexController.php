@@ -247,7 +247,7 @@ class IndexController extends WebController
                 if ($i_count > count($a_albums)){
                     $a_ids = array_column($a_albums, 'id');
                     $o_albums = Album::where('status', '=', 1)->whereNotIn('id', $a_ids)
-                        ->orderBy('year', 'DESC')
+                        ->orderBy('date', 'DESC')
                         ->get();
                     $a_augmenters = array();
                     if ($o_albums && $o_albums->count() > 0) {
@@ -270,7 +270,7 @@ class IndexController extends WebController
                 }
             }
         } else {
-            $o_albums = Album::where('status', '=', 1)->orderBy('id', 'DESC')->get();
+            $o_albums = Album::where('status', '=', 1)->orderBy('date', 'DESC')->get();
             $o_auth = new Auth(getenv('QINIU_AK'), getenv('QINIU_SK'));
             if ($o_albums && $o_albums->count() > 0) {
                 foreach ($o_albums as $o_album) {
