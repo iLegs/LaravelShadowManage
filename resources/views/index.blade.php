@@ -19,7 +19,7 @@
 <body data-csrf-token="{{ csrf_token() }}" style="background-color: #FFFFFF;">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFFFFF;">
-            <a class="navbar-brand" href="/"><img src="{{ $s }}/img/logo.jpg" class="logo">&nbsp;iLegs</a>
+            <a class="navbar-brand" href="/"><img src="{{ $s }}/img/logo.jpg" class="logo" alt="iLegs · 时光印象网">&nbsp;iLegs</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

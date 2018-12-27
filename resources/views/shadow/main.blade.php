@@ -19,7 +19,7 @@
             margin-left: -4px;
         }
         .pageFormContent.tag label {
-            width: 80px;
+            width: 120px;
         }
         .grid .gridTbody td div {
             height: auto;

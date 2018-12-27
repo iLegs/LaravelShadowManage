@@ -20,18 +20,16 @@
 <body data-csrf-token="{{ csrf_token() }}">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand" href="/"><img src="{{ $s }}/img/logo.jpg" class="logo" alt="时光印象网">&nbsp;iLegs</a>
+            <a class="navbar-brand" href="/"><img src="{{ $s }}/img/logo.jpg" class="logo" alt="iLegs · 时光印象网">&nbsp;iLegs</a>
         </nav>
         <div class="row">
             <div class="col-12 col-md-8">
-                <button type="button" class="btn icon" data-icon="&#xe009;">
-                    </button>
+                <button type="button" class="btn icon" data-icon="&#xe009;"></button>
                  <button type="button" class="btn btn-outline-secondary">{{ $album->title }}</button>
             </div>
             <div class="col-12 col-md-4 right">
-                <button type="button" class="btn icon" data-icon="]">
-                    </button>
-                <button type="button" class="btn btn-outline-secondary" style="">发行时间：{{ $album->date }}</button>
+                <button type="button" class="btn icon" data-icon="]"></button>
+                <button type="button" class="btn btn-outline-secondary">发行时间：{{ $album->date }}</button>
             </div>
             <div class="col-12">
                 <button type="button" class="btn icon" data-icon="&#xe04c;">
