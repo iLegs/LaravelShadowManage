@@ -13,7 +13,7 @@
     <meta name="x5-fullscreen" content="true">
     <link rel="stylesheet" href="{{ $s }}/bootstrap-4.1.3/bootstrap.min.css">
     <link rel="stylesheet" href="{{ $s }}/dripicons/webfont.css">
-    <link rel="stylesheet" href="{{ $s }}/css/web/album_detail.css">
+    <link rel="stylesheet" href="{{ $s }}/css/web/album_detail.css?v1.0.1">
     <link href="{{ $s }}/lightGallery-1.6.11/lightgallery.min.css" rel="stylesheet">
     <link href="{{ $s }}/sweetalert2-7.32.4/sweetalert2.min.css" rel="stylesheet">
 </head>
@@ -46,7 +46,7 @@
             @foreach($photoes as $photo)
                 <div class="col-6 col-md-3" data-responsive="{{ $photo['preview'] }}" data-src="{{ $photo['original'] }}" data-sub-html="{{ $photo['id']}}">
                     <div class="card">
-                        <img src="{{ $s }}/img/wz.png" class="img-fluid lazyload" src="{{ $s }}/img/wz.png" data-src="{{ $photo['preview'] }}" alt="{{ $album->title }}">
+                        <img class="img-fluid lazyload" src="{{ $s }}/img/image.png" data-src="{{ $photo['preview'] }}" alt="{{ $album->title }}">
                         <div class="card-body">
                             <p class="card-text text-center">{{ $ii }}</p>
                         </div>
@@ -57,11 +57,8 @@
         </div>
     </div>
     <script src="{{ $s }}/bootstrap-4.1.3/jquery-3.3.1.min.js"></script>
-    <script src="{{ $s }}/bootstrap-4.1.3/bootstrap.min.js"></script>
-    <script src="{{ $s }}/bootstrap-4.1.3/popper.min.js"></script>
-    <script src="{{ $s }}/dropload/dropload.min.js?v=v1.0"></script>
     <script src="{{ $s }}/js/lazyload.min.js"></script>
-    <script src="{{ $s }}/js/web_album_detail.js"></script>
+    <script src="{{ $s }}/js/web_album_detail.js?v1.0.1"></script>
     <script src="{{ $s }}/lightGallery-1.6.11/picturefill.min.js"></script>
     <script src="{{ $s }}/lightGallery-1.6.11/lightgallery-all.min.js"></script>
     <script src="{{ $s }}/lightGallery-1.6.11/jquery.mousewheel.min.js"></script>

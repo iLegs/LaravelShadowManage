@@ -18,7 +18,7 @@ body{
 
 @media(max-width: 540px){
     .btn.btn-outline-success {
-        font-size: .1rem;
+        font-size: .8rem;
     }
 }
 
@@ -72,4 +72,8 @@ img {
 .card img {
     border-top-left-radius: .5rem;
     border-top-right-radius: .5rem;
+}
+
+.img-fluid.lazyload {
+    width: 400px;
 }
