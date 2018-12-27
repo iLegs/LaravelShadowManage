@@ -1,3 +1,6 @@
+.noscroll {
+    overflow: hidden;
+}
 body{
     background-color: #FFFFFF;
 }

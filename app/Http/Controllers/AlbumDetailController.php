@@ -27,6 +27,8 @@ class AlbumDetailController extends WebController
         if (!$o_album) {
             return Redirect::to('/');
         }
+        $o_album->browse_times += 1;
+        $o_album->save();
         $a_result['album'] = $o_album;
         $s_result = $this->getRedisData(static::RDS_KEY . $o_album->id);
         if (false !== $s_result) {
