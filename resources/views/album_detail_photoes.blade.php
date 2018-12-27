@@ -13,7 +13,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="{{ $s }}/bootstrap-4.1.3/bootstrap.min.css">
     <link rel="stylesheet" href="{{ $s }}/dripicons/webfont.css">
-    <link rel="stylesheet" href="{{ $s }}/css/web/album_detail.css?v1.0.2">
+    <link rel="stylesheet" href="{{ $s }}/css/web/album_detail.css?v1.0.3">
     <link href="{{ $s }}/lightGallery-1.6.11/lightgallery.min.css" rel="stylesheet">
     <link href="{{ $s }}/sweetalert2-7.32.4/sweetalert2.min.css" rel="stylesheet">
 </head>

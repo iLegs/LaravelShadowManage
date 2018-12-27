@@ -23,6 +23,9 @@ body{
     .btn.btn-outline-success {
         font-size: .8rem;
     }
+    .btn.btn-outline-secondary {
+        font-size: .8rem;
+    }
 }
 
 @media (max-width: 768px){
