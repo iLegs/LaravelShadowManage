@@ -88,13 +88,13 @@ class IndexController extends WebController
         $i_tag = Input::get('tag', 0);
         $a_arr = $this->getSearchResult($s_year, $i_model, $i_tag, $i_page);
         $a_result = array(
-            'total' => $i_count,
+            'total' => isset($a_arr['total_count']) ? $a_arr['total_count'] : 0,
             'page' => $i_page,
             'models' => $i_model,
             'tags' => $i_tag,
             'year' => $s_year,
-            'current_count' => count($a_rows),
-            'rows' => $a_rows
+            'current_count' => isset($a_arr['rows']) ? count($a_arr['rows']) : 0,
+            'rows' => isset($a_arr['rows']) ? $a_arr['rows'] : 0
         );
 
         return $this->successJson($a_result);
