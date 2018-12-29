@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\DB;
 
 class IndexController extends WebController
 {
-    const LIFE_TIME = 600;
+    const LIFE_TIME = 43200;
 
     const PAGE_SIZE = 6;
 
@@ -152,12 +152,12 @@ class IndexController extends WebController
                             'album_count' => $this->getModelAlbumCount($o_model->id)
                         );
                     }
-                    $this->setRedisData(static::RDS_MODELS_KEY, json_encode($a_models), static::LIFE_TIME - 10);
+                    $a_count = array_column($a_models, 'album_count');
+                    array_multisort($a_count, SORT_DESC, $a_models);
+                    $this->setRedisData(static::RDS_MODELS_KEY, json_encode($a_models), static::LIFE_TIME * 2);
                 }
             }
         }
-        $a_count = array_column($a_models, 'album_count');
-        array_multisort($a_count, SORT_DESC, $a_models);
 
         return $a_models;
     }
@@ -218,12 +218,12 @@ class IndexController extends WebController
                             'album_count' => $this->getTagAlbumCount($o_tag->id)
                         );
                     }
-                    $this->setRedisData(static::RDS_TAGS_KEY, json_encode($a_tags), static::LIFE_TIME - 10);
+                    $a_count = array_column($a_tags, 'album_count');
+                    array_multisort($a_count, SORT_DESC, $a_tags);
+                    $this->setRedisData(static::RDS_TAGS_KEY, json_encode($a_tags), static::LIFE_TIME * 2);
                 }
             }
         }
-        $a_count = array_column($a_tags, 'album_count');
-        array_multisort($a_count, SORT_DESC, $a_tags);
 
         return $a_tags;
     }
