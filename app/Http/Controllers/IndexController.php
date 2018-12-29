@@ -212,7 +212,7 @@ class IndexController extends WebController
             });
         }
         $i_count = count($a_albums);
-        $a_rows = aray();
+        $a_rows = array();
         if (0 === $page) {
             $a_rows = array_slice($a_albums, 0, static::PAGE_SIZE * static::SEO_INDEX_PAGE);
         } else {
