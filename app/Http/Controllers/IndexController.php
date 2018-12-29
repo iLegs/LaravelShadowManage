@@ -65,7 +65,7 @@ class IndexController extends WebController
 
     public function onGet()
     {
-        $a_arr = $this->getSearchResult($year, $mdl, $tg);
+        $a_arr = $this->getSearchResult();
         $a_result = array(
             'leg_models' => $this->getAllModels(),
             'leg_tags' => $this->getAllTags(),
@@ -190,7 +190,7 @@ class IndexController extends WebController
         return $a_tags;
     }
 
-    private function getSearchResult($year, $mdl, $tg, $page = 0)
+    private function getSearchResult($year = 0, $mdl = 0, $tg = 0, $page = 0)
     {
         $year = (int) $year;
         $mdl = (int) $mdl;
