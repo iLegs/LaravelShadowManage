@@ -99,4 +99,8 @@ $(function(){
             _index.initDropLoad();
         }, 10);
     });
+
+    $(".tz").on('click', function(){
+        window.location.href = $(this).attr('data-href');
+    });
 });

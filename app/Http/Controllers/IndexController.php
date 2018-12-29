@@ -22,9 +22,9 @@ class IndexController extends WebController
 
     const PAGE_SIZE = 6;
 
-    const RDS_MODELS_KEY = 'search_models_list';
+    const RDS_MODELS_KEY = 'search_models_lists';
 
-    const RDS_TAGS_KEY = 'search_tags_list';
+    const RDS_TAGS_KEY = 'search_tags_lists';
 
     /**
      * Redis key 专辑列表。
@@ -148,15 +148,50 @@ class IndexController extends WebController
                     foreach ($o_models as $o_model) {
                         $a_models[] = array(
                             'id' => $o_model->id,
-                            'name' => $o_model->name
+                            'name' => $o_model->name,
+                            'album_count' => $this->getModelAlbumCount($o_model->id)
                         );
                     }
                     $this->setRedisData(static::RDS_MODELS_KEY, json_encode($a_models), static::LIFE_TIME - 10);
                 }
             }
         }
+        $a_count = array_column($a_models, 'album_count');
+        array_multisort($a_count, SORT_DESC, $a_models);
 
         return $a_models;
+    }
+
+    private function getModelAlbumCount($model_id)
+    {
+        $i_count = 0;
+        $a_albums = $this->getAlbums();
+        if (!count($a_albums)) {
+            return $i_count;
+        }
+        foreach ($a_albums as $album) {
+            if (in_array($model_id, array_column($album['models'], 'id'))) {
+                $i_count += 1;
+            }
+        }
+
+        return $i_count;
+    }
+
+    private function getTagAlbumCount($tag_id)
+    {
+        $a_albums = $this->getAlbums();
+        $i_count = 0;
+        if (!count($a_albums)) {
+            return $i_count;
+        }
+        foreach ($a_albums as $album) {
+            if (in_array($tag_id, array_column($album['tags'], 'id'))) {
+                $i_count += 1;
+            }
+        }
+
+        return $i_count;
     }
 
     private function getAllTags()
@@ -179,13 +214,16 @@ class IndexController extends WebController
                     foreach ($o_tags as $o_tag) {
                         $a_tags[] = array(
                             'id' => $o_tag->id,
-                            'title' => $o_tag->title
+                            'title' => $o_tag->title,
+                            'album_count' => $this->getTagAlbumCount($o_tag->id)
                         );
                     }
                     $this->setRedisData(static::RDS_TAGS_KEY, json_encode($a_tags), static::LIFE_TIME - 10);
                 }
             }
         }
+        $a_count = array_column($a_tags, 'album_count');
+        array_multisort($a_count, SORT_DESC, $a_tags);
 
         return $a_tags;
     }

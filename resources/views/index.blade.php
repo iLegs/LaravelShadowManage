@@ -14,16 +14,15 @@
     <link rel="stylesheet" href="{{ $s }}/bootstrap-4.1.3/bootstrap.min.css">
     <link rel="stylesheet" href="{{ $s }}/dropload/dropload.css">
     <link rel="stylesheet" href="{{ $s }}/dripicons/webfont.css">
-    <link rel="stylesheet" href="{{ $s }}/css/web/albums.css?v1.0">
+    <link rel="stylesheet" href="{{ $s }}/css/web/albums.css?v1.0.1">
 </head>
-<body data-csrf-token="{{ csrf_token() }}" style="background-color: #FFFFFF;">
+<body data-csrf-token="{{ csrf_token() }}">
     <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFFFFF;">
+        <nav class="navbar navbar-expand-lg navbar-light">
             <a class="navbar-brand" href="/"><img src="{{ $s }}/img/logo.jpg" class="logo" alt="iLegs · 时光印象网">&nbsp;iLegs</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
@@ -34,7 +33,7 @@
                             <div class="dropdown-menu dropdown-menu-right dp-year" aria-labelledby="dp-year">
                                 <a class="dropdown-item @if($year == 0) active @endif" href="javascript:void(0);" data-year="0">全部</a>
                                 @foreach($years as $yy)
-                                <a class="dropdown-item @if($year == $yy) active @endif" href="javascript:void(0);" data-year="{{ $yy }}">{{ $yy }}</a>
+                                    <a class="dropdown-item @if($year == $yy) active @endif" href="javascript:void(0);" data-year="{{ $yy }}">{{ $yy }}</a>
                                 @endforeach
                             </div>
                         </div>
@@ -68,21 +67,6 @@
                 </ul>
             </div>
         </nav>
-        <!--
-        <div class="row">
-            <div class="col-12 col-md-4">
-                <button type="button" class="btn icon" data-icon="a"></button>
-                <button type="button" class="btn btn-success">年份：@if($year != 0) {{ $year }} @else 全部 @endif</button>
-            </div>
-            <div class="col-12 col-md-4">
-                <button type="button" class="btn icon" data-icon="&#xe056;"></button>
-                <button type="button" class="btn btn-success" style="">发行时间：全部</button>
-            </div>
-            <div class="col-12 col-md-4">
-                <button type="button" class="btn icon" data-icon="&#xe04c;"></button>
-                <button type="button" class="btn btn-success">标签：全部</button>
-            </div>
-        </div>-->
         <div class="row" id="albums" data-page="{{ $page }}">
             @foreach($albums as $album)
                 <div class="col-6 col-md-3 col-xl-3">
@@ -98,12 +82,44 @@
             @endforeach
         </div>
     </div>
+    <div class="fixed-top models d-none">
+        <ul class="nav flex-column">
+            <li class="col-lg-12">
+                <button type="button" class="btn icon" data-icon="&#xe057;"></button>
+                <button type="button" class="btn btn-info" disabled="disabled">热门模特列表</button>
+                <button type="button" class="btn @if($mdl != 0) btn-outline-info @else btn-info @endif tz" data-href="/0_0_0.html">全部</button>
+            </li>
+            <li>
+                @foreach($leg_models as $m)
+                    <button type="button" class="btn @if($mdl == $m['id']) btn-info @else btn-outline-info @endif tz" data-href="/0_{{ $m['id'] }}_0.html">
+                        {{ $m['name'] }} <span class="badge badge-warning">{{ $m['album_count'] }}</span>
+                    </button>
+                @endforeach
+            </li>
+        </ul>
+    </div>
+    <div class="fixed-top tags d-none">
+        <ul class="nav flex-column">
+            <li class="col-lg-12">
+                <button type="button" class="btn icon" data-icon="&#xe04c;"></button>
+                <button type="button" class="btn btn-info" disabled="disabled">标签列表</button>
+                <button type="button" class="btn @if($tg != 0) btn-outline-info @else btn-info @endif  tz" data-href="/0_0_0.html">全部</button>
+            </li>
+            <li>
+                @foreach($leg_tags as $legtag)
+                    <button type="button" class="btn @if($tg == $legtag['id']) btn-info @else btn-outline-info @endif tz" data-href="/0_0_{{ $legtag['id'] }}.html">
+                        {{ $legtag['title'] }} <span class="badge badge-warning">{{ $legtag['album_count'] }}</span>
+                    </button>
+                @endforeach
+            </li>
+        </ul>
+    </div>
     <div class="container" id="footer"></div>
     <script src="{{ $s }}/bootstrap-4.1.3/jquery-3.3.1.min.js"></script>
     <script src="{{ $s }}/bootstrap-4.1.3/bootstrap.min.js"></script>
     <script src="{{ $s }}/bootstrap-4.1.3/popper.min.js"></script>
     <script src="{{ $s }}/dropload/dropload.min.js?v=v1.0"></script>
-    <script src="{{ $s }}/js/web_albums.js?v1.0.5"></script>
+    <script src="{{ $s }}/js/web_albums.js?v1.0.6"></script>
     <script type="text/javascript">
         var _hmt = _hmt || [];
         (function() {

@@ -1,5 +1,44 @@
+@media(min-width: 1920px) {
+    .btn.icon{
+        font-size: 2rem;
+        padding: 0;
+        color: #f6a821;
+    }
+    .fixed-top.models .col-12 {
+        padding-left: 0;
+    }
+    .fixed-top.models .tz{
+        margin: .1rem;
+        width: 8rem;
+        font-size: 1rem;
+        text-align: center;
+    }
+    .fixed-top.models {
+        width: 25%;
+        display: block !important;
+    }
+    .collapse.navbar-collapse{
+        display: none !important;
+    }
+    .fixed-top.tags {
+        left: 79%;
+        display: block !important;
+    }
+    .fixed-top.tags .btn {
+        margin: .2rem;
+    }
+    .fixed-top.tags .tz{
+        margin: .1rem;
+        width: 7.5rem;
+        font-size: 1rem;
+        text-align: center;
+    }
+}
 body {
-    background-color: #efeff4;
+background-color: #FFFFFF;
+}
+.navbar.navbar-expand-lg.navbar-light{
+background-color: #FFFFFF;
 }
 .album-title p {
     font-size: .8rem;
