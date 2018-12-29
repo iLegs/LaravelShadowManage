@@ -8,7 +8,7 @@
             <fieldset>
                 <dl class="nowrap">
                     <dt>请输入简介：</dt>
-                    <dd><textarea name="desc" cols="160" rows="4" class="textInput"></textarea></dd>
+                    <dd><textarea name="desc" cols="160" rows="2" class="textInput"></textarea></dd>
                 </dl>
             </fieldset>
             <h2 class="contentTitle">请选择专辑标签</h2>
@@ -18,7 +18,7 @@
                 @endforeach
             </div>
             <h2 class="contentTitle">请选择专辑模特</h2>
-            <div class="pageFormContent tag">
+            <div class="pageFormContent mdl">
                 @foreach($legmodels as $legmodel)
                     <label><input type="checkbox" name="mdl[]" value="{{ $legmodel->id }}">{{ $legmodel->name }}</label>
                 @endforeach
