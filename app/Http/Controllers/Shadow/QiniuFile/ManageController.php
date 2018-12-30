@@ -28,6 +28,7 @@ class ManageController extends ShadowController
         $s_prefix = Input::get('keywords', '');
         $s_marker = Input::get('marker', '');
         $i_type = Input::get('type', 0);
+        $i_count = 0;
         if ('' != $s_prefix) {
             // 上次列举返回的位置标记，作为本次列举的起点信息。
             // 本次列举的条目数
@@ -39,6 +40,7 @@ class ManageController extends ShadowController
                 if (array_key_exists('marker', $ret)) {
                     $s_marker = $ret["marker"];
                 }
+                $i_count = count($ret['items']);
                 foreach ($ret['items'] as $vv) {
                     if (1 == $i_type) {
                         $s_str = $vv['key'];
@@ -56,7 +58,7 @@ class ManageController extends ShadowController
             'rows' => $a_rows,
             'marker' => $s_marker,
             'type' => $i_type,
-            'total_count' => count($ret['items'])
+            'total_count' => $i_count
         );
 
         return $this->returnView('shadow.qiniu_file.manage', $a_reuslt);
