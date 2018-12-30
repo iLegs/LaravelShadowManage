@@ -91,9 +91,11 @@
             </li>
             <li>
                 @foreach($leg_models as $m)
-                    <button type="button" class="btn @if($mdl == $m['id']) btn-info @else btn-outline-info @endif tz" data-href="/0_{{ $m['id'] }}_0.html">
-                        {{ $m['name'] }} <span class="badge badge-warning">{{ $m['album_count'] }}</span>
-                    </button>
+                    @if($m['album_count'] > 1)
+                        <button type="button" class="btn @if($mdl == $m['id']) btn-info @else btn-outline-info @endif tz" data-href="/0_{{ $m['id'] }}_0.html">
+                            {{ $m['name'] }} <span class="badge badge-warning">{{ $m['album_count'] }}</span>
+                        </button>
+                    @endif
                 @endforeach
             </li>
         </ul>
@@ -107,9 +109,11 @@
             </li>
             <li>
                 @foreach($leg_tags as $legtag)
-                    <button type="button" class="btn @if($tg == $legtag['id']) btn-info @else btn-outline-info @endif tz" data-href="/0_0_{{ $legtag['id'] }}.html">
-                        {{ $legtag['title'] }} <span class="badge badge-warning">{{ $legtag['album_count'] }}</span>
-                    </button>
+                    @if($legtag['album_count'] > 1)
+                        <button type="button" class="btn @if($tg == $legtag['id']) btn-info @else btn-outline-info @endif tz" data-href="/0_0_{{ $legtag['id'] }}.html">
+                            {{ $legtag['title'] }} <span class="badge badge-warning">{{ $legtag['album_count'] }}</span>
+                        </button>
+                    @endif
                 @endforeach
             </li>
         </ul>
