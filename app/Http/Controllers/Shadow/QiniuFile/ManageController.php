@@ -31,7 +31,7 @@ class ManageController extends ShadowController
         if ('' != $s_prefix) {
             // 上次列举返回的位置标记，作为本次列举的起点信息。
             // 本次列举的条目数
-            $i_limit = 10000;
+            $i_limit = 5000;
             $s_delimiter = '';
             // 列举文件
             list($ret, $err) = $bucketManager->listFiles($s_bucket, $s_prefix, $s_marker, $i_limit, null);
@@ -55,7 +55,8 @@ class ManageController extends ShadowController
             'keywords' => $s_prefix,
             'rows' => $a_rows,
             'marker' => $s_marker,
-            'type' => $i_type
+            'type' => $i_type,
+            'total_count' => count($ret['items'])
         );
 
         return $this->returnView('shadow.qiniu_file.manage', $a_reuslt);

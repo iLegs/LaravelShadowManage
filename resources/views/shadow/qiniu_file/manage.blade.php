@@ -17,6 +17,9 @@
                         <option value="1" @if($type == 1) selected="selected" @endif>计算最后一张</option>
                     </select>
                 </td>
+                <td>
+                    <label>结果条数：{{ $total_count }}</label>
+                </td>
             </tr>
         </table>
             <div class="subBar">
