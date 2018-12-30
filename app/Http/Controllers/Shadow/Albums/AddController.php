@@ -126,7 +126,7 @@ class AddController extends ShadowController
             return $this->ajaxSuccessJson('专辑新增成功！', 1, 'albums');
         } catch (\Exception $e) {
             DB::rollback();
-            Log::info('album add error:' . $e->gerMessage());
+            Log::info('album add error:' . $e->getMessage());
 
             return $this->ajaxErrorJson('专辑新增失败！');
         }
