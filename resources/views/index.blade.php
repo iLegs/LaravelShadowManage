@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{ $s }}/bootstrap-4.1.3/bootstrap.min.css">
     <link rel="stylesheet" href="{{ $s }}/dropload/dropload.css">
     <link rel="stylesheet" href="{{ $s }}/dripicons/webfont.css">
-    <link rel="stylesheet" href="{{ $s }}/css/web/albums.css?v1.0.1">
+    <link rel="stylesheet" href="{{ $s }}/css/web/albums.css?v1.0.2">
 </head>
 <body data-csrf-token="{{ csrf_token() }}">
     <div class="container">

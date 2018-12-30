@@ -19,7 +19,7 @@
                 @endforeach
             </div>
             <h2 class="contentTitle">请选择专辑模特</h2>
-            <div class="pageFormContent tag">
+            <div class="pageFormContent mdl">
                 <?php $a_models = array_column($album->getModels(), 'id');?>
                 @foreach($legmodels as $legmodel)
                     <label><input type="checkbox" name="mdl[]" value="{{ $legmodel->id }}" @if(in_array($legmodel->id, $a_models)) checked="checked" @endif>{{ $legmodel->name }}</label>
