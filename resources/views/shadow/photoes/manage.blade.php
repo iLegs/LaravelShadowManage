@@ -46,12 +46,12 @@
     <div class="panelBar">
         <ul class="toolBar">
             <li>
-                <a class="delete" href="/shadow/photoes/change/horizontal" target="selectedTodo" title="确定要改变这些图片吗?" warn="请选择至少一条记录" rel="ids[]" fresh="true">
+                <a class="delete changeHx" href="/shadow/photoes/change/horizontal" target="selectedTodo" title="确定要改变这些图片吗?" warn="请选择至少一条记录" rel="ids[]" fresh="true">
                     <span>改变图片属性(横向)</span>
                 </a>
             </li>
             <li>
-                <a class="delete" href="/shadow/photoes/change/vertical" target="selectedTodo" title="确定要改变这些图片吗?" warn="请选择至少一条记录" rel="ids[]" fresh="true">
+                <a class="delete changeZx" href="/shadow/photoes/change/vertical" target="selectedTodo" title="确定要改变这些图片吗?" warn="请选择至少一条记录" rel="ids[]" fresh="true">
                     <span>改变图片属性(竖向)</span>
                 </a>
             </li>
@@ -120,6 +120,8 @@
                     changeImg();
                 }, 100);
             }
+            var count = 0;
+            var type = "{{ $type }}";
             $(".gridTbody img").each(function(){
                 var _img = $(this);
                 var tr = $(this).parent().parent().parent();
@@ -128,11 +130,15 @@
                 $(this).attr('src', tmp_img.src);
                 //用jquery
                 $(tmp_img).on('load', function(){
+                    count++;
                     var w = $(_img).width(),
                         h = $(_img).height();
-                    if (w > h) {
+                    if (w > h && type == "0") {
                         $(tr).addClass('selected');
                         $(tr).find("input[name='ids[]']").attr('checked', 'checked');
+                    }
+                    if (count == ll && type == "0") {
+                        $(".delete.changeHx").click();
                     }
                 });
             });
