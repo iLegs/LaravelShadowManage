@@ -46,12 +46,12 @@
     <div class="panelBar">
         <ul class="toolBar">
             <li>
-                <a class="delete changew" href="/shadow/photoes/change/horizontal" target="selectedTodo" title="确定要改变这些图片吗?" warn="请选择至少一条记录" rel="ids[]" fresh="true">
+                <a class="delete" href="/shadow/photoes/change/horizontal" target="selectedTodo" title="确定要改变这些图片吗?" warn="请选择至少一条记录" rel="ids[]" fresh="true">
                     <span>改变图片属性(横向)</span>
                 </a>
             </li>
             <li>
-                <a class="delete changeh" href="/shadow/photoes/change/vertical" target="selectedTodo" title="确定要改变这些图片吗?" warn="请选择至少一条记录" rel="ids[]" fresh="true">
+                <a class="delete" href="/shadow/photoes/change/vertical" target="selectedTodo" title="确定要改变这些图片吗?" warn="请选择至少一条记录" rel="ids[]" fresh="true">
                     <span>改变图片属性(竖向)</span>
                 </a>
             </li>
