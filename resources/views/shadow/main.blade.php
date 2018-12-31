@@ -106,6 +106,28 @@
         $.ajaxSetup({
            headers: { 'X-CSRF-Token': $('body').attr('data-csrf-token') }
         });
+        var loadWatingImg = function(type){
+            //type - 0 默认选中横图
+            //type - 1 默认选中竖图
+            $(".gridTbody img").each(function(){
+                var w = $(this).width();
+                var h = $(this).height();
+                var tr = $(this).parent().parent().parent();
+                if (type == 0 && w > h) {
+                    $(tr).find("input[name='ids[]']").attr('checked', 'checked');
+                } else if (type == 1 && w < h) {
+                    $(tr).find("input[name='ids[]']").attr('checked', 'checked');
+                }
+            });
+        }
+
+        $(".delete.changew").on('click', function(){
+            loadWatingImg(0);
+        });
+
+        $(".delete.changeh").on('click', function(){
+            loadWatingImg(1);
+        });
     });
     </script>
 </head>
