@@ -115,7 +115,7 @@
     $(function(){
         var changeImg = function(){
             var ll = $(".gridTbody img").length;
-            if (ll < 8) {
+            if (ll < 20) {
                 setTimeout(function(){
                     changeImg();
                 }, 100);
