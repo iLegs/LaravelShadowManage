@@ -111,3 +111,27 @@
         <div class="pagination" targetType="navTab" totalCount="{{ $totalCount }}" numPerPage="{{ $pageSize }}" currentPage="{{ $currentPage }}"></div>
     </div>
 </div>
+<script type="text/javascript">
+    $(function(){
+        var changeImg = function(){
+            var ll = $(".gridTbody img").length;
+            if (ll <= 0) {
+                setTimeout(function(){
+                    changeImg();
+                }, 100);
+            }
+            $(".gridTbody img").each(function(){
+                var w = $(this).width();
+                var h = $(this).height();
+                var tr = $(this).parent().parent().parent();
+                if (w > h) {
+                    $(tr).find("input[name='ids[]']").attr('checked', 'checked');
+                }
+            });
+        }
+
+        setTimeout(function(){
+            changeImg();
+        }, 1000);
+    });
+</script>
