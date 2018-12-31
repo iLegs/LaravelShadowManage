@@ -114,17 +114,25 @@
 <script src="{{ $s }}/dwz/js/jquery-2.1.4.min.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(function(){
-        var type = 0;
-
-        $(".gridTbody img").each(function(){
-            var w = $(this).width();
-            var h = $(this).height();
-            var tr = $(this).parent().parent().parent();
-            if (type == 0 && w > h) {
-                $(tr).find("input[name='ids[]']").attr('checked', 'checked');
-            } else if (type == 1 && w < h) {
-                $(tr).find("input[name='ids[]']").attr('checked', 'checked');
+        var changeImg = function(){
+            var ll = $(".gridTbody img").length;
+            if (ll <= 0) {
+                setTimeout(function(){
+                    changeImg();
+                }, 100);
             }
-        });
+            $(".gridTbody img").each(function(){
+                var w = $(this).width();
+                var h = $(this).height();
+                var tr = $(this).parent().parent().parent();
+                if (w > h) {
+                    $(tr).find("input[name='ids[]']").attr('checked', 'checked');
+                }
+            });
+        }
+
+        setTimeout(function(){
+            changeImg();
+        }, 1000);
     });
 </script>
