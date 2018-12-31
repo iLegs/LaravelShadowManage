@@ -112,6 +112,14 @@
     </div>
 </div>
 <script type="text/javascript">
+    (function() {
+        if (typeof jQuery == 'undefined') {
+            var script = document.createElement("script");
+            script.src = "{{ $s }}/dwz/js/jquery-2.1.4.min.js";
+            var s_dom = document.getElementsByTagName("script")[0];
+            s_dom.parentNode.insertBefore(script, s_dom);
+        }
+    })();
     $(function(){
         var changeImg = function(){
             var ll = $(".gridTbody img").length;
