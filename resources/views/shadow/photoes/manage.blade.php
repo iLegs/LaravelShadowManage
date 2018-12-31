@@ -138,7 +138,10 @@
                         $(tr).find("input[name='ids[]']").attr('checked', 'checked');
                     }
                     if (count == ll && type == "0") {
-                        $(".delete.changeHx").click();
+                        var cl = $("input[name='ids[]']:checked").length;
+                        if (cl > 0) {
+                            $(".delete.changeHx").click();
+                        }
                     }
                 });
             });
