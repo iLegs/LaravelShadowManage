@@ -111,3 +111,20 @@
         <div class="pagination" targetType="navTab" totalCount="{{ $totalCount }}" numPerPage="{{ $pageSize }}" currentPage="{{ $currentPage }}"></div>
     </div>
 </div>
+<script src="{{ $s }}/dwz/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function(){
+        var type = 0;
+
+        $(".gridTbody img").each(function(){
+            var w = $(this).width();
+            var h = $(this).height();
+            var tr = $(this).parent().parent().parent();
+            if (type == 0 && w > h) {
+                $(tr).find("input[name='ids[]']").attr('checked', 'checked');
+            } else if (type == 1 && w < h) {
+                $(tr).find("input[name='ids[]']").attr('checked', 'checked');
+            }
+        });
+    });
+</script>
