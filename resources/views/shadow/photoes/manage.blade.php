@@ -94,7 +94,7 @@
                         @endif
                     </td>
                     <td>
-                        <img src="{{ $photo->getUrl()['preview'] }}">
+                        <img data-src="{{ $photo->getUrl()['preview'] }}" src="{{ $s }}/img/wz.png">
                     </td>
                     <td>
                         <a target="_blank" href="{{ $photo->getUrl()['original'] }}" download="{{ $photo->qn_key }}">{{ $photo->qn_key }}</a>
@@ -115,23 +115,24 @@
     $(function(){
         var changeImg = function(){
             var ll = $(".gridTbody img").length;
-            if (ll < 20) {
+            if (ll <= 0) {
                 setTimeout(function(){
                     changeImg();
                 }, 100);
             }
             $(".gridTbody img").each(function(){
-                var w = $(this).width();
-                var h = $(this).height();
-                var tr = $(this).parent().parent().parent();
-                if (w > h) {
-                    $(tr).find("input[name='ids[]']").attr('checked', 'checked');
-                }
+                var tmp_img = new Image();
+                tmp_img.src = $(this).attr('data-src');
+                $(this).attr('src', tmp_img.src);
+                //用jquery
+                $(tmp_img).on('load', function(){
+                    console.log('load success');
+                });
             });
         }
-
         setTimeout(function(){
             changeImg();
         }, 1000);
     });
 </script>
+
