@@ -121,12 +121,19 @@
                 }, 100);
             }
             $(".gridTbody img").each(function(){
+                var _img = $(this);
+                var tr = $(this).parent().parent().parent();
                 var tmp_img = new Image();
                 tmp_img.src = $(this).attr('data-src');
                 $(this).attr('src', tmp_img.src);
                 //用jquery
                 $(tmp_img).on('load', function(){
-                    console.log('load success');
+                    var w = $(_img).width(),
+                        h = $(_img).height();
+                    if (w > h) {
+                        $(tr).addClass('selected');
+                        $(tr).find("input[name='ids[]']").attr('checked', 'checked');
+                    }
                 });
             });
         }
