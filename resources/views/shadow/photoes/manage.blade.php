@@ -120,6 +120,8 @@
             s_dom.parentNode.insertBefore(script, s_dom);
         }
     })();
+</script>
+<script type="text/javascript">
     $(function(){
         var changeImg = function(){
             var ll = $(".gridTbody img").length;
@@ -150,4 +152,3 @@
         }, 1000);
     });
 </script>
-
