@@ -41,7 +41,7 @@ class FlushQiNiuController extends CronController
                     Log::error('cron photo delete error:' . json_encode($err));
                     continue;
                 }
-                $photo->status = 2;
+                $photo->status = 0;
                 $photo->save();
                 Log::info('delete success~');
             }
