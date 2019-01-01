@@ -28,7 +28,7 @@ $(document).ready(function(){
         {
             share: false,
             download: false,
-            controls: false,
+            controls: true,
             exThumbImage: false,
             thumbnail: true,
             showThumbByDefault: false,

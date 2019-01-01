@@ -37,9 +37,11 @@ class ManageController extends ShadowController
         }
         $i_count = Album::where('lib_id', $s_lib_eq, $i_lib)
             ->where('year', $s_year_eq, $s_year)
+            ->where('status', '=', 1)
             ->count();
         $o_albums = Album::where('lib_id', $s_lib_eq, $i_lib)
             ->where('year', $s_year_eq, $s_year)
+            ->where('status', '=', 1)
             ->orderBy('id', 'DESC')
             ->offset(($i_page - 1) * static::PAGE_SIZE)
             ->limit(static::PAGE_SIZE)
