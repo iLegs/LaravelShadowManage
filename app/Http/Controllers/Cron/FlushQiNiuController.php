@@ -17,7 +17,7 @@ use App\Http\Models\Common\Album;
 use App\Http\Models\Common\AlbumPhoto;
 use App\Http\Controllers\Cron\CronController;
 
-class PhotoDelController extends CronController
+class FlushQiNiuController extends CronController
 {
     const NUM = 100;
 
