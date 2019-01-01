@@ -47,7 +47,7 @@ class FlushQiNiuController extends CronController
             }
         }
         Log::info('start cover delete~');
-        $o_albums = Album::all();
+        $o_albums = Album::where('status', '=', 1)->get();
         $a_covers = array();
         foreach ($o_albums as $album) {
             $a_covers[] = $album->cover;
@@ -66,6 +66,7 @@ class FlushQiNiuController extends CronController
                         Log::error('cron cover delete error:' . json_encode($err));
                         continue;
                     }
+                    Log::info('cron cover delete success:' . $vv['key']);
                 }
             }
         }
