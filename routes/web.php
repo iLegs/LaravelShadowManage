@@ -21,6 +21,7 @@ Route::get('/album/detail/{albumid}.html', 'AlbumDetailController@onGet');
 Route::post('/photo/del', 'PhotoDelController@onPost');
 
 Route::get('/cron/photo_delete', 'Cron\PhotoDelController@onGet');
+Route::get('/cron/flush/photo', 'Cron\FlushQiNiuController@onGet');
 
 Route::get('/sitemap.xml', 'SitemapController@onGet');
 
