@@ -57,7 +57,6 @@ class PhotoDelController extends CronController
         $s_bucket = getenv('QINIU_SPACE');
         $o_auth = new Auth($s_ak, $s_sk);
         $bucketManager = new BucketManager($o_auth);
-        $s_prefix = ;
         list($ret, $err) = $bucketManager->listFiles($s_bucket, static::COVER_PREFIX, '', 1000, null);
         if (null === $err) {
             foreach ($ret['items'] as $vv) {
