@@ -123,7 +123,7 @@
     <script src="{{ $s }}/bootstrap-4.1.3/bootstrap.min.js"></script>
     <script src="{{ $s }}/bootstrap-4.1.3/popper.min.js"></script>
     <script src="{{ $s }}/dropload/dropload.min.js?v=v1.0"></script>
-    <script src="{{ $s }}/js/web_albums.js?v1.0.6"></script>
+    <script src="{{ $s }}/js/web_albums.js?v1.0.7"></script>
     <script type="text/javascript">
         var _hmt = _hmt || [];
         (function() {
