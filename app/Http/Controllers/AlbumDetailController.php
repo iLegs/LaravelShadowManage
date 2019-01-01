@@ -24,7 +24,7 @@ class AlbumDetailController extends WebController
     {
         $a_result = array();
         $o_album = Album::find($albumid);
-        if (!$o_album) {
+        if (!$o_album || 1 != $o_album->status) {
             return Redirect::to('/');
         }
         $o_album->browse_times += 1;
