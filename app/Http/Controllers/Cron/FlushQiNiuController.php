@@ -38,7 +38,7 @@ class FlushQiNiuController extends CronController
             foreach ($o_photoes as $photo) {
                 $err = $o_manage->delete($s_bucket, $photo->qn_key);
                 if ($err) {
-                    Log::error('cron photo delete error:' . $err);
+                    Log::error('cron photo delete error:' . json_encode($err));
                     continue;
                 }
                 $photo->status = 2;
@@ -63,7 +63,7 @@ class FlushQiNiuController extends CronController
                 if (!in_array($vv['key'], $a_covers)) {
                     $err = $o_manage->delete($s_bucket, $vv['key']);
                     if ($err) {
-                        Log::error('cron cover delete error:' . $err);
+                        Log::error('cron cover delete error:' . json_encode($err));
                         continue;
                     }
                 }
