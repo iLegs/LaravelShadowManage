@@ -71,7 +71,7 @@
             @foreach($albums as $album)
                 <div class="col-6 col-md-3 col-xl-3">
                     <div class="card">
-                        <a href="/album/detail/{{ $album['id'] }}.html">
+                        <a href="/album/detail/{{ $album['id'] }}.html" target="_blank">
                             <img class="img-fluid" src="{{ $album['cover'] }}" alt="{{ $album['title'] }}">
                         </a>
                         <div class="card-body album-title">
