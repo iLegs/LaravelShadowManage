@@ -13,7 +13,7 @@
     <meta name="x5-fullscreen" content="true">
     <link rel="stylesheet" href="{{ $s }}/bootstrap-4.1.3/bootstrap.min.css">
     <link rel="stylesheet" href="{{ $s }}/dripicons/webfont.css">
-    <link rel="stylesheet" href="{{ $s }}/css/web/style.css">
+    <link rel="stylesheet" href="{{ $s }}/css/web/style.css?v1.1.0">
     @yield('style')
 </head>
 <body data-csrf-token="{{ csrf_token() }}">

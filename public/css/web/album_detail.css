@@ -1,5 +1,5 @@
 .noscroll {
-    overflow-y: hidden;
+    overflow: hidden;
 }
 body{
     background-color: #FFFFFF;

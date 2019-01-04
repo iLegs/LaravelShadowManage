@@ -16,9 +16,6 @@ body {
 .navbar-light .navbar-brand:hover {
     color: #FFFFFF;
 }
-html,body{
-    overflow:hidden;overflow-y:auto;
-}
 .footer {
     color: #FF9900;
     background-color:#563d7c;
