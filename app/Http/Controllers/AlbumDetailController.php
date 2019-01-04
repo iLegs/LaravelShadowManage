@@ -16,7 +16,7 @@ use App\Http\Models\Common\AlbumPhoto;
 
 class AlbumDetailController extends WebController
 {
-    const RDS_KEY = 'photoes:album_';
+    const RDS_KEY = 'pics:album_';
 
     const LIFE_TIME = 1200;
 
@@ -48,7 +48,7 @@ class AlbumDetailController extends WebController
             $s_url = 'http://' . getenv('QINIU_DOMAIN') . '/' . $o_photo->qn_key;
             $s_str = 'vertical_hd';
             if (1 == $o_photo->type) {
-                $s_str = 'crossrange_hd';
+                $s_str = 'crossrange_fhd';
             }
             $a_photoes[] = array(
                 'id' => $o_photo->id,
