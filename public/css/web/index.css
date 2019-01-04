@@ -1,0 +1,55 @@
+@media(max-width: 600px){
+    .container.banner {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+}
+.albums{
+    margin-top: 1rem;
+}
+.icon {
+    color: #FFFFFF;
+    border: none;
+    background-color: #9966FF;
+}
+@media (max-width: 960px){
+    .container.content {
+        padding: 0;
+    }
+    .row.album-header {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+@media (max-width: 768px){
+    .col-6.col-md-3.col-xl-3 {
+        padding: .1rem;
+    }
+}
+@media (min-width: 768px){
+    .col-6.col-md-3.col-xl-3 {
+        padding: .2rem;
+    }
+}
+@media (min-width: 1200px){
+    .col-6.col-md-3.col-xl-3 {
+        padding: .4rem;
+    }
+    .container.banner img {
+        min-height: 625px;
+    }
+}
+.card {
+    border-radius: .5rem;
+}
+.card img {
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
+}
+.albums .row.album-header{
+    margin-bottom: 1rem;
+}
+.albums .row.content{
+    padding: 0;
+    margin: 0;
+}

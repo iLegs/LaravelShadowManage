@@ -9,9 +9,9 @@ String.prototype.format = function () {
 $(function(){
     if ("object" !== typeof _index) _index = {};
 
-    _index.page = $("#albums").attr('data-page');
+    _index.page = 1;
 
-    _index.dropid = 'footer';
+    _index.dropid = 'dropload';
 
     _index.dropdelid = '';
 
@@ -36,7 +36,7 @@ $(function(){
                 }
                 _index.page++;
                 $.ajax({
-                    url: '/',
+                    url: $("#albums").attr('data-url'),
                     type: 'POST',
                     data: {
                         _token: $("body").attr('data-csrf-token'),

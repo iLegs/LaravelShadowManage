@@ -14,6 +14,9 @@ use Redis;
 use Config;
 use Response;
 use Exception;
+use Qiniu\Auth;
+use App\Http\Models\Common\Album;
+use App\Http\Models\Common\LegLib;
 use Illuminate\Routing\Controller as BaseController;
 
 class WebController extends BaseController
@@ -21,7 +24,7 @@ class WebController extends BaseController
     /**
      * Redis 默认生命周期。
      */
-    const LIFE_TIME = 86400;
+    const LIFE_TIME = 7200;
 
     /**
      * redis 锁接口等待时间（秒）。
@@ -33,6 +36,8 @@ class WebController extends BaseController
      */
     const LOCK_WAIT_TIME = 10000;
 
+    const ACTIVE_PAGE = 'index';
+
     /**
      * 返回视图。
      * @param  object $view 视图文件路径
@@ -42,8 +47,63 @@ class WebController extends BaseController
     protected function returnView($view, $arr = array())
     {
         $arr['s'] = Config::get('app.static');
+        if (!isset($arr['libs'])) {
+            $arr['libs'] = $this->getLibs();
+        }
+        if (!isset($arr['active'])) {
+            $arr['active'] = static::ACTIVE_PAGE;
+        }
 
         return view($view)->with($arr);
+    }
+
+    protected function getLibs($flag = 0)
+    {
+        $o_libs = LegLib::where('status', '=', 1)->get();
+        $a_libs = $a_count = array();
+        foreach ($o_libs as $lib) {
+            $i_count = $lib->getAlbumsCount();
+            $a_libs[] = array(
+                'id' => $lib->id,
+                'title' => $lib->title,
+                'short_title' => $lib->short_title,
+                'url' => $lib->url,
+                'count' => $i_count,
+                'albums' => $this->getNewAlbums($lib)
+            );
+            $a_count[] = $i_count;
+        }
+        array_multisort($a_count, SORT_DESC, $a_libs);
+
+        return $a_libs;
+    }
+
+    protected function getNewAlbums($lib)
+    {
+        if (!$lib || 1 != $lib->status) {
+            return array();
+        }
+        $o_albums = Album::where('status', '=', 1)
+            ->where('lib_id', '=', $lib->id)
+            ->orderBy('date', 'DESC')
+            ->offset(0)
+            ->limit(4)
+            ->get();
+        if (!$o_albums || !$o_albums->count()) {
+            return array();
+        }
+        $a_albums = array();
+        $o_auth = new Auth(getenv('QINIU_AK'), getenv('QINIU_SK'));
+        foreach ($o_albums as $album) {
+            $s_url = 'http://' . getenv('QINIU_DOMAIN') . '/' . $album->cover;
+            $a_albums[] = array(
+                'id' => $album->id,
+                'title' => $album->title,
+                'cover' => $o_auth->privateDownloadUrl($s_url . '-mobile_cover', static::LIFE_TIME * 3)
+            );
+        }
+
+        return $a_albums;
     }
 
     /**

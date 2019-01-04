@@ -44,6 +44,13 @@ body{
         margin: .5rem 0;
         padding: .1rem .4rem;
     }
+    .btn.btn-outline-secondary.title {
+        width: 85%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        text-align: left;
+    }
 }
 @media (min-width: 768px){
     .col-md-3 {

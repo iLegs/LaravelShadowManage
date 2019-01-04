@@ -12,8 +12,12 @@ Route::get('/gencaptcha', 'CaptchaController@onGet');
 
 //首页
 Route::get('/', 'IndexController@onGet');
-Route::get('/{year}_{mdl}_{tg}.html', 'IndexController@onSearch');
-Route::post('/', 'IndexController@onPost');
+
+Route::get('/login.html', 'Web\LoginController@onGet');
+
+//列表页
+Route::get('/lib/{key}/list.html', 'ListController@onGet');
+Route::post('/lib/{key}/list.html', 'ListController@onPost');
 
 //浏览专辑下的所有图片
 Route::get('/album/detail/{albumid}.html', 'AlbumDetailController@onGet');

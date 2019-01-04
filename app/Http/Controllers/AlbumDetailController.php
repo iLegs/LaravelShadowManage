@@ -58,6 +58,7 @@ class AlbumDetailController extends WebController
         }
         $this->setRedisData(static::RDS_KEY . $o_album->id, json_encode($a_photoes), static::LIFE_TIME);
         $a_result['photoes'] = $a_photoes;
+        $a_result['active'] = 'detail';
 
         return $this->returnView('album_detail_photoes', $a_result);
     }

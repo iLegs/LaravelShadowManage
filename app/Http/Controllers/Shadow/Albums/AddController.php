@@ -61,7 +61,7 @@ class AddController extends ShadowController
                 return $this->ajaxErrorJson('请选择专辑发行日期！');
             } elseif ('' == $s_prefix) {
                 return $this->ajaxErrorJson('请输入前缀！');
-            }  elseif ($i_end <= 0) {
+            } elseif ($i_end <= 0) {
                 return $this->ajaxErrorJson('请输入结束！');
             } elseif ('' == $s_postfix) {
                 return $this->ajaxErrorJson('请输入后缀！');

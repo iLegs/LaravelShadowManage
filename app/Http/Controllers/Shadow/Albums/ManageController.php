@@ -25,7 +25,7 @@ class ManageController extends ShadowController
         $i_lib = Input::get('lib', 0);
         $s_year = Input::get('year', 0);
         $s_year_eq = '=';
-        if(0 == $s_year) {
+        if (0 == $s_year) {
             $s_year_eq = '!=';
         }
         $s_lib_eq = '=';

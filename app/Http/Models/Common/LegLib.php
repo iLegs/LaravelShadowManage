@@ -25,4 +25,9 @@ class LegLib extends Model
     protected $created_at = false;
 
     public $timestamps = false;
+
+    public function getAlbumsCount()
+    {
+        return Album::where('status', '=', 1)->where('lib_id', '=', $this->id)->count();
+    }
 }
