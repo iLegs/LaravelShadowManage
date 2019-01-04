@@ -1,6 +1,6 @@
 @extends('common')
 @section('style')
-    <link rel="stylesheet" href="{{ $s }}/css/web/album_detail.css?v1.0.3">
+    <link rel="stylesheet" href="{{ $s }}/css/web/album_detail.css?v1.1.0">
     <link href="{{ $s }}/lightGallery-1.6.11/lightgallery.min.css" rel="stylesheet">
     <link href="{{ $s }}/sweetalert2-7.32.4/sweetalert2.min.css" rel="stylesheet">
 @endsection

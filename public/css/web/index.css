@@ -1,10 +1,16 @@
+.album-title p {
+    font-size: .8rem;
+}
+.album-title {
+    padding: .6rem;
+}
 @media(max-width: 600px){
     .container.banner {
         padding: 0 !important;
         margin: 0 !important;
     }
 }
-.albums{
+.albums {
     margin-top: 1rem;
 }
 .icon {
