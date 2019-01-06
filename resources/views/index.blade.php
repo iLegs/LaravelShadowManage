@@ -1,26 +1,8 @@
 @extends('common')
 @section('style')
-    <link rel="stylesheet" href="{{ $s }}/Nivo-Slider/themes/default/default.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="{{ $s }}/Nivo-Slider/themes/bar/bar.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="{{ $s }}/css/web/index.css?v1.1.1">
-    <link rel="stylesheet" href="{{ $s }}/Nivo-Slider/nivo-slider.css">
 @endsection
 @section('body')
-<div class="container banner d-lg-block d-none">
-    <div id="wrapper">
-        <div class="slider-wrapper theme-default">
-            <div id="slider" class="nivoSlider">
-                @php $ii = 0; @endphp
-                @foreach($banners as $banner)
-                    <a href="{{ $banner['url'] }}" target="_blank">
-                        <img src="{{ $banner['pic'] }}" data-thumb="{{ $banner['pic'] }}" alt="{{ $banner['desc'] }}" title="{{ $banner['desc'] }}"/>
-                    </a>
-                @endforeach
-                @php $ii++; @endphp
-            </div>
-        </div>
-    </div>
-</div>
 <div class="container content">
     @foreach($libs as $lib)
         @if($lib['count'] > 0)
@@ -57,15 +39,8 @@
 @endsection
 @section('script')
     <script src="{{ $s }}/js/lazyload.min.js"></script>
-    <script src="{{ $s }}/Nivo-Slider/jquery.nivo.slider.js"></script>
     <script type="text/javascript">
         $(function(){
-            $("#slider").nivoSlider({
-                effect: "random",
-                animSpeed: 2000,
-                pauseTime: 5000,
-            });
-
             $("img.lazyload").lazyload();
         });
     </script>
