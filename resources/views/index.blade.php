@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ $s }}/Nivo-Slider/nivo-slider.css">
 @endsection
 @section('body')
-<div class="container banner">
+<div class="container banner d-lg-block d-none">
     <div id="wrapper">
         <div class="slider-wrapper theme-default">
             <div id="slider" class="nivoSlider">
