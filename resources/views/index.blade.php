@@ -1,6 +1,6 @@
 @extends('common')
 @section('style')
-    <link rel="stylesheet" href="{{ $s }}/css/web/index.css?v1.1.1">
+    <link rel="stylesheet" href="{{ $s }}/css/web/index.css?v1.1.2">
 @endsection
 @section('body')
 <div class="container content">
