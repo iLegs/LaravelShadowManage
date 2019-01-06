@@ -26,6 +26,8 @@
                 </th>
                 <th width="40" align="center">编号</th>
                 <th width="80" align="center">名称</th>
+                <th width="80" align="center">简称</th>
+                <th width="80" align="center">短链接</th>
                 <th width="80" align="center">描述</th>
                 <th width="80" align="center">新增时间</th>
                 <th width="40" align="center">操作</th>
@@ -39,6 +41,8 @@
                     </td>
                     <td>{{ $lib->id }}</td>
                     <td>{{ $lib->title }}</td>
+                    <td>{{ $lib->short_title }}</td>
+                    <td>{{ $lib->url }}</td>
                     <td>{{ $lib->desc }}</td>
                     <td>{{ $lib->add_time }}</td>
                     <td>

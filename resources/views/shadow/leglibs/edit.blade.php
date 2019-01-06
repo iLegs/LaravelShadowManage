@@ -3,7 +3,15 @@
         <div class="pageFormContent">
             <p>
                 <label>请输入名称：</label>
-                <input name="title" class="required" type="text" size="30" alt="请输入名称" value="{{$lib->title }}" />
+                <input name="title" class="required" type="text" size="30" alt="请输入名称" value="{{$lib->title }}"/>
+            </p>
+            <p>
+                <label>请输入简称：</label>
+                <input name="short_title" class="required" type="text" size="30" alt="请输入简称" value="{{$lib->short_title }}"/>
+            </p>
+            <p>
+                <label>请输入链接：</label>
+                <input name="url" class="required" type="text" size="30" alt="请输入链接" value="{{$lib->url }}"/>
             </p>
             <fieldset>
                 <dl class="nowrap">

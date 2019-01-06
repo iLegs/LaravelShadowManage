@@ -5,10 +5,18 @@
                 <label>请输入名称：</label>
                 <input name="title" class="required" type="text" size="30" alt="请输入名称"/>
             </p>
+            <p>
+                <label>请输入简称：</label>
+                <input name="short_title" class="required" type="text" size="30" alt="请输入简称"/>
+            </p>
+            <p>
+                <label>请输入链接：</label>
+                <input name="url" class="required" type="text" size="30" alt="请输入链接"/>
+            </p>
             <fieldset>
                 <dl class="nowrap">
                     <dt>请输入简介：</dt>
-                    <dd><textarea name="desc" cols="28" rows="20" class="textInput"></textarea></dd>
+                    <dd><textarea name="desc" cols="28" rows="12" class="textInput"></textarea></dd>
                 </dl>
             </fieldset>
             <input type="hidden" name="_token" value="{{ csrf_token() }}">

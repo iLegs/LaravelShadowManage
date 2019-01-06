@@ -45,12 +45,20 @@ class EditController extends ShadowController
             }
             $s_title = Input::get('title', '');
             $s_desc = Input::get('desc', '');
+            $s_short_title = Input::get('short_title', '');
+            $s_url = Input::get('url', '');
             if ('' == $s_title) {
                 return $this->ajaxErrorJson('名称不能为空！');
             }
             $o_lib->title = $s_title;
             if ('' != $s_desc) {
                 $o_lib->desc = $s_desc;
+            }
+            if ('' != $s_short_title) {
+                $o_lib->short_title = $s_short_title;
+            }
+            if ('' != $s_url) {
+                $o_lib->url = $s_url;
             }
             $o_lib->status = 1;
             $o_lib->save();
