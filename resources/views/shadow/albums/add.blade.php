@@ -1,16 +1,13 @@
 <div class="pageContent">
     <form method="post" action="/shadow/albums/add" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
         <div class="pageFormContent">
-            <p>
-                <label>请输入专辑名称：</label>
-                <input name="title" class="required" type="text" size="30" alt="请输入专辑名称"/>
-            </p>
+            <!--
             <fieldset>
                 <dl class="nowrap">
                     <dt>请输入简介：</dt>
                     <dd><textarea name="desc" cols="160" rows="2" class="textInput"></textarea></dd>
                 </dl>
-            </fieldset>
+            </fieldset>-->
             <h2 class="contentTitle">请选择专辑标签</h2>
             <div class="pageFormContent tag">
                 @foreach($tags as $tag)
@@ -47,6 +44,10 @@
             <p>
                 <label>请输入后缀：</label>
                 <input name="postfix" class="required" type="text" size="30" alt="请输入后缀" value=".jpg" />
+            </p>
+            <p>
+                <label>请输入专辑名称：</label>
+                <input name="title" class="required" type="text" size="30" alt="请输入专辑名称"/>
             </p>
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
         </div>
