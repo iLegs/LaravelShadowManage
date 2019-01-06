@@ -1,39 +1,24 @@
 @extends('common')
 @section('style')
-    <link rel="stylesheet" href="{{ $s }}/css/web/index.css?v1.1.0">
+    <link rel="stylesheet" href="{{ $s }}/Nivo-Slider/themes/default/default.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{{ $s }}/Nivo-Slider/themes/bar/bar.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{{ $s }}/css/web/index.css?v1.1.1">
+    <link rel="stylesheet" href="{{ $s }}/Nivo-Slider/nivo-slider.css">
 @endsection
 @section('body')
 <div class="container banner">
-    <div id="banner" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            @php $ii = 0; @endphp
-            @foreach($banners as $banner)
-                <li data-target="#banner" data-slide-to="{{ $ii }}" @if($ii == 0)class="active"@endif></li>
-                @php $ii++; @endphp
-            @endforeach
-        </ol>
-        <div class="carousel-inner">
-            @php $ll = 0; @endphp
-            @foreach($banners as $banner)
-                <div class="carousel-item @if($ll == 0) active @endif">
-                    <a href="{{ $banner['url'] }}" target="_blank" alt="{{ $banner['desc'] }}">
-                        <img src="{{ $banner['pic'] }}" class="d-block w-100" alt="{{ $banner['desc'] }}">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h6>{{ $banner['desc'] }}</h6>
-                        </div>
+    <div id="wrapper">
+        <div class="slider-wrapper theme-default">
+            <div id="slider" class="nivoSlider">
+                @php $ii = 0; @endphp
+                @foreach($banners as $banner)
+                    <a href="{{ $banner['url'] }}" target="_blank">
+                        <img src="{{ $banner['pic'] }}" data-thumb="{{ $banner['pic'] }}" alt="{{ $banner['desc'] }}" title="{{ $banner['desc'] }}"/>
                     </a>
-                </div>
-                @php $ll++; @endphp
-            @endforeach
+                @endforeach
+                @php $ii++; @endphp
+            </div>
         </div>
-        <a class="carousel-control-prev" href="#banner" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#banner" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
     </div>
 </div>
 <div class="container content">
@@ -72,7 +57,16 @@
 @endsection
 @section('script')
     <script src="{{ $s }}/js/lazyload.min.js"></script>
+    <script src="{{ $s }}/Nivo-Slider/jquery.nivo.slider.js"></script>
     <script type="text/javascript">
-        $("img.lazyload").lazyload();
+        $(function(){
+            $("#slider").nivoSlider({
+                effect: "random",
+                animSpeed: 800,
+                pauseTime: 3000,
+            });
+
+            $("img.lazyload").lazyload();
+        });
     </script>
 @endsection

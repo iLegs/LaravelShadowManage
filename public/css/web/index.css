@@ -41,7 +41,7 @@
     .col-6.col-md-3.col-xl-3 {
         padding: .4rem;
     }
-    .container.banner img {
+    .container.banner{
         min-height: 625px;
     }
 }
