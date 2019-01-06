@@ -62,8 +62,8 @@
         $(function(){
             $("#slider").nivoSlider({
                 effect: "random",
-                animSpeed: 800,
-                pauseTime: 3000,
+                animSpeed: 2000,
+                pauseTime: 5000,
             });
 
             $("img.lazyload").lazyload();
