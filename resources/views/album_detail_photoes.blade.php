@@ -1,6 +1,6 @@
 @extends('common')
 @section('style')
-    <link rel="stylesheet" href="{{ $s }}/css/web/album_detail.css?v1.1.2">
+    <link rel="stylesheet" href="{{ $s }}/css/web/album_detail.css?v1.1.3">
     <link href="{{ $s }}/lightGallery-1.6.11/lightgallery.min.css" rel="stylesheet">
     <link href="{{ $s }}/sweetalert2-7.32.4/sweetalert2.min.css" rel="stylesheet">
 @endsection
@@ -37,9 +37,9 @@
         <div class="row" id="lightgallery">
             @php $ii = 1; @endphp
             @foreach($photoes as $photo)
-                <div class="col-6 col-md-3" data-responsive="{{ $photo['preview'] }}" data-src="{{ $photo['original'] }}" data-sub-html="{{ $photo['id']}}">
+                <div class="col-6 @if($photo['type'] == 0) col-md-2 @else col-md-4 @endif" data-responsive="{{ $photo['preview'] }}" data-src="{{ $photo['original'] }}" data-sub-html="{{ $photo['id']}}">
                     <div class="card">
-                        <img class="img-fluid lazyload" src="{{ $s }}/img/image.png" data-src="{{ $photo['preview'] }}" alt="{{ $album->title }}">
+                        <img class="img-fluid lazyload" @if($photo['type'] == 0) src="{{ $s }}/img/detail-s.png" @else src="{{ $s }}/img/detail-h.png" @endif data-src="{{ $photo['preview'] }}" alt="{{ $album->title }}">
                         <div class="card-body">
                             <p class="card-text text-center">{{ $ii }}</p>
                         </div>

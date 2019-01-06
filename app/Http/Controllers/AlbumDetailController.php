@@ -34,7 +34,7 @@ class AlbumDetailController extends WebController
         if (false !== $s_result) {
             $a_result['photoes'] = json_decode($s_result, true);
 
-            return $this->returnView('album_detail_photoes', $a_result);
+            //return $this->returnView('album_detail_photoes', $a_result);
         }
         $o_photoes = AlbumPhoto::where('status', '=', 1)
             ->where('album_id', '=', $o_album->id)
@@ -42,20 +42,26 @@ class AlbumDetailController extends WebController
         if (!$o_photoes || $o_photoes->count() <= 0) {
             return Redirect::to('/');
         }
-        $a_photoes = array();
+        $a_photoes = $a_types = $a_ids = array();
         $o_auth = new Auth(getenv('QINIU_AK'), getenv('QINIU_SK'));
         foreach ($o_photoes as $o_photo) {
             $s_url = 'http://' . getenv('QINIU_DOMAIN') . '/' . $o_photo->qn_key;
             $s_str = 'vertical_hd';
+            $s_prevew = 'preview_vertical';
             if (1 == $o_photo->type) {
                 $s_str = 'crossrange_fhd';
+                $s_prevew = 'preview_crossrange';
             }
+            $a_ids[] = $o_photo->id;
+            $a_types[] = $o_photo->type;
             $a_photoes[] = array(
                 'id' => $o_photo->id,
-                'preview' => $o_auth->privateDownloadUrl($s_url . '-square_preview'),
+                'type' => $o_photo->type,
+                'preview' => $o_auth->privateDownloadUrl($s_url . '-' . $s_prevew),
                 'original' => $o_auth->privateDownloadUrl($s_url . '-' . $s_str)
             );
         }
+        array_multisort($a_types, SORT_ASC, $a_ids, SORT_ASC, $a_photoes);
         $this->setRedisData(static::RDS_KEY . $o_album->id, json_encode($a_photoes), static::LIFE_TIME);
         $a_result['photoes'] = $a_photoes;
         $a_result['active'] = 'detail';
