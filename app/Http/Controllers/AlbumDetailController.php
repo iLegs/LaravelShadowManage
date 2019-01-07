@@ -10,6 +10,7 @@
 namespace App\Http\Controllers;
 
 use Redirect;
+use Exception;
 use Qiniu\Auth;
 use App\Http\Models\Common\Album;
 use App\Http\Models\Common\AlbumPhoto;
@@ -27,14 +28,17 @@ class AlbumDetailController extends WebController
         if (!$o_album || 1 != $o_album->status) {
             return Redirect::to('/');
         }
-        $o_album->browse_times += 1;
-        $o_album->save();
+        try {
+            $o_album->browse_times += 1;
+            $o_album->save();
+        } catch (\Exception $e) {
+        }
         $a_result['album'] = $o_album;
         $s_result = $this->getRedisData(static::RDS_KEY . $o_album->id);
         if (false !== $s_result) {
             $a_result['photoes'] = json_decode($s_result, true);
 
-            //return $this->returnView('album_detail_photoes', $a_result);
+            return $this->returnView('album_detail_photoes', $a_result);
         }
         $o_photoes = AlbumPhoto::where('status', '=', 1)
             ->where('album_id', '=', $o_album->id)

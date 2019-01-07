@@ -25,7 +25,7 @@ class TagsController extends WebController
         if (false !== $s_result) {
             $a_tags = json_decode($s_result, true);
 
-            return $this->returnView('web.tags', array('tags' => $a_tags, 'acticve' => 'tags'));
+            return $this->returnView('web.tags', array('tags' => $a_tags, 'active' => 'tags'));
         }
         $o_tags = Tag::where('status', '=', 1)->get();
         $o_album_tags = DB::table('relation_album_tags')->get();
@@ -51,6 +51,6 @@ class TagsController extends WebController
         array_multisort($a_counts, SORT_DESC, $a_tags);
         $this->setRedisData(static::RDS_KEY, json_encode($a_tags), static::LIFE_TIME);
 
-        return $this->returnView('web.tags', array('tags' => $a_tags, 'acticve' => 'tags'));
+        return $this->returnView('web.tags', array('tags' => $a_tags, 'active' => 'tags'));
     }
 }

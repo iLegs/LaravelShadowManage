@@ -25,7 +25,7 @@ class ModelsController extends WebController
         if (false !== $s_result) {
             $a_models = json_decode($s_result, true);
 
-            return $this->returnView('web.models', array('models' => $a_models, 'acticve' => 'models'));
+            return $this->returnView('web.models', array('models' => $a_models, 'active' => 'models'));
         }
         $o_models = LegModel::where('status', '=', 1)->get();
         $o_album_models = DB::table('relation_album_models')->get();
@@ -51,6 +51,6 @@ class ModelsController extends WebController
         array_multisort($a_counts, SORT_DESC, $a_models);
         $this->setRedisData(static::RDS_KEY, json_encode($a_models), static::LIFE_TIME);
 
-        return $this->returnView('web.models', array('models' => $a_models, 'acticve' => 'models'));
+        return $this->returnView('web.models', array('models' => $a_models, 'active' => 'models'));
     }
 }
