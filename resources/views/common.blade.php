@@ -23,10 +23,8 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-item nav-link @if(!isset ($active) || $active == 'index') active @endif" href="/">Home Page</a>
-                    <!--
-                    <a class="nav-item nav-link" href="/models.html">Models List </a>
-                    <a class="nav-item nav-link" href="/tags.html">Tags List </a>
-                    -->
+                    <a class="nav-item nav-link @if(isset ($active) && $active == 'models') active @endif" href="/models.html">Models List </a>
+                    <a class="nav-item nav-link @if(isset ($active) && $active == 'tags') active @endif" href="/tags.html">Tags List </a>
                     @foreach($libs as $lib)
                         @if($lib['count'] > 5)
                             <a class="nav-item nav-link @if(isset ($active) && $active == $lib['url']) active @endif" target="_blank" href="/lib/{{ $lib['url'] }}/list.html">{{ $lib['short_title'] }}

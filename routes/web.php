@@ -13,11 +13,22 @@ Route::get('/gencaptcha', 'CaptchaController@onGet');
 //首页
 Route::get('/', 'IndexController@onGet');
 
+Route::get('/models.html', 'Web\ModelsController@onGet');
+Route::get('/tags.html', 'Web\TagsController@onGet');
+
 Route::get('/login.html', 'Web\LoginController@onGet');
 
 //列表页
 Route::get('/lib/{key}/list.html', 'ListController@onGet');
 Route::post('/lib/{key}/list.html', 'ListController@onPost');
+
+//模特专辑列表
+Route::get('/model/{key}.html', 'Web\ModelAlbumListController@onGet');
+Route::post('/model/{key}.html', 'Web\ModelAlbumListController@onPost');
+
+//标签专辑列表
+Route::get('/tag/{key}.html', 'Web\TagAlbumListController@onGet');
+Route::post('/tag/{key}.html', 'Web\TagAlbumListController@onPost');
 
 //浏览专辑下的所有图片
 Route::get('/album/detail/{albumid}.html', 'AlbumDetailController@onGet');
