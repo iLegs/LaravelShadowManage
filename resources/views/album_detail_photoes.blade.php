@@ -19,7 +19,8 @@
                 <button type="button" class="btn icon" data-icon="&#xe057;"></button>
                 <button type="button" class="btn btn-outline-secondary" disabled="disabled">模特</button>
                 @foreach($album->getModels() as $legmodel)
-                <button type="button" class="btn btn-outline-success tz" data-href="#" disabled="disabled">{{ $legmodel['name'] }}</button>
+                    <a class="btn btn-success" href="/model/{{ $legmodel['id'] }}.html" role="button">{{ $legmodel['name'] }}
+                    </a>
                 @endforeach
             </div>
             <div class="col-12 col-md-4 right">
@@ -30,7 +31,8 @@
                 <button type="button" class="btn icon" data-icon="&#xe04c;"></button>
                 <button type="button" class="btn btn-outline-secondary" disabled="disabled">标签</button>
                 @foreach($album->getTags() as $tag)
-                    <button type="button" class="btn btn-outline-success tz" data-href="#" disabled="disabled">{{ $tag['title'] }}</button>
+                    <a class="btn btn-success" href="/tag/{{ $tag['id'] }}.html" role="button">{{ $tag['title'] }}
+                    </a>
                 @endforeach
             </div>
         </div>

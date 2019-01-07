@@ -9,11 +9,11 @@
             <div class="albums">
                 <div class="row album-header">
                     <div class="col-6 text-left">
-                        <a class="btn btn-primary icon" target="_blank" href="/lib/{{ $lib['url'] }}/list.html" data-icon="&#xe010;" role="button">&nbsp;{{ $lib['title'] }}
+                        <a class="btn btn-primary icon" href="/lib/{{ $lib['url'] }}/list.html" data-icon="&#xe010;" role="button">&nbsp;{{ $lib['title'] }}
                         </a>
                     </div>
                     <div class="col-6 text-right">
-                        <a class="btn btn-primary icon" target="_blank" href="/lib/{{ $lib['url'] }}/list.html" data-icon="^" role="button">&nbsp;More
+                        <a class="btn btn-primary icon" href="/lib/{{ $lib['url'] }}/list.html" data-icon="^" role="button">&nbsp;More
                             <span class="badge badge-warning">{{ $lib['count'] }}</span>
                         </a>
                     </div>
@@ -22,7 +22,7 @@
                     @foreach($lib['albums'] as $album)
                         <div class="col-6 col-md-3 col-xl-3">
                             <div class="card">
-                                <a href="/album/detail/{{ $album['id'] }}.html" target="_blank">
+                                <a href="/album/detail/{{ $album['id'] }}.html">
                                     <img class="img-fluid lazyload" src="{{ $s }}/img/cover.png" data-src="{{ $album['cover'] }}" alt="{{ $album['title'] }}">
                                 </a>
                                 <div class="card-body album-title">

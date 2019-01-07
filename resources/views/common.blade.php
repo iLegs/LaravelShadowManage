@@ -27,7 +27,7 @@
                     <a class="nav-item nav-link @if(isset ($active) && $active == 'tags') active @endif" href="/tags.html">Tags List </a>
                     @foreach($libs as $lib)
                         @if($lib['count'] > 5)
-                            <a class="nav-item nav-link @if(isset ($active) && $active == $lib['url']) active @endif" target="_blank" href="/lib/{{ $lib['url'] }}/list.html">{{ $lib['short_title'] }}
+                            <a class="nav-item nav-link @if(isset ($active) && $active == $lib['url']) active @endif" href="/lib/{{ $lib['url'] }}/list.html">{{ $lib['short_title'] }}
                                 <span class="badge badge-warning">{{ $lib['count'] }}</span>
                             </a>
                         @endif
