@@ -1,3 +1,11 @@
+/**
+ * 专辑列表js。
+ *
+ * @author    fairyin <fairyin@126.cn>
+ * @copyright © 2018 www.imcn.vip
+ * @version   v1.0
+ */
+
 String.prototype.format = function () {
     var args = arguments;
     var reg = /\{(\d+)\}/g;
@@ -7,16 +15,16 @@ String.prototype.format = function () {
 };
 
 $(function(){
-    if ("object" !== typeof _index) _index = {};
+    if ("object" !== typeof _album) _album = {};
 
-    _index.page = 1;
+    _album.page = 1;
 
-    _index.dropid = 'dropload';
+    _album.dropid = 'dropload';
 
-    _index.dropdelid = '';
+    _album.dropdelid = '';
 
-    _index.initDropLoad = function(){
-        _index.dropload = $('#' + _index.dropid).dropload({
+    _album.initDropLoad = function(){
+        _album.dropload = $('#' + _album.dropid).dropload({
             scrollArea: window,
             distance: 500,
             threshold: 1500,
@@ -34,13 +42,13 @@ $(function(){
                 if (typeof(tag) === 'undefined') {
                     tag = 0;
                 }
-                _index.page++;
+                _album.page++;
                 $.ajax({
                     url: $("#albums").attr('data-url'),
                     type: 'POST',
                     data: {
                         _token: $("body").attr('data-csrf-token'),
-                        page: _index.page,
+                        page: _album.page,
                         year: year,
                         model: model,
                         tag: tag
@@ -74,29 +82,29 @@ $(function(){
         });
     };
 
-    _index.initDropLoad();
+    _album.initDropLoad();
 
     $(".navbar-toggler").on('click', function(){
         var flag = $(".navbar-toggler").attr('aria-expanded');
         if (flag === 'false') {
-            _index.dropload.lock();
+            _album.dropload.lock();
         }
     });
 
     $(".dropdown-menu a").on('click', function(){
-        _index.dropload.resetload();
-        _index.dropload.unlock();
+        _album.dropload.resetload();
+        _album.dropload.unlock();
         $(this).parent().find(".dropdown-item").removeClass('active');
         $(this).addClass('active');
-        _index.page = 0;
-        _index.dropdelid = _index.dropid;
-        _index.dropid = 'drop_' + Date.parse(new Date());
-        var content = '<div class="container" id="' + _index.dropid + '"></div>';
-        $("#" + _index.dropdelid).after(content);
-        $("#" + _index.dropdelid).remove();
+        _album.page = 0;
+        _album.dropdelid = _album.dropid;
+        _album.dropid = 'drop_' + Date.parse(new Date());
+        var content = '<div class="container" id="' + _album.dropid + '"></div>';
+        $("#" + _album.dropdelid).after(content);
+        $("#" + _album.dropdelid).remove();
         $("#albums").html('');
         setTimeout(function(){
-            _index.initDropLoad();
+            _album.initDropLoad();
         }, 10);
     });
 

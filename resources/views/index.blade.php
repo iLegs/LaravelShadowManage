@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="{{ $s }}/css/web/index.css?v1.1.2">
 @endsection
 @section('body')
-<div class="container content">
+<div class="container content web_index">
     @foreach($libs as $lib)
         @if($lib['count'] > 0)
             <div class="albums">
@@ -39,9 +39,5 @@
 @endsection
 @section('script')
     <script src="{{ $s }}/js/lazyload.min.js"></script>
-    <script type="text/javascript">
-        $(function(){
-            $("img.lazyload").lazyload();
-        });
-    </script>
+    <script src="{{ $s }}/js/index.js"></script>
 @endsection

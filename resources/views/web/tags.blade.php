@@ -1,12 +1,6 @@
 @extends('common')
 @section('style')
-<style type="text/css">
-    .row .btn {
-        margin: .2rem;
-        background-color: #9966FF;
-        border: none;
-    }
-</style>
+<link rel="stylesheet" type="text/css" href="{{ $s }}/css/web/tags.css">
 @endsection
 @section('body')
     <div class="container">

@@ -1,3 +1,11 @@
+/**
+ * 详情页js。
+ *
+ * @author    fairyin <fairyin@126.cn>
+ * @copyright © 2018 www.imcn.vip
+ * @version   v1.0
+ */
+
 $(document).ready(function(){
     var deleteClick = function(){
         Swal({

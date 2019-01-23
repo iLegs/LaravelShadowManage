@@ -2,7 +2,7 @@
  * 后台登陆js。
  *
  * @author    fairyin <fairyin@126.cn>
- * @copyright © 2018 www.liaowo8.com
+ * @copyright © 2018 www.imcn.vip
  * @version   v1.0
  */
 
