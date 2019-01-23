@@ -33,6 +33,8 @@ class TagsController extends WebController
         foreach ($o_album_tags as $album_tag) {
             if (!isset($a_album_tags[$album_tag->tag_id])) {
                 $a_album_tags[$album_tag->tag_id] = 1;
+
+                continue;
             }
             $a_album_tags[$album_tag->tag_id] += 1;
         }

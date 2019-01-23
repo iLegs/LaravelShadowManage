@@ -33,6 +33,8 @@ class ModelsController extends WebController
         foreach ($o_album_models as $album_mdl) {
             if (!isset($a_album_models[$album_mdl->model_id])) {
                 $a_album_models[$album_mdl->model_id] = 1;
+
+                continue;
             }
             $a_album_models[$album_mdl->model_id] += 1;
         }
