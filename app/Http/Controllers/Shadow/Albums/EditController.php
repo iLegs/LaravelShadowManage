@@ -50,6 +50,7 @@ class EditController extends ShadowController
             $i_lib = Input::get('lib', 0);
             $s_date = Input::get('date', '');
             $i_status = Input::get('status', -1);
+            $s_bucket = Input::get('bucket', 'resource');
             if ('' == $s_title) {
                 return $this->ajaxErrorJson('请输入专辑名称！');
             } elseif (!count($a_tags)) {
@@ -84,6 +85,9 @@ class EditController extends ShadowController
                 } else {
                     $o_album->status = $i_status;
                 }
+            }
+            if ($s_bucket != $o_album->bucket) {
+                $o_album->bucket = $s_bucket;
             }
             $o_album->save();
             //关联模特

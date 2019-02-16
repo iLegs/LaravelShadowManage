@@ -29,6 +29,13 @@
                 </select>
             </p>
             <p>
+                <label>请选择七牛bucket：</label>
+                <select class="combox" name="bucket" ref="bucket" class="required">
+                    <option value="lolita">lolita</option>
+                    <option value="resource">resource</option>
+                </select>
+            </p>
+            <p>
                 <label>请选择发行日期：</label>
                 <input type="text" name="date" class="date textInput readonly valid required" dateFmt="yyyy-MM-dd" readonly="true" maxDate="{{ $next_day }}"/>
                 <a class="inputDateButton" href="javascript:;">选择</a>

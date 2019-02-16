@@ -49,6 +49,7 @@ class AddController extends ShadowController
             $s_prefix = Input::get('prefix', '');
             $i_end = Input::get('end', 0);
             $s_postfix = Input::get('postfix', '');
+            $s_bucket = Input::get('bucket', 'resource');
             if ('' == $s_title) {
                 return $this->ajaxErrorJson('请输入专辑名称！');
             } elseif (!count($a_tags)) {
@@ -79,6 +80,7 @@ class AddController extends ShadowController
             $o_album->year = date('Y', strtotime($s_date));
             $o_album->lib_id = $o_lib->id;
             $o_album->status = 0;
+            $o_album->bucket = $s_bucket;
             $o_album->save();
             //添加图片
             $a_photo_rows = array();
