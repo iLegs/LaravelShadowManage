@@ -23,7 +23,7 @@ class IndexController extends WebController
         if ($o_banners->count()) {
             $o_auth = new Auth(getenv('QINIU_AK'), getenv('QINIU_SK'));
             foreach ($o_banners as $banner) {
-                $s_url = 'http://' . getenv('QINIU_DOMAIN') . '/' . $banner->qn_key;
+                $s_url = $this->getAlbumDomain() . $banner->qn_key;
                 $a_banners[] = array(
                     'url' => $banner->url,
                     'desc' => $banner->title,

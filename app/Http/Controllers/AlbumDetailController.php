@@ -50,7 +50,7 @@ class AlbumDetailController extends WebController
         $a_photoes = $a_types = $a_ids = array();
         $o_auth = new Auth(getenv('QINIU_AK'), getenv('QINIU_SK'));
         foreach ($o_photoes as $o_photo) {
-            $s_url = 'http://' . getenv('QINIU_DOMAIN') . '/' . $o_photo->qn_key;
+            $s_url = $this->getAlbumDomain($o_photo->album->bucket) . $o_photo->qn_key;
             $s_str = 'vertical_hd';
             $s_prevew = 'preview_vertical';
             if (1 == $o_photo->type) {

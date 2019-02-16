@@ -44,6 +44,11 @@ class AlbumPhoto extends Model
 
     public $timestamps = false;
 
+    protected static $a_buckets = array(
+        'resource' => 'http://leg.imcn.vip/',
+        'lolita' => 'http://ilolita.imcn.vip/'
+    );
+
     public function album()
     {
         return $this->belongsTo('App\Http\Models\Common\Album', 'album_id', 'id');
@@ -58,7 +63,11 @@ class AlbumPhoto extends Model
             $a_result = json_decode($s_result, true);
         } else {
             $auth = new Auth(getenv('QINIU_AK'), getenv('QINIU_SK'));
-            $baseUrl = 'http://' . getenv('QINIU_DOMAIN') . '/' . $this->qn_key;
+            $s_domain = static::$a_buckets['resource'];
+            if ('resource' != $this->album->bucket) {
+                $s_domain = static::$a_buckets['lolita'];
+            }
+            $baseUrl = $s_domain . $this->qn_key;
             $a_result = array(
                 'preview' => $auth->privateDownloadUrl($baseUrl . '-preview', static::LIFE_TIME * 3),
                 'original' => $auth->privateDownloadUrl($baseUrl, static::LIFE_TIME * 3)

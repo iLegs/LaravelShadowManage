@@ -47,6 +47,11 @@ class Album extends Model
 
     public $timestamps = false;
 
+    protected static $a_buckets = array(
+        'resource' => 'http://leg.imcn.vip/',
+        'lolita' => 'http://ilolita.imcn.vip/'
+    );
+
     public function lib()
     {
         return $this->belongsTo('App\Http\Models\Common\LegLib', 'lib_id', 'id');
@@ -110,7 +115,8 @@ class Album extends Model
             $a_result = json_decode($s_result, true);
         } else {
             $auth = new Auth(getenv('QINIU_AK'), getenv('QINIU_SK'));
-            $baseUrl = 'http://' . getenv('QINIU_DOMAIN') . '/' . $this->cover;
+            $s_domain = static::$a_buckets['resource'];
+            $baseUrl = $s_domain . $this->cover;
             $a_result = array(
                 'shadow_cover' => $auth->privateDownloadUrl($baseUrl . '-shadow_cover', static::LIFE_TIME * 3),
                 'mobile_cover' => $auth->privateDownloadUrl($baseUrl . '-mobile_cover', static::LIFE_TIME * 3),

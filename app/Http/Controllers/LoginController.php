@@ -43,14 +43,17 @@ class LoginController extends ShadowController
                 $o_photoes = AlbumPhoto::where('status', '=', 1)->where('type', '=', 1)->get();
                 if ($o_photoes->count() > 0) {
                     foreach ($o_photoes as $o_photo) {
-                        $a_results[] = $o_photo->qn_key;
+                        $a_results[] = array(
+                            'domain' => $o_photo->album->bucket,
+                            'qn_key' => $o_photo->qn_key,
+                        );
                     }
                     $this->setRedisData(static::RDS_BG_KEY, json_encode($a_results));
                 }
             }
             $i = array_rand($a_results, 1);
             $auth = new Auth(getenv('QINIU_AK'), getenv('QINIU_SK'));
-            $s_bg = $auth->privateDownloadUrl('http://' . getenv('QINIU_DOMAIN') . '/' . $a_results[$i] . '-crossrange_fhd');
+            $s_bg = $auth->privateDownloadUrl($this->getAlbumDomain($a_results[$i]['domain']) . $a_results[$i]['qn_key'] . '-crossrange_fhd');
             $this->setRedisData('bg', $s_bg, 60);
         }
 

@@ -68,7 +68,7 @@ class ListController extends WebController
             if ($o_albums->count()) {
                 $o_auth = new Auth(getenv('QINIU_AK'), getenv('QINIU_SK'));
                 foreach ($o_albums as $album) {
-                    $s_url = 'http://' . getenv('QINIU_DOMAIN') . '/' . $album->cover;
+                    $s_url = $this->getAlbumDomain() . $album->cover;
                     $a_albums[] = array(
                         'id' => $album->id,
                         'title' => $album->title,

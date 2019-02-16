@@ -38,6 +38,20 @@ class WebController extends BaseController
 
     const ACTIVE_PAGE = 'index';
 
+    protected static $a_buckets = array(
+        'resource' => 'http://leg.imcn.vip/',
+        'lolita' => 'http://ilolita.imcn.vip/'
+    );
+
+    protected function getAlbumDomain($bucket = '')
+    {
+        if (isset(static::$a_buckets[$bucket]) && '' != $bucket) {
+            return static::$a_buckets[$bucket];
+        }
+
+        return static::$a_buckets['resource'];
+    }
+
     /**
      * 返回视图。
      * @param  object $view 视图文件路径
@@ -95,7 +109,7 @@ class WebController extends BaseController
         $a_albums = array();
         $o_auth = new Auth(getenv('QINIU_AK'), getenv('QINIU_SK'));
         foreach ($o_albums as $album) {
-            $s_url = 'http://' . getenv('QINIU_DOMAIN') . '/' . $album->cover;
+            $s_url = $this->getAlbumDomain() . $album->cover;
             $a_albums[] = array(
                 'id' => $album->id,
                 'title' => $album->title,
