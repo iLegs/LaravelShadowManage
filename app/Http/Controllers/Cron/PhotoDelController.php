@@ -29,7 +29,7 @@ class PhotoDelController extends CronController
         $a_ips = explode(',', $s_ips);
         $s_ak = getenv('QINIU_AK');
         $s_sk = getenv('QINIU_SK');
-        $s_bucket = getenv('QINIU_SPACE');
+        //$s_bucket = getenv('QINIU_SPACE');
         $o_auth = new Auth($s_ak, $s_sk);
         $o_config = new \Qiniu\Config();
         $o_manage = new \Qiniu\Storage\BucketManager($o_auth, $o_config);
@@ -47,7 +47,7 @@ class PhotoDelController extends CronController
                 Log::info('photo delete ip error:' . $a_row['ip']);
                 continue;
             }
-            $err = $o_manage->delete($s_bucket, $o_photo->qn_key);
+            $err = $o_manage->delete($o_photo->album->bucket, $o_photo->qn_key);
             if ($err) {
                 Log::error('cron photo delete error:' . $err);
                 continue;

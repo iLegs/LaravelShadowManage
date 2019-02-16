@@ -28,7 +28,7 @@ class FlushQiNiuController extends CronController
         //封面图删除
         $s_ak = getenv('QINIU_AK');
         $s_sk = getenv('QINIU_SK');
-        $s_bucket = getenv('QINIU_SPACE');
+        //$s_bucket = getenv('QINIU_SPACE');
         $o_auth = new Auth($s_ak, $s_sk);
         $o_config = new \Qiniu\Config();
         $o_manage = new \Qiniu\Storage\BucketManager($o_auth, $o_config);
@@ -36,7 +36,7 @@ class FlushQiNiuController extends CronController
         if ($o_photoes && $o_photoes->count()) {
             Log::info('start photo delete~');
             foreach ($o_photoes as $photo) {
-                $err = $o_manage->delete($s_bucket, $photo->qn_key);
+                $err = $o_manage->delete($photo->album->bucket, $photo->qn_key);
                 if ($err) {
                     Log::error('cron photo delete error:' . json_encode($err));
                     continue;
