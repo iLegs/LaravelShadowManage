@@ -36,6 +36,10 @@ class TagAlbumListController extends WebController
         $a_result['albums'] = $a_albums;
         $a_result['active'] = 'tags';
         $a_result['tag'] = $key;
+        $a_result['seo'] = array(
+            'title' => $o_tag->title,
+            'keywords' => $o_tag->title
+        );
 
         return $this->returnView('web.tag_album', $a_result);
     }

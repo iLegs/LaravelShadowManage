@@ -32,9 +32,12 @@ class AlbumDetailController extends WebController
             $o_album->browse_times += 1;
             $o_album->save();
         } catch (\Exception $e) {
-            $o_album->browse_times -= 1;
+            //$o_album->browse_times -= 1;
         }
         $a_result['album'] = $o_album;
+        $a_result['seo'] = array(
+            'title' => $o_album->title
+        );
         $s_result = $this->getRedisData(static::RDS_KEY . $o_album->id);
         if (false !== $s_result) {
             $a_result['photoes'] = json_decode($s_result, true);

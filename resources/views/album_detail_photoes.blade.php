@@ -1,5 +1,4 @@
 @extends('common')
-@section('title'){{ $album->title }} - @endsection
 @section('style')
     <link rel="stylesheet" href="{{ $s }}/css/web/album_detail.css?v1.1.3">
     <link href="{{ $s }}/lightGallery-1.6.11/lightgallery.min.css" rel="stylesheet">

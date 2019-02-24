@@ -36,6 +36,10 @@ class ModelAlbumListController extends WebController
         $a_result['albums'] = $a_albums;
         $a_result['active'] = 'models';
         $a_result['mdl'] = $key;
+        $a_result['seo'] = array(
+            'title' => $o_model->name,
+            'description' => $o_model->desc
+        );
 
         return $this->returnView('web.model_album', $a_result);
     }

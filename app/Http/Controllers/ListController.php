@@ -24,10 +24,19 @@ class ListController extends WebController
 
     public function onGet($key)
     {
+        $o_lib = LegLib::where('status', '=', 1)->where('url', '=', $key)->first();
+        if (!$o_lib) {
+            return Redirect::to('/');
+        }
         $a_albums = $this->getAlbums($key);
         $a_albums = array_slice($a_albums, 0, static::PAGE_SIZE);
         $a_result['albums'] = $a_albums;
         $a_result['active'] = $key;
+        $a_result['seo'] = array(
+            'title' => $o_lib->title,
+            'keywords' => $o_lib->title,
+            'description' => $o_lib->desc
+        );
 
         return $this->returnView('list', $a_result);
     }
