@@ -34,7 +34,6 @@ class ListController extends WebController
         $a_result['active'] = $key;
         $a_result['seo'] = array(
             'title' => $o_lib->title,
-            'keywords' => $o_lib->title,
             'description' => $o_lib->desc
         );
 
