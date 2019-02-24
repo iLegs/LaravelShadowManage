@@ -28,7 +28,7 @@ class SitemapController extends WebController
             $a_rds_result = json_decode($s_result, true);
         }
         $a_result = array(
-            'libs' => $this->getLibs($a_rds_result),
+            'libs' => $this->getAlbumLibs($a_rds_result),
             'albums' => $this->getAlbums($a_rds_result),
             'tags' => $this->getTags($a_rds_result),
             'mdls' => $this->getModels($a_rds_result),
@@ -57,7 +57,7 @@ class SitemapController extends WebController
         return $a_albums;
     }
 
-    private function getLibs($arr)
+    private function getAlbumLibs($arr)
     {
         if (isset($arr['libs']) && count($arr['libs'])) {
             return $arr['libs'];
