@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>@if(isset($seo['title']) && $seo['title'] != ''){{ $seo['title'] }} -@endif iLegs · 时光印象网 </title>
-    <meta name="keywords" content="@if(isset($seo['keywords']) && $seo['keywords'] != '') {{ $seo['keywords'] }}，@endif写真，美女，Beautyleg，Ligui，XIUREN，MFStar，MyGirl，IMISS，LeYuan，FEILIN，UXING，YouWu，BoLoli，MiStar，HuaYang，TGOD，Ugirls，Lolita">
-    <meta name="description" content="@if(isset($seo['description']) && $seo['description'] != ''){{ $seo['description'] }}@else时光印象网致力于图片分享，建设最高清、最专业的美图分享网站。 @endif">
+    <title>@if(isset($seo['title']) && $seo['title'] != ''){{ $seo['title'] }} -@endif iLegs · 时光印象网</title>
+    <meta name="keywords" content="@if(isset($seo['keywords']) && $seo['keywords'] != ''){{ $seo['keywords'] }}，@endif写真，美女，Beautyleg，Ligui，XIUREN，MFStar，MyGirl，IMISS，LeYuan，FEILIN，UXING，YouWu，BoLoli，MiStar，HuaYang，TGOD，Ugirls，Lolita">
+    <meta name="description" content="@if(isset($seo['description']) && $seo['description'] != ''){{ $seo['description'] }}@else时光印象网致力于图片分享，建设最高清、最专业的美图分享网站。@endif">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">

@@ -9,39 +9,105 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Models\Common\Tag;
 use App\Http\Models\Common\Album;
+use App\Http\Models\Common\LegLib;
+use App\Http\Models\Common\LegModel;
 
 class SitemapController extends WebController
 {
     const LIFE_TIME = 86400;
 
+    const RDS_SITEMAP_KEY = 'sitemap_xml_arr';
+
     public function onGet()
     {
-        $s_key = 'sitemap_xml_key';
-        $s_result = $this->getRedisData($s_key);
-        $a_albums = array();
-        $s_update_date = date('Y-m-d', time());
-        if ($s_result !== false) {
-            $a_result = json_decode($s_result, true);
-            $a_albums = $a_result['rows'];
-            $s_update_date = $a_result['date'];
-        } else {
-            $o_albums = Album::where('status', '=', 1)->orderBy('year', 'DESC')->get();
-            if ($o_albums->count()) {
-                foreach ($o_albums as $o_album) {
-                    $a_albums[] = $o_album->id;
-                }
-            }
-            $a_result = array(
-                'rows' => $a_albums,
-                'date' => $s_update_date
-            );
-            $this->setRedisData($s_key, json_encode($a_result), (static::LIFE_TIME * 7));
+        $s_result = $this->getRedisData(static::RDS_SITEMAP_KEY);
+        $a_rds_result = array();
+        if (false !== $s_result) {
+            $a_rds_result = json_decode($s_result, true);
+        }
+        $a_result = array(
+            'libs' => $this->getLibs($a_rds_result),
+            'albums' => $this->getAlbums($a_rds_result),
+            'tags' => $this->getTags($a_rds_result),
+            'mdls' => $this->getModels($a_rds_result),
+            'add_time' => isset($a_rds_result['add_time']) ? $a_rds_result['add_time'] : date('Y-m-d', time())
+        );
+        if (!isset($a_rds_result['libs']) || !isset($a_rds_result['albums']) || !isset($a_rds_result['tags']) || !isset($a_rds_result['mdls']) || !isset($a_rds_result['add_time'])) {
+            $this->setRedisData(static::RDS_SITEMAP_KEY, json_encode($a_result), (static::LIFE_TIME * 2));
         }
 
-        return response()->view('sitemap', [
-            'albums' => $a_albums,
-            'add_time' => $s_update_date
-        ])->header('Content-Type', 'text/xml');
+        return response()->view('sitemap', $a_result)->header('Content-Type', 'text/xml');
+    }
+
+    private function getAlbums($arr)
+    {
+        if (isset($arr['albums']) && count($arr['albums'])) {
+            return $arr['albums'];
+        }
+        $a_albums = array();
+        $o_albums = Album::where('status', '=', 1)->orderBy('year', 'DESC')->get();
+        if ($o_albums->count()) {
+            foreach ($o_albums as $o_album) {
+                $a_albums[] = $o_album->id;
+            }
+        }
+
+        return $a_albums;
+    }
+
+    private function getLibs($arr)
+    {
+        if (isset($arr['libs']) && count($arr['libs'])) {
+            return $arr['libs'];
+        }
+        $a_libs = array();
+        $o_libs = LegLib::where('status', '=', 1)
+            ->orderBy('id', 'ASC')
+            ->get();
+        if ($o_libs->count()) {
+            foreach ($o_libs as $o_lib) {
+                $a_libs[] = $o_lib->url;
+            }
+        }
+
+        return $a_libs;
+    }
+
+    private function getTags($arr)
+    {
+        if (isset($arr['tags']) && count($arr['tags'])) {
+            return $arr['tags'];
+        }
+        $a_tags = array();
+        $o_tags = Tag::where('status', '=', 1)
+            ->orderBy('id', 'ASC')
+            ->get();
+        if ($o_tags->count()) {
+            foreach ($o_tags as $o_tag) {
+                $a_tags[] = $o_tag->id;
+            }
+        }
+
+        return $a_tags;
+    }
+
+    private function getModels($arr)
+    {
+        if (isset($arr['mdls']) && count($arr['mdls'])) {
+            return $arr['mdls'];
+        }
+        $a_models = array();
+        $o_models = LegModel::where('status', '=', 1)
+            ->orderBy('id', 'ASC')
+            ->get();
+        if ($o_models->count()) {
+            foreach ($o_models as $o_model) {
+                $a_models[] = $o_model->id;
+            }
+        }
+
+        return $a_models;
     }
 }
