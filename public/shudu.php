@@ -1,14 +1,14 @@
 <?php
     $a_shudu = array(
-        0 => array(0, 0, 0, 1, 0, 0, 2, 6, 0),
-        1 => array(7, 0, 0, 0, 3, 0, 0, 0, 0),
-        2 => array(3, 0, 2, 0, 8, 0, 4, 0, 0),
-        3 => array(0, 0, 0, 4, 0, 8, 0, 0, 1),
-        4 => array(0, 3, 5, 0, 0, 0, 9, 4, 0),
-        5 => array(2, 0, 0, 3, 0, 5, 0, 0, 0),
-        6 => array(0, 0, 6, 0, 5, 0, 7, 0, 9),
-        7 => array(0, 0, 0, 0, 4, 0, 0, 0, 8),
-        8 => array(0, 5, 7, 0, 0, 9, 0, 0, 0)
+        0 => array(9, 0, 0, 2, 0, 0, 0, 0, 0),
+        1 => array(8, 0, 0, 3, 0, 0, 0, 0, 4),
+        2 => array(0, 3, 5, 9, 0, 6, 0, 0, 0),
+        3 => array(0, 0, 0, 0, 0, 0, 8, 7, 0),
+        4 => array(0, 6, 0, 0, 0, 0, 0, 3, 0),
+        5 => array(0, 5, 7, 0, 0, 0, 0, 0, 0),
+        6 => array(0, 0, 0, 8, 0, 3, 6, 4, 0),
+        7 => array(3, 0, 0, 0, 0, 2, 0, 0, 5),
+        8 => array(0, 0, 0, 0, 0, 1, 0, 0, 2)
     );
 ?>
 <!DOCTYPE html>
@@ -110,6 +110,15 @@
     <script type="text/javascript">
         var sure = 1;
 
+        var sleep = function (ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        };
+
+        var clear = function(){
+            $("td").removeClass('active');
+            $("td").removeClass('custom');
+        };
+
         var _getNumMayBeArr = function(r, d){
             var area = $(".r" + r + ".d" + d).attr('data-area');
             var tmp_arr = [];
@@ -123,19 +132,81 @@
                 tmp_arr.push(parseInt($(this).html()));
             });
             var maybe = [];
+            tmp_arr = uniq(tmp_arr);
+            tmp_arr.sort();
             for (var i = 1; i <= 9; i++) {
+                //算法1:不包含法
                 var index = tmp_arr.indexOf(i);
                 if (-1 === index) {
                     maybe.push(i);
                 }
             }
+            //算法2:逐行逐列扫描
 
             return maybe;
         };
 
+        async function _beforeInit(){
+            for (var i = 1; i <= 9 ;i++) {
+                _checkNumSpace(i);
+                await sleep(200);
+                clear();
+            }
+        };
+
+        async function _checkNumSpace(num){
+            $(".hasv").each(function(){
+                var v = $(this).html();
+                if (v == num) {
+                    var r = $(this).attr('data-r');
+                    var d = $(this).attr('data-d');
+                    _activeHs(r, d);
+                }
+            });
+            var space = [];
+            for (var d = 0; d <= 8; d++) {
+                for (var r = 0; r <= 8; r++) {
+                    if ($(".r" + r + ".d" + d).hasClass('hasv') || $(".r" + r + ".d" + d).hasClass('active')) {
+                        continue;
+                    }
+                    var aera = $(".r" + r + ".d" + d).attr('data-area');
+                    if (typeof(space[aera]) === 'undefined') {
+                        space[aera] = [];
+                    }
+                    space[aera].push('.r' + r + '.d' + d);
+                }
+            }
+            for (var s in space) {
+                if (space[s].length === 1) {
+                    var r = $(space[s][0]).attr('data-r');
+                    var d = $(space[s][0]).attr('data-d');
+                    var maybe = [num];
+                    bindOne(r, d, maybe);
+                }
+            }
+
+            return space;
+        };
+
+        async function _activeHs(r, d){
+            $(".r" + r).addClass('active');
+            $(".d" + d).addClass('active');
+            var aera = $(".r" + r + ".d" + d).attr('data-area');
+            $(".area" + aera).addClass('active');
+            $(".r" + r + ".d" + d).addClass('custom');
+            await sleep(500);
+        };
+
         var bindOne = function(r, d, maybe){
-            $(".r" + r + ".d" + d).html(maybe[0]);
-            $(".r" + r + ".d" + d).addClass('sure' + sure);
+            if (try_flag === true && try_index !== -1) {
+                $(".r" + r + ".d" + d).html(maybe[try_index]);
+                $(".r" + r + ".d" + d).addClass('tryred');
+
+                _init();
+            } else {
+                $(".r" + r + ".d" + d).html(maybe[0]);
+                $(".r" + r + ".d" + d).addClass('sure' + sure);
+            }
             $(".r" + r + ".d" + d).addClass('hasv');
             $(".r" + r + ".d" + d).removeClass('hasnone');
         };
@@ -144,29 +215,49 @@
          * 初始化加载。
          * @return mixed
          */
-        var _init = function(){
+        async function _init(){
             var flag = false;
             for (var d = 0; d <= 8; d++) {
                 for (var r = 0; r <= 8; r++) {
                     if ($(".r" + r + ".d" + d).hasClass('hasv')) {
                         continue;
                     }
+                    activeCustom(r, d);
+                    await sleep(100);
                     var maybe = _getNumMayBeArr(r, d);
+                    console.log(maybe);
                     if (maybe.length === 1) {
                         bindOne(r, d, maybe);
+                        await sleep(100);
+
                         flag = true;
                     }
                 }
             }
+            sure++;
             if (flag === true) {
                 _init();
             }
+            clear();
+        };
+
+        async function _cleanTry(){
+            $(".tryred").html();
+            $(".tryred").removeClass('tryred');
+        };
+
+        var _maybe = [];
+
+        var try_flag = false;
+        var try_key = -1;
+        var try_index = -1;
+
+        async function _randomNum(){
         };
 
         var customClick = function(){
             var r = parseInt($(this).attr('data-r'));
             var d = parseInt($(this).attr('data-d'));
-            console.log(r, d);
             activeCustom(r, d);
         };
 
@@ -182,31 +273,24 @@
             return temp;
         };
 
-        var sleep = function (ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        };
-
         var activeCustom = function(r, d){
             $("td").removeClass('active');
             $("td").removeClass('custom');
             $(".r" + r).addClass('active');
             $(".d" + d).addClass('active');
-            $s_area = $(".r" + r + ".d" + d).attr('data-area');
-            $(".area" + $s_area).addClass('active');
+            s_area = $(".r" + r + ".d" + d).attr('data-area');
+            $(".area" + s_area).addClass('active');
             $(".r" + r + ".d" + d).addClass('custom');
         }
 
-        var clear = function(){
-            $("td").removeClass('active');
-            $("td").removeClass('custom');
-        };
 
-        _init();
+
+        //_init();
 
         $(function(){
             $("td").on('click', customClick);
 
-            $("#start").on('click', 'start');
+            $("#start").on('click', _init);
         });
     </script>
 </body>
