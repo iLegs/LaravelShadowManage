@@ -1,14 +1,14 @@
 <?php
     $a_shudu = array(
-        0 => array(9, 0, 0, 2, 0, 0, 0, 0, 0),
-        1 => array(8, 0, 0, 3, 0, 0, 0, 0, 4),
-        2 => array(0, 3, 5, 9, 0, 6, 0, 0, 0),
-        3 => array(0, 0, 0, 0, 0, 0, 8, 7, 0),
-        4 => array(0, 6, 0, 0, 0, 0, 0, 3, 0),
-        5 => array(0, 5, 7, 0, 0, 0, 0, 0, 0),
-        6 => array(0, 0, 0, 8, 0, 3, 6, 4, 0),
-        7 => array(3, 0, 0, 0, 0, 2, 0, 0, 5),
-        8 => array(0, 0, 0, 0, 0, 1, 0, 0, 2)
+        0 => array(0, 0, 5, 3, 0, 0, 0, 0, 0),
+        1 => array(8, 0, 0, 0, 0, 0, 0, 2, 0),
+        2 => array(0, 7, 0, 0, 1, 0, 5, 0, 0),
+        3 => array(4, 0, 0, 0, 0, 5, 3, 0, 0),
+        4 => array(0, 1, 0, 0, 7, 0, 0, 0, 6),
+        5 => array(0, 0, 3, 2, 0, 0, 0, 8, 0),
+        6 => array(0, 6, 0, 5, 0, 0, 0, 0, 9),
+        7 => array(0, 0, 4, 0, 0, 0, 0, 3, 0),
+        8 => array(0, 0, 0, 0, 0, 0, 7, 0, 0)
     );
 ?>
 <!DOCTYPE html>
@@ -48,7 +48,10 @@
             background-color: #ffa50047;
         }
         .custom {
-            background-color: red;
+            background-color: red !important;
+        }
+        .tryred {
+            background-color: red !important;
         }
         .sure1{
             background-color: #CCFFCC;
@@ -80,9 +83,6 @@
         .sure10 {
             background-color: #FFFFCC;
         }
-        .tryred {
-            background-color: red;
-        }
     </style>
 </head>
 <body>
@@ -108,53 +108,21 @@
     </div>
     <script src="//code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script type="text/javascript">
-        var sure = 1;
+        var sure = 0;
+        var _count = 0;
+        var _total = 0;
+        var _maybe = [];
+
+        var try_random = false;
+        var try_key = false;
+        var try_index = -1;
 
         var sleep = function (ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         };
 
-        var clear = function(){
-            $("td").removeClass('active');
-            $("td").removeClass('custom');
-        };
-
-        var _getNumMayBeArr = function(r, d){
-            var area = $(".r" + r + ".d" + d).attr('data-area');
-            var tmp_arr = [];
-            $(".hasv.area" + area).each(function(){
-                tmp_arr.push(parseInt($(this).html()));
-            });
-            $(".hasv.d" + d).each(function(){
-                tmp_arr.push(parseInt($(this).html()));
-            });
-            $(".hasv.r" + r).each(function(){
-                tmp_arr.push(parseInt($(this).html()));
-            });
-            var maybe = [];
-            tmp_arr = uniq(tmp_arr);
-            tmp_arr.sort();
-            for (var i = 1; i <= 9; i++) {
-                //算法1:不包含法
-                var index = tmp_arr.indexOf(i);
-                if (-1 === index) {
-                    maybe.push(i);
-                }
-            }
-            //算法2:逐行逐列扫描
-
-            return maybe;
-        };
-
-        async function _beforeInit(){
-            for (var i = 1; i <= 9 ;i++) {
-                _checkNumSpace(i);
-                await sleep(200);
-                clear();
-            }
-        };
-
-        async function _checkNumSpace(num){
+        _numActive = function(num){
+            clear();
             $(".hasv").each(function(){
                 var v = $(this).html();
                 if (v == num) {
@@ -163,50 +131,165 @@
                     _activeHs(r, d);
                 }
             });
-            var space = [];
-            for (var d = 0; d <= 8; d++) {
-                for (var r = 0; r <= 8; r++) {
-                    if ($(".r" + r + ".d" + d).hasClass('hasv') || $(".r" + r + ".d" + d).hasClass('active')) {
-                        continue;
-                    }
-                    var aera = $(".r" + r + ".d" + d).attr('data-area');
-                    if (typeof(space[aera]) === 'undefined') {
-                        space[aera] = [];
-                    }
-                    space[aera].push('.r' + r + '.d' + d);
+            _eachArea();
+            var flag = false;
+            //获取独立的区块
+            for (var ii = 1; ii <= 9; ii++) {
+                var ll = $(".hasnone.area" + ii).not(".active").length;
+                if (ll === 1) {
+                    var rr = $(".hasnone.area" + ii).not(".active").attr('data-r');
+                    var dd = $(".hasnone.area" + ii).not(".active").attr('data-d');
+                    bindOne(rr, dd, [num]);
+                    flag = true;
+                    continue;
                 }
+                _setCache(ii, num);
             }
-            for (var s in space) {
-                if (space[s].length === 1) {
-                    var r = $(space[s][0]).attr('data-r');
-                    var d = $(space[s][0]).attr('data-d');
-                    var maybe = [num];
-                    bindOne(r, d, maybe);
-                }
+            if (flag === true) {
+                return true;
             }
 
-            return space;
+            return false;
         };
+
+        var _eachArea = function () {
+            //添加检验规则
+            for (var num = 1; num <= 9; num++) {
+                var ll = $(".hasnone.area" + num).not(".active").length;
+                //判断长度
+                if (ll <= 3 || ll > 0) {
+                    //判断区块干扰性
+                    $(".hasnone.area" + num).not(".active").each(function(){
+                        var r = $(this).attr('data-r');
+                        var d = $(this).attr('data-d');
+                        var rll = $(".hasnone.area" + num + ".r" + r).not(".active").length;
+                        var dll = $(".hasnone.area" + num + ".d" + d).not(".active").length;
+                        if (rll == ll) {
+                            if ($(".r" + r).not(".active").not('.area' + num).length > 0) {
+                                $(".r" + r).not(".active").not('.area' + num).each(function(){
+                                    var rrr = $(this).attr('data-r');
+                                    var ddd = $(this).attr('data-d');
+                                    _activeYueShu(rrr, ddd);
+                                });
+                            }
+                        } else if (dll == ll){
+                            $(".d" + d).not(".active").not('.area' + num).each(function(){
+                                var rrr = $(this).attr('data-r');
+                                var ddd = $(this).attr('data-d');
+                                _activeYueShu(rrr, ddd);
+                            });
+                        }
+                    });
+                }
+            }
+        }
+
+        var _setCache = function(area, num){
+            $(".hasnone.area" + area).not(".active").each(function(){
+                var rr = $(this).attr('data-r');
+                var dd = $(this).attr('data-d');
+                if (typeof(_maybe['.r' + rr + '.d' + dd]) === 'undefined') {
+                    _maybe['.r' + rr + '.d' + dd] = [];
+                }
+                if (_maybe['.r' + rr + '.d' + dd].indexOf(num) === -1) {
+                    _maybe['.r' + rr + '.d' + dd].push(num);
+                }
+            });
+        }
+
+        var clear = function(){
+            $("td").removeClass('active');
+            $("td").removeClass('custom');
+        };
+
+        var _getNumMayBeArr = function (r, d){
+            if ($(".r" + r +".d" + d).hasClass('hasv')) {
+                return false;
+            }
+            var _r = [];
+            $(".hasv.r" + r).each(function(){
+                _r.push(parseInt($(this).html()));
+            });
+            _r = uniq(_r);
+            _r.sort();
+            //console.debug('_r' + r + ' :' + _r);
+            var _d = [];
+            $(".hasv.d" + d).each(function(){
+                _d.push(parseInt($(this).html()));
+            });
+            _d = uniq(_d);
+            _d.sort();
+            //console.debug('_d' + d + ' :' + _d);
+            var _a = [];
+            var a = $(".r" + r + ".d" + d).attr('data-area');
+            $(".hasv.area" + a).each(function(){
+                _a.push(parseInt($(this).html()));
+            });
+            _a = uniq(_a);
+            _a.sort();
+            //console.debug('_a' + a + ' :' + _a);
+            var _jihe = _a.concat(_r);
+            _jihe = _jihe.concat(_d);
+            _jihe = uniq(_jihe);
+            _jihe.sort();
+
+            if (typeof(_maybe[".r" + r + ".d" + d]) !== 'undefined') {
+                for (var ss in _maybe["r" + r + "d" + d]) {
+                    console.log(_maybe[".r" + r + ".d" + d][ss]);
+                    if (_jihe.indexOf(_maybe["r" + r + "d" + d][ss]) !== -1) {
+                        delete _maybe[".r" + r + ".d" + d][s];
+                    }
+                }
+            } else {
+                _maybe[".r" + r + ".d" + d] = [];
+            }
+            clear();
+            _maybe[".r" + r + ".d" + d].sort(function(a, b){
+                return b - a;
+            })
+
+            return _maybe[".r" + r + ".d" + d];
+        };
+
+        //过滤规则1：匹配所有区块，发现唯一区块进行填充
+        var _beforeInit = function (){
+            sure++;
+            _maybe = [];
+            //筛选所有区块
+            for (var i = 1; i <= 9; i++) {
+                var flag = _numActive(i);
+                if (flag === true) {
+                    i = 0;
+                    _maybe = [];
+                    continue;
+                }
+            }
+            _init();
+        };
+
+        _sureMay = [];
 
         async function _activeHs(r, d){
             $(".r" + r).addClass('active');
             $(".d" + d).addClass('active');
-            var aera = $(".r" + r + ".d" + d).attr('data-area');
-            $(".area" + aera).addClass('active');
+            var area = $(".r" + r + ".d" + d).attr('data-area');
+            $(".area" + area).addClass('active');
             $(".r" + r + ".d" + d).addClass('custom');
-            await sleep(500);
+            //await sleep(1000);
+        };
+
+        async function _activeYueShu(r, d){
+            $(".r" + r + ".d" + d).addClass('active');
         };
 
         var bindOne = function(r, d, maybe){
-            if (try_flag === true && try_index !== -1) {
-                $(".r" + r + ".d" + d).html(maybe[try_index]);
+            if (try_random === true && typeof(maybe[0]) !== 'undefined') {
+                $(".r" + r + ".d" + d).html(maybe[0]);
                 $(".r" + r + ".d" + d).addClass('tryred');
-
-                _init();
             } else {
                 $(".r" + r + ".d" + d).html(maybe[0]);
-                $(".r" + r + ".d" + d).addClass('sure' + sure);
             }
+            $(".r" + r + ".d" + d).addClass('sure' + sure);
             $(".r" + r + ".d" + d).addClass('hasv');
             $(".r" + r + ".d" + d).removeClass('hasnone');
         };
@@ -215,44 +298,69 @@
          * 初始化加载。
          * @return mixed
          */
-        async function _init(){
-            var flag = false;
-            for (var d = 0; d <= 8; d++) {
-                for (var r = 0; r <= 8; r++) {
-                    if ($(".r" + r + ".d" + d).hasClass('hasv')) {
-                        continue;
-                    }
-                    activeCustom(r, d);
-                    await sleep(100);
+        var _init = function(){
+            sure++;
+            var lls = $(".hasv").length;
+            var stop_flag = false;
+            for (var d = 0; d < 9; d++) {
+                var flag = false;
+                for (var r = 0; r < 9; r++) {
                     var maybe = _getNumMayBeArr(r, d);
-                    console.log(maybe);
-                    if (maybe.length === 1) {
+                    if (false !== maybe && maybe.length === 1) {
                         bindOne(r, d, maybe);
-                        await sleep(100);
-
                         flag = true;
+
+                        break;
                     }
                 }
+                if (flag === true) {
+                    stop_flag = true;
+
+                    break;
+                }
             }
-            sure++;
-            if (flag === true) {
-                _init();
+            if (stop_flag === true) {
+                _beforeInit();
             }
-            clear();
+            var new_lls = $(".hasv").length;
+            if (lls === new_lls) {
+                _loadRandom();
+            }
+        };
+
+        var _loadRandom = function(){
+            var try_flag = false;
+            for (var me in _maybe) {
+                if (_maybe[me].length === 2) {
+                    sure++;
+                    if (me == try_key) {
+                        delete _maybe[me][try_index];
+                    }
+                    try_random = true;
+                    var rrr = $(me).attr('data-r');
+                    var ddd = $(me).attr('data-d');
+                    bindOne(rrr, ddd, _maybe[me]);
+                    try_index = 0;
+                    try_key = me;
+                    try_flag = true;
+
+                    break;
+                }
+            }
+            if (try_flag === true) {
+                _beforeInit();
+            }
+            if ($(".hasv").length == 81) {
+                clear();
+                $(".hasv").removeClass('tryred');
+
+                console.log('end~');
+            }
         };
 
         async function _cleanTry(){
             $(".tryred").html();
             $(".tryred").removeClass('tryred');
-        };
-
-        var _maybe = [];
-
-        var try_flag = false;
-        var try_key = -1;
-        var try_index = -1;
-
-        async function _randomNum(){
         };
 
         var customClick = function(){
@@ -264,11 +372,16 @@
         var uniq = function(array){
             var temp = [];
             for (var i = 0; i < array.length; i++) {
+                _total++;
                 if(temp.indexOf(array[i]) == -1){
+                    _count++;
                     temp.push(array[i]);
                 }
             }
-            temp.sort();
+            //降序
+            temp.sort(function(a,b){
+                return b - a;
+            });
 
             return temp;
         };
@@ -283,14 +396,12 @@
             $(".r" + r + ".d" + d).addClass('custom');
         }
 
-
-
         //_init();
 
         $(function(){
             $("td").on('click', customClick);
 
-            $("#start").on('click', _init);
+            $("#start").on('click', _beforeInit);
         });
     </script>
 </body>
