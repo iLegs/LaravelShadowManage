@@ -1,14 +1,14 @@
 <?php
     $a_shudu = array(
-        0 => array(0, 0, 5, 3, 0, 0, 0, 0, 0),
-        1 => array(8, 0, 0, 0, 0, 0, 0, 2, 0),
-        2 => array(0, 7, 0, 0, 1, 0, 5, 0, 0),
-        3 => array(4, 0, 0, 0, 0, 5, 3, 0, 0),
-        4 => array(0, 1, 0, 0, 7, 0, 0, 0, 6),
-        5 => array(0, 0, 3, 2, 0, 0, 0, 8, 0),
-        6 => array(0, 6, 0, 5, 0, 0, 0, 0, 9),
-        7 => array(0, 0, 4, 0, 0, 0, 0, 3, 0),
-        8 => array(0, 0, 0, 0, 0, 0, 7, 0, 0)
+        0 => array(0, 0, 4, 0, 0, 0, 0, 0, 0),
+        1 => array(8, 0, 7, 0, 0, 5, 0, 0, 1),
+        2 => array(0, 0, 0, 0, 9, 3, 0, 0, 0),
+        3 => array(0, 0, 0, 7, 0, 4, 0, 0, 0),
+        4 => array(0, 3, 0, 0, 0, 0, 0, 2, 0),
+        5 => array(0, 2, 0, 0, 0, 0, 5, 0, 0),
+        6 => array(0, 6, 0, 0, 0, 0, 9, 0, 0),
+        7 => array(0, 0, 0, 0, 0, 0, 0, 6, 0),
+        8 => array(0, 0, 1, 8, 0, 0, 0, 0, 0),
     );
 ?>
 <!DOCTYPE html>
@@ -48,10 +48,10 @@
             background-color: #ffa50047;
         }
         .custom {
-            background-color: red !important;
+            background-color: #CCFF00 !important;
         }
         .tryred {
-            background-color: red !important;
+            background-color: #FFFF00 !important;
         }
         .sure1{
             background-color: #CCFFCC;
@@ -115,7 +115,6 @@
 
         var try_random = false;
         var try_key = false;
-        var try_index = -1;
 
         var sleep = function (ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
@@ -235,24 +234,27 @@
 
             if (typeof(_maybe[".r" + r + ".d" + d]) !== 'undefined') {
                 for (var ss in _maybe["r" + r + "d" + d]) {
-                    console.log(_maybe[".r" + r + ".d" + d][ss]);
-                    if (_jihe.indexOf(_maybe["r" + r + "d" + d][ss]) !== -1) {
+                    if (_jihe.indexOf(_maybe["r" + r + "d" + d][ss]) !== -1 && try_random === false) {
                         delete _maybe[".r" + r + ".d" + d][s];
                     }
                 }
             } else {
                 _maybe[".r" + r + ".d" + d] = [];
+                for (var i = 1; i < 9; i++) {
+                    if (_jihe.indexOf(i) === -1) {
+                        _maybe[".r" + r + ".d" + d].push(i);
+                    }
+                }
             }
+
             clear();
-            _maybe[".r" + r + ".d" + d].sort(function(a, b){
-                return b - a;
-            })
+            _maybe[".r" + r + ".d" + d].sort();
 
             return _maybe[".r" + r + ".d" + d];
         };
 
         //过滤规则1：匹配所有区块，发现唯一区块进行填充
-        var _beforeInit = function (){
+        var _beforeInit = async function (){
             sure++;
             _maybe = [];
             //筛选所有区块
@@ -263,6 +265,7 @@
                     _maybe = [];
                     continue;
                 }
+                await sleep(1);
             }
             _init();
         };
@@ -275,7 +278,6 @@
             var area = $(".r" + r + ".d" + d).attr('data-area');
             $(".area" + area).addClass('active');
             $(".r" + r + ".d" + d).addClass('custom');
-            //await sleep(1000);
         };
 
         async function _activeYueShu(r, d){
@@ -321,45 +323,32 @@
             }
             if (stop_flag === true) {
                 _beforeInit();
+
+                return false;
             }
             var new_lls = $(".hasv").length;
-            if (lls === new_lls) {
-                _loadRandom();
+            if (lls === new_lls && try_random === false) {
+                //_loadRandom();
             }
         };
 
         var _loadRandom = function(){
-            var try_flag = false;
-            for (var me in _maybe) {
-                if (_maybe[me].length === 2) {
-                    sure++;
-                    if (me == try_key) {
-                        delete _maybe[me][try_index];
-                    }
+            var tmp_arr = [];
+            for (var ii in _maybe) {
+                if (_maybe[ii].length === 2) {
                     try_random = true;
-                    var rrr = $(me).attr('data-r');
-                    var ddd = $(me).attr('data-d');
-                    bindOne(rrr, ddd, _maybe[me]);
-                    try_index = 0;
-                    try_key = me;
-                    try_flag = true;
-
-                    break;
+                    console.log(ii, _maybe[ii]);
                 }
-            }
-            if (try_flag === true) {
-                _beforeInit();
-            }
-            if ($(".hasv").length == 81) {
-                clear();
-                $(".hasv").removeClass('tryred');
-
-                console.log('end~');
             }
         };
 
-        async function _cleanTry(){
-            $(".tryred").html();
+        var _resetNum = function(){
+            $(".tryred").addClass('hasnone');
+            $(".tryred.hasv").removeClass('hasv');
+            $(".tryred").html('');
+            for (var i = sure; i > 0; i--) {
+                $(".tryred").removeClass('sure' + i);
+            }
             $(".tryred").removeClass('tryred');
         };
 
@@ -379,9 +368,7 @@
                 }
             }
             //降序
-            temp.sort(function(a,b){
-                return b - a;
-            });
+            temp.sort();
 
             return temp;
         };
