@@ -97,6 +97,11 @@ class ShadowController extends BaseController
      */
     protected $user = false;
 
+    protected static $a_buckets = array(
+        'resource' => 'http://leg.imcn.vip/',
+        'lolita' => 'http://ilolita.imcn.vip/'
+    );
+
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
@@ -445,5 +450,14 @@ class ShadowController extends BaseController
         }
 
         return true;
+    }
+
+    protected function getAlbumDomain($bucket = '')
+    {
+        if (isset(static::$a_buckets[$bucket]) && '' != $bucket) {
+            return static::$a_buckets[$bucket];
+        }
+
+        return static::$a_buckets['resource'];
     }
 }
