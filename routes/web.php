@@ -96,3 +96,5 @@ Route::group(["prefix" => "shadow", "middleware" => "shadow"], function() {
     //七牛云文件搜索
     Route::any('/qiniufile/manage', 'Shadow\QiniuFile\ManageController@any');
 });
+
+Route::post('/lib/query', 'Api\LibQueryController@onPost');
